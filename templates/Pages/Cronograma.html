@@ -1,0 +1,138 @@
+{% extends "Layout.html"%}
+{% block content %}
+
+<main class="min-h-screen bg-gradient-to-br from-purple-700 via-indigo-600 to-blue-500 p-8 text-white">
+  
+  <!-- Encabezado -->
+  <section class="max-w-6xl mx-auto text-center mb-10">
+    <h1 class="text-4xl font-extrabold mb-4 bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent">
+      Cronograma IB – Estudiante
+    </h1>
+    <p class="text-lg opacity-90">Consulta tus actividades, entregas y eventos del Bachillerato Internacional (POP).</p>
+  </section>
+
+  <!-- Barra de búsqueda -->
+  <div class="max-w-3xl mx-auto mb-10 flex items-center shadow-lg rounded-xl overflow-hidden">
+    <input type="text" id="buscar" placeholder="Buscar por materia o actividad..." 
+           class="flex-1 px-4 py-3 bg-white/20 border-none text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-400">
+    <button id="btnBuscar" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-3 transition">
+      Buscar
+    </button>
+  </div>
+
+  <!-- Tabla de Actividades -->
+  <div class="max-w-5xl mx-auto bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/20 mb-12">
+    <h2 class="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent">
+      Actividades Programadas
+    </h2>
+    <table id="tablaActividades" class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-white/20">
+          <th class="px-4 py-3">Fecha</th>
+          <th class="px-4 py-3">Actividad</th>
+          <th class="px-4 py-3">Asignatura</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-white/20">
+        <tr class="hover:bg-white/10 transition">
+          <td class="px-4 py-3">10/10/2025</td>
+          <td class="px-4 py-3">Entrega de Portafolio Inglés</td>
+          <td class="px-4 py-3">Inglés IB</td>
+        </tr>
+        <tr class="hover:bg-white/10 transition">
+          <td class="px-4 py-3">17/10/2025</td>
+          <td class="px-4 py-3">Presentación de Proyecto CAS</td>
+          <td class="px-4 py-3">CAS</td>
+        </tr>
+        <tr class="hover:bg-white/10 transition">
+          <td class="px-4 py-3">25/10/2025</td>
+          <td class="px-4 py-3">Ensayo de Teoría del Conocimiento</td>
+          <td class="px-4 py-3">TOK</td>
+        </tr>
+        <tr class="hover:bg-white/10 transition">
+          <td class="px-4 py-3">02/11/2025</td>
+          <td class="px-4 py-3">Entrega de Reflexión Final</td>
+          <td class="px-4 py-3">Proyecto Personal</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Calendario mensual compacto -->
+  <div class="max-w-md mx-auto bg-white/10 p-6 rounded-2xl shadow-lg border border-white/20 text-center">
+    <div class="flex items-center justify-between mb-4">
+      <button id="prevMonth" class="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg">◀</button>
+      <h2 id="monthYear" class="text-xl font-bold bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent"></h2>
+      <button id="nextMonth" class="bg-white/20 hover:bg-white/30 px-3 py-2 rounded-lg">▶</button>
+    </div>
+
+    <div class="grid grid-cols-7 text-sm font-semibold mb-2 opacity-90">
+      <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+    </div>
+
+    <div id="calendar" class="grid grid-cols-7 gap-2 text-sm"></div>
+
+    <p class="text-xs opacity-70 mt-4">Fechas marcadas en <span class="text-yellow-300 font-bold">amarillo</span> son entregas importantes.</p>
+  </div>
+
+</main>
+
+<script>
+  // ---------- BUSCADOR ----------
+  document.getElementById('btnBuscar').addEventListener('click', () => {
+    const filtro = document.getElementById('buscar').value.toLowerCase();
+    const filas = document.querySelectorAll('#tablaActividades tbody tr');
+    filas.forEach(fila => {
+      const texto = fila.textContent.toLowerCase();
+      fila.style.display = texto.includes(filtro) ? '' : 'none';
+    });
+  });
+
+  // ---------- CALENDARIO MENSUAL ----------
+  const calendar = document.getElementById('calendar');
+  const monthYear = document.getElementById('monthYear');
+  const prevBtn = document.getElementById('prevMonth');
+  const nextBtn = document.getElementById('nextMonth');
+
+  const fechasMarcadas = ["2025-10-10", "2025-10-17", "2025-10-25", "2025-11-02"];
+  let currentDate = new Date(2025, 9, 1); // Octubre 2025
+
+  function renderCalendar() {
+    calendar.innerHTML = "";
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+    monthYear.textContent = `${meses[month]} ${year}`;
+
+    const emptyCells = (firstDay + 6) % 7; // Ajuste para que lunes sea el primer día
+    for (let i = 0; i < emptyCells; i++) {
+      calendar.innerHTML += `<div class="p-2 opacity-0">.</div>`;
+    }
+
+    for (let day = 1; day <= lastDate; day++) {
+      const iso = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      const marcado = fechasMarcadas.includes(iso);
+      calendar.innerHTML += `
+        <div class="p-2 rounded-lg text-center cursor-pointer ${marcado ? 'bg-yellow-400 text-black font-bold' : 'bg-white/10 hover:bg-white/20'} transition">
+          ${day}
+        </div>`;
+    }
+  }
+
+  prevBtn.addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar();
+  });
+
+  renderCalendar();
+</script>
+
+{% endblock %}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZOE Gestión Documental</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Static/styles/style.css">
+</head>
+
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="fixed top-0 left-0 w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+
+                <!-- LOGO -->
+                <div class="flex-shrink-0 flex items-center text-white font-bold text-2xl tracking-wide">
+                    <i class="fas fa-folder-open mr-2"></i> ZOE Docs
+                </div>
+
+                <!-- LINKS -->
+                <div id="menu"
+                    class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 mt-4 md:mt-0">
+                    <a href="/gestion" class="text-white hover:text-yellow-300 transition">Gestión</a>
+                    <a href="/guias" class="text-white hover:text-yellow-300 transition">Guías</a>
+                    <a href="/cronograma" class="text-white hover:text-yellow-300 transition">Cronograma</a>
+                    <a href="/profesores" class="text-white hover:text-yellow-300 transition">Profesores</a>
+                    <a href="/estadisticas" class="text-white hover:text-yellow-300 transition">Estadísticas</a>
+                    <a href="/foros" class="text-white hover:text-yellow-300 transition">Foros</a>
+                </div>
+
+                <!-- BOTÓN USUARIO -->
+                <button id="userBtn"
+                    class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl border border-white/20 text-white transition">
+                    Estudiante
+                </button>
+
+            </div>
+        </div>
+    </nav>
+
+    <br><br>
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white py-12 mt-10">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- LOGO Y SLOGAN -->
+            <div>
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-folder-open mr-2"></i> ZOE Docs
+                </h2>
+                <p class="mt-2 text-sm text-gray-100">
+                    Transformando la gestión documental en eficiencia, seguridad y confianza.
+                </p>
+            </div>
+
+            <!-- LINKS -->
+            <div class="flex flex-col space-y-2">
+                <h3 class="text-lg font-semibold">Enlaces rápidos</h3>
+                <a href="#" class="hover:text-yellow-300 transition">Inicio</a>
+                <a href="#" class="hover:text-yellow-300 transition">Servicios</a>
+                <a href="#" class="hover:text-yellow-300 transition">Acerca de</a>
+                <a href="#" class="hover:text-yellow-300 transition">Contacto</a>
+            </div>
+
+            <!-- ESPACIO PARA LOGOS -->
+            <div class="flex flex-col items-center">
+                <h3 class="text-lg font-semibold mb-2">Aliados Institucionales</h3>
+                <div class="flex space-x-6">
+                    <img src="/static/img/logo_ib.png" alt="Logo IB"
+                        class="h-12 w-auto rounded-md shadow-md border border-white/30">
+                    <img src="/static/img/logo_colegio.png" alt="Logo Colegio"
+                        class="h-12 w-auto rounded-md shadow-md border border-white/30">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- COPYRIGHT -->
+        <div class="text-center mt-8 text-gray-200 text-sm">
+            © 2025 ZOE Gestión Documental. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- ===== MODAL USUARIO ===== -->
+    <div id="userModal" class="fixed inset-0 bg-black/50 hidden z-50 flex justify-center items-center">
+        <div class="bg-white text-gray-900 p-8 rounded-2xl w-96 text-center shadow-2xl animate-fadeIn">
+            <h3 class="text-2xl font-bold mb-4">Perfil del Estudiante</h3>
+            <p class="mb-6 text-lg font-semibold">{{ usuario|capitalize }}</p>
+            <a href="/home"
+                class="bg-gradient-to-r from-pink-500 to-purple-600 hover:opacity-90 text-white font-bold px-6 py-2 rounded-lg transition">
+                Cerrar sesión
+            </a>
+            <button id="closeModal" class="block mt-4 text-sm text-gray-500 hover:underline">Cancelar</button>
+        </div>
+    </div>
+
+
+    <script>
+        const userBtn = document.getElementById('userBtn');
+        const userModal = document.getElementById('userModal');
+        const closeModal = document.getElementById('closeModal');
+
+        userBtn.addEventListener('click', () => userModal.classList.remove('hidden'));
+        closeModal.addEventListener('click', () => userModal.classList.add('hidden'));
+        userModal.addEventListener('click', e => {
+            if (e.target === userModal) userModal.classList.add('hidden');
+        });
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+    </style>
+
+</body>
+
+</html>

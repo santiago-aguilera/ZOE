@@ -1,0 +1,104 @@
+{% extends "Layout.html"%}
+{% block content %}
+<main class="min-h-screen bg-gradient-to-br from-purple-700 via-indigo-700 to-blue-600 p-10 flex items-center justify-center text-white font-[Poppins]">
+  <div class="bg-white/10 backdrop-blur-md p-10 rounded-2xl shadow-2xl max-w-3xl w-full border border-white/20 transition-all duration-500 hover:scale-[1.01]">
+
+    <!-- Encabezado -->
+    <h1 class="text-4xl font-extrabold mb-4 text-center bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent">
+      Gestor de Archivos del Estudiante
+    </h1>
+    <p class="mb-8 text-center opacity-90 text-lg">
+      Aquí puedes subir, buscar y administrar tus documentos del Bachillerato Internacional.
+    </p>
+
+    <!-- Barra de búsqueda -->
+    <div class="flex items-center mb-8 shadow-md rounded-xl overflow-hidden">
+      <input id="searchInput" type="text" placeholder="Buscar archivos por nombre, materia o tipo..." 
+             class="flex-1 px-4 py-3 bg-white/20 border-none text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all duration-300">
+      <button id="searchBtn" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-3 transition">
+        Buscar
+      </button>
+    </div>
+
+    <!-- Área de carga -->
+    <label for="file-upload" 
+           class="cursor-pointer flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-white/40 rounded-xl hover:border-yellow-400 transition bg-white/5 hover:bg-white/10 mb-6">
+      <span class="text-xl mb-2 font-semibold">Arrastra tus archivos aquí</span>
+      <span class="text-sm opacity-80">o haz clic para seleccionarlos</span>
+      <input id="file-upload" type="file" class="hidden" multiple>
+    </label>
+
+    <!-- Botón de acción -->
+    <button id="uploadBtn"
+            class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 rounded-xl shadow-md transition">
+      Subir archivos
+    </button>
+
+    <!-- Archivos simulados -->
+    <div class="mt-10 bg-white/10 p-6 rounded-xl border border-white/20">
+      <h2 class="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-pink-400 to-yellow-300 bg-clip-text text-transparent">
+        Mis Archivos Subidos
+      </h2>
+
+      <div id="fileList" class="space-y-4">
+        <div class="file-card flex items-center justify-between bg-white/10 p-4 rounded-lg hover:bg-white/20 transition" data-name="Reflexión Final IB.pdf" data-materia="Proyecto de Reflexión">
+          <div>
+            <p class="font-semibold">Reflexión Final IB.pdf</p>
+            <span class="text-sm opacity-70">Subido el 04/10/2025 — Materia: Proyecto de Reflexión</span>
+          </div>
+          <button class="bg-green-400 hover:bg-green-500 text-black font-bold px-4 py-2 rounded-lg transition">Descargar</button>
+        </div>
+
+        <div class="file-card flex items-center justify-between bg-white/10 p-4 rounded-lg hover:bg-white/20 transition" data-name="Ensayo de Desarrollo de Lenguas.docx" data-materia="Lenguas">
+          <div>
+            <p class="font-semibold">Ensayo de Desarrollo de Lenguas.docx</p>
+            <span class="text-sm opacity-70">Subido el 01/10/2025 — Materia: Lenguas</span>
+          </div>
+          <button class="bg-green-400 hover:bg-green-500 text-black font-bold px-4 py-2 rounded-lg transition">Descargar</button>
+        </div>
+
+        <div class="file-card flex items-center justify-between bg-white/10 p-4 rounded-lg hover:bg-white/20 transition" data-name="Proyecto Aprendizaje y Servicio.pptx" data-materia="Aprendizaje y Servicio">
+          <div>
+            <p class="font-semibold">Proyecto Aprendizaje y Servicio.pptx</p>
+            <span class="text-sm opacity-70">Subido el 29/09/2025 — Materia: Aprendizaje y Servicio</span>
+          </div>
+          <button class="bg-green-400 hover:bg-green-500 text-black font-bold px-4 py-2 rounded-lg transition">Descargar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Script de funcionalidad -->
+<script>
+  const searchBtn = document.getElementById('searchBtn');
+  const searchInput = document.getElementById('searchInput');
+  const fileCards = document.querySelectorAll('.file-card');
+
+  // Búsqueda funcional en frontend
+  function filterFiles() {
+    const term = searchInput.value.toLowerCase().trim();
+    fileCards.forEach(card => {
+      const name = card.dataset.name.toLowerCase();
+      const materia = card.dataset.materia.toLowerCase();
+      card.style.display = (name.includes(term) || materia.includes(term)) ? 'flex' : 'none';
+    });
+  }
+
+  searchBtn.addEventListener('click', filterFiles);
+  searchInput.addEventListener('keyup', filterFiles);
+
+  // Animación de carga de archivo (simulada)
+  const uploadBtn = document.getElementById('uploadBtn');
+  uploadBtn.addEventListener('click', () => {
+    uploadBtn.innerText = "Subiendo...";
+    uploadBtn.disabled = true;
+    setTimeout(() => {
+      uploadBtn.innerText = "Subir archivos";
+      uploadBtn.disabled = false;
+      alert("✅ Archivos subidos correctamente (simulación)");
+    }, 1500);
+  });
+</script>
+{% endblock %}

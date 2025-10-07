@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZOE IB | Página Principal</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <style>
+        html,
+    body {
+        background-color: #0b0f19;
+        color: #e0e0e0;
+        scroll-behavior: smooth;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Animación de entrada */
+    .fade-section {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease-in-out;
+    }
+
+    .fade-section.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Tarjetas modernas */
+    .card {
+        background: linear-gradient(180deg, rgba(0, 0, 3, 0.95), rgba(0, 0, 0, 0.95));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.4s ease-in-out;
+        color: #d6d6d6;
+    }
+
+    #zoe,
+    #ib,
+    #colegio {
+        padding: 6rem 2rem;
+        background: #0b0f19;
+        color: #ffffff;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.6s ease;
+    }
+
+    #zoe:hover,
+    #ib:hover,
+    #colegio:hover {
+        background: linear-gradient(180deg, #141933, #1b1f3a);
+        box-shadow: inset 0 0 40px rgba(255, 0, 128, 0.08);
+    }
+
+    /* ==== Títulos con gradiente ==== */
+    #zoe h2,
+    #ib h2,
+    #colegio h2 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #ff6ac1, #b87fff, #ff9ae0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    /* ==== Párrafos ==== */
+    #zoe p,
+    #ib p,
+    #colegio p {
+        color: #e0e0e0;
+        max-width: 850px;
+        margin: 0 auto 1rem auto;
+        line-height: 1.8;
+        font-size: 1.1rem;
+        font-weight: 400;
+        transition: color 0.4s ease;
+    }
+
+    #zoe p:hover,
+    #ib p:hover,
+    #colegio p:hover {
+        color: #ffffff;
+    }
+
+    /* ==== Efecto suave de aparición ==== */
+    #zoe,
+    #ib,
+    #colegio {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    #zoe.active,
+    #ib.active,
+    #colegio.active {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 1s ease-in-out;
+    }
+
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 0 25px rgba(90, 70, 255, 0.3);
+    }
+
+    /* Expansión suave al pasar el mouse */
+    .card-details {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.6s ease;
+    }
+
+    .card:hover .card-details {
+        max-height: 300px;
+        opacity: 1;
+        margin-top: 10px;
+    }
+
+    /* Fondo secciones */
+    section {
+        position: relative;
+        z-index: 1;
+    }
+
+    footer {
+        background: #0d1222;
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Scroll reveal personalizado */
+    [data-scroll] {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 1s ease, transform 1s ease;
+    }
+
+    [data-scroll].visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Hero -->
+  <section class="text-center py-20 bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 text-white">
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Bienvenido a <span class="text-yellow-300">ZOE IB</span></h1>
+    <p class="text-lg md:text-2xl mb-6 max-w-3xl mx-auto">Tu plataforma integral para la gestión documental del
+      Bachillerato Internacional – POP</p>
+    <a href="/login"
+      class="inline-block bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105">
+      Ingresar ahora
+    </a>
+  </section>
+
+  <!-- Features -->
+  <section class="py-20 max-w-7xl mx-auto px-6 grid gap-10 md:grid-cols-2 lg:grid-cols-3 fade-section">
+    <!-- Tarjeta 1 -->
+    <div class="card rounded-2xl p-6">
+      <div class="text-indigo-400 text-4xl mb-4">
+        <i class="fas fa-calendar-alt"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-2">Cronograma</h3>
+      <p>Consulta fechas clave de CAS, TOK, EE y POP. Mantente organizado y al día con tus entregas.</p>
+      <div class="card-details">
+        <p class="text-gray-400">Administra tus eventos y recordatorios fácilmente desde un solo lugar.</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta 2 -->
+    <div class="card rounded-2xl p-6">
+      <div class="text-green-400 text-4xl mb-4">
+        <i class="fas fa-file-upload"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-2">Subir trabajos</h3>
+      <p>Entrega tus portafolios, proyectos y reflexiones de forma rápida y segura en la plataforma.</p>
+      <div class="card-details">
+        <p class="text-gray-400">Los permisos y funciones se adaptan según tu rol (estudiante, docente o coordinador
+          IB).</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta 3 -->
+    <div class="card rounded-2xl p-6">
+      <div class="text-pink-400 text-4xl mb-4">
+        <i class="fas fa-chalkboard-teacher"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-2">Acceso a profesores</h3>
+      <p>Encuentra fácilmente a tus docentes, horarios y canales de comunicación en un solo lugar.</p>
+      <div class="card-details">
+        <p class="text-gray-400">Conecta directamente con tus profesores y revisa sus perfiles académicos.</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta 4 -->
+    <div class="card rounded-2xl p-6">
+      <div class="text-yellow-400 text-4xl mb-4">
+        <i class="fas fa-book"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-2">Guías de aprendizaje</h3>
+      <p>Accede a manuales, guías oficiales y materiales de apoyo del IB y del POP.</p>
+      <div class="card-details">
+        <p class="text-gray-400">Material actualizado, organizado por áreas de conocimiento y asignatura.</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta 5 -->
+    <div class="card rounded-2xl p-6">
+      <div class="text-blue-400 text-4xl mb-4">
+        <i class="fas fa-chart-bar"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-2">Estadísticas</h3>
+      <p>Visualiza avances, entregas cumplidas y progreso de tu programa con dashboards claros.</p>
+      <div class="card-details">
+        <p class="text-gray-400">Paneles dinámicos según tu rol y nivel académico dentro del IB POP.</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta 6 -->
+    <div class="card rounded-2xl p-6">
+      <div class="text-red-400 text-4xl mb-4">
+        <i class="fas fa-comments"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-2">Foros</h3>
+      <p>Participa en espacios de discusión con compañeros y profesores, comparte dudas e ideas.</p>
+      <div class="card-details">
+        <p class="text-gray-400">Reflexiona y colabora en debates constructivos dentro del entorno IB.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="zoe" class="py-20 max-w-7xl mx-auto px-6 grid gap-10 md:grid-cols-2 lg:grid-cols-3 fade-section">
+    <h2>Misión y Objetivo de ZOE</h2>
+    <p>
+      La misión de ZOE es ofrecer una herramienta digital completa que centralice la información, fomente la
+      colaboración docente-estudiantil y simplifique la gestión académica del programa IB.
+    </p>
+    <p>
+      Su objetivo es digitalizar los procesos del Aprendizaje y Servicio, el Proyecto de Reflexión, HPP y Desarrollo de
+      Lenguas, promoviendo la autonomía y el pensamiento crítico de los estudiantes a través de un entorno intuitivo y
+      accesible.
+    </p>
+  </section>
+
+  <!-- ======== SECCIÓN IB ======== -->
+  <section id="ib" class="py-20 max-w-7xl mx-auto px-6 grid gap-10 md:grid-cols-2 lg:grid-cols-3 fade-section">
+    <h2>Sobre el Bachillerato Internacional (IB)</h2>
+    <p>
+      El Bachillerato Internacional (IB) busca formar jóvenes solidarios, informados y ávidos de conocimiento, capaces
+      de contribuir a crear un mundo mejor mediante el entendimiento mutuo y el respeto intercultural.
+    </p>
+    <p>
+      En el contexto de ZOE, el IB impulsa el desarrollo de habilidades de investigación, reflexión y pensamiento
+      global, asegurando que los estudiantes comprendan la relevancia de su aprendizaje en un mundo en constante cambio.
+    </p>
+  </section>
+
+  <!-- ======== SECCIÓN COLEGIO ======== -->
+  <section id="colegio" class="py-20 max-w-7xl mx-auto px-6 grid gap-10 md:grid-cols-2 lg:grid-cols-3 fade-section">
+    <h2>Colegio Instituto Técnico Distrital Julio Flórez</h2>
+    <p>
+      El Instituto Técnico Distrital Julio Flórez, ubicado en Bogotá, se caracteriza por su compromiso con la excelencia
+      académica, la innovación pedagógica y la formación integral de sus estudiantes.
+    </p>
+    <p>
+      Su enfoque técnico y humanista, junto con la implementación del programa IB, busca fortalecer las competencias del
+      siglo XXI, integrando tecnología, ética y servicio a la comunidad en cada proceso educativo.
+    </p>
+  </section>
+
+
+  <!-- Call to Action -->
+  <section class="text-center py-20 bg-gradient-to-r from-indigo-900 via-purple-800 to-pink-900 fade-section">
+    <h2 class="text-3xl font-bold mb-4 text-yellow-300">¿Listo para comenzar?</h2>
+    <p class="mb-6 max-w-2xl mx-auto">Explora todas las secciones, organiza tus entregas y vive la experiencia del
+      Bachillerato Internacional con una plataforma que simplifica tu gestión documental.</p>
+    <a href="/login"
+      class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105">
+      Comenzar ahora
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 text-center">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex justify-center space-x-6 mb-6">
+        <a href="#" class="text-blue-400 text-2xl" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="text-blue-300 text-2xl" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-pink-400 text-2xl" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="text-indigo-400 text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <p class="text-gray-400 max-w-3xl mx-auto mb-4">ZOE IB es una plataforma educativa desarrollada para apoyar la
+        gestión documental del Programa de Orientación Profesional (POP) del Bachillerato Internacional en el Instituto
+        Técnico Distrital Julio Flórez.</p>
+      <p class="text-gray-500 text-sm">© 2025 ZOE IB — Proyecto educativo.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Animación al hacer scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+    html,
+    body {
+        background-color: #0b0f19;
+        color: #e0e0e0;
+        scroll-behavior: smooth;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Animación de entrada */
+    .fade-section {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease-in-out;
+    }
+
+    .fade-section.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Tarjetas modernas */
+    .card {
+        background: linear-gradient(180deg, rgba(20, 20, 35, 0.95), rgba(15, 15, 25, 0.95));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.4s ease-in-out;
+        color: #d6d6d6;
+    }
+
+    /* ==== ESTILOS PARA LAS NUEVAS SECCIONES ==== */
+    #zoe,
+    #ib,
+    #colegio {
+        padding: 6rem 2rem;
+        background: linear-gradient(180deg, #0f1222, #12182c);
+        color: #ffffff;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.6s ease;
+    }
+
+    #zoe:hover,
+    #ib:hover,
+    #colegio:hover {
+        background: linear-gradient(180deg, #141933, #1b1f3a);
+        box-shadow: inset 0 0 40px rgba(255, 0, 128, 0.08);
+    }
+
+    /* ==== Títulos con gradiente ==== */
+    #zoe h2,
+    #ib h2,
+    #colegio h2 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #ff6ac1, #b87fff, #ff9ae0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    /* ==== Párrafos ==== */
+    #zoe p,
+    #ib p,
+    #colegio p {
+        color: #e0e0e0;
+        max-width: 850px;
+        margin: 0 auto 1rem auto;
+        line-height: 1.8;
+        font-size: 1.1rem;
+        font-weight: 400;
+        transition: color 0.4s ease;
+    }
+
+    #zoe p:hover,
+    #ib p:hover,
+    #colegio p:hover {
+        color: #ffffff;
+    }
+
+    /* ==== Efecto suave de aparición ==== */
+    #zoe,
+    #ib,
+    #colegio {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    #zoe.active,
+    #ib.active,
+    #colegio.active {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 1s ease-in-out;
+    }
+
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 0 25px rgba(90, 70, 255, 0.3);
+    }
+
+    /* Expansión suave al pasar el mouse */
+    .card-details {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.6s ease;
+    }
+
+    .card:hover .card-details {
+        max-height: 300px;
+        opacity: 1;
+        margin-top: 10px;
+    }
+
+    /* Fondo secciones */
+    section {
+        position: relative;
+        z-index: 1;
+    }
+
+    footer {
+        background: #0d1222;
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Scroll reveal personalizado */
+    [data-scroll] {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 1s ease, transform 1s ease;
+    }
+
+    [data-scroll].visible {
+        opacity: 1;
+        transform: translateY(0);
+    }

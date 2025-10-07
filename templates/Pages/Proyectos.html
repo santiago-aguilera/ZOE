@@ -1,0 +1,89 @@
+{% extends "Layout.html" %}
+{% block content %}
+<main class="p-8 bg-gradient-to-br from-purple-700 via-indigo-700 to-blue-700 min-h-screen text-white font-[Poppins]">
+
+  <!-- Contenedor principal -->
+  <div class="max-w-6xl mx-auto bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-10 border border-white/20 transition-all duration-500 hover:shadow-indigo-900/50">
+
+    <!-- Encabezado -->
+    <section class="text-center mb-12">
+      <h1 class="text-4xl font-extrabold bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent mb-3">
+        Guías y Recursos IB
+      </h1>
+      <p class="text-indigo-100 text-lg max-w-2xl mx-auto">
+        Explora, descarga y estudia las guías oficiales del Bachillerato Internacional para fortalecer tus conocimientos académicos.
+      </p>
+    </section>
+
+    <!-- Buscador -->
+    <section class="mb-10 max-w-3xl mx-auto">
+      <div class="flex items-center bg-white/20 rounded-2xl shadow-md p-3 border border-white/30 backdrop-blur-md">
+        <input 
+          id="search-input"
+          type="text" 
+          placeholder="Buscar guías por materia o tema..." 
+          class="flex-grow px-4 py-2 rounded-l-xl text-gray-900 outline-none focus:ring-2 focus:ring-yellow-400"
+        >
+        <button id="search-btn" class="bg-yellow-400 text-gray-900 font-semibold px-6 py-2 rounded-xl hover:bg-yellow-500 transition">
+          Buscar
+        </button>
+      </div>
+    </section>
+
+    <!-- Contenedor de guías -->
+    <section id="guides" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Guía 1 -->
+      <div class="guide bg-white/90 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 border-t-4 border-indigo-500" data-title="matematicas algebra">
+        <h3 class="text-xl font-semibold text-indigo-700 mb-2">Matemáticas - Álgebra</h3>
+        <p class="text-gray-700 mb-4">Conceptos básicos y ejercicios prácticos para reforzar tus habilidades.</p>
+        <div class="flex gap-3">
+          <button class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition">Descargar</button>
+          <button class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg hover:bg-indigo-200 transition">Ver online</button>
+        </div>
+      </div>
+
+      <!-- Guía 2 -->
+      <div class="guide bg-white/90 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 border-t-4 border-purple-500" data-title="biologia ciencias naturales">
+        <h3 class="text-xl font-semibold text-purple-700 mb-2">Ciencias Naturales - Biología</h3>
+        <p class="text-gray-700 mb-4">Guía ilustrada sobre ecosistemas, biodiversidad y conservación ambiental.</p>
+        <div class="flex gap-3">
+          <button class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition">Descargar</button>
+          <button class="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg hover:bg-purple-200 transition">Ver online</button>
+        </div>
+      </div>
+
+      <!-- Guía 3 -->
+      <div class="guide bg-white/90 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 border-t-4 border-blue-500" data-title="lengua castellana literatura escritura">
+        <h3 class="text-xl font-semibold text-blue-700 mb-2">Lengua Castellana</h3>
+        <p class="text-gray-700 mb-4">Recursos para mejorar redacción, gramática y análisis literario.</p>
+        <div class="flex gap-3">
+          <button class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition">Descargar</button>
+          <button class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-200 transition">Ver online</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  // Búsqueda simple desde el front-end (sin backend)
+  const searchBtn = document.getElementById("search-btn");
+  const searchInput = document.getElementById("search-input");
+  const guides = document.querySelectorAll(".guide");
+
+  searchBtn.addEventListener("click", () => {
+    const term = searchInput.value.toLowerCase().trim();
+    guides.forEach(guide => {
+      const title = guide.dataset.title;
+      guide.style.display = title.includes(term) ? "block" : "none";
+    });
+  });
+
+  // También buscar presionando Enter
+  searchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") searchBtn.click();
+  });
+</script>
+
+{% endblock %}
