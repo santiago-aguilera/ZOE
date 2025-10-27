@@ -6,7 +6,7 @@ from Controlador.controlador_login import validar_login
 app=Flask(__name__)
 
 
-
+#Inicip de rutas
 @app.route('/')
 
 @app.route('/home')
