@@ -11,32 +11,32 @@
     <link rel="stylesheet" href="../Static/styles/style.css">
 </head>
 
-<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+<body class="bg-[#feffff] text-gray-800 flex flex-col min-h-screen">
 
     <!-- ===== NAVBAR ===== -->
-    <nav class="fixed top-0 left-0 w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-lg z-50">
+    <nav class="fixed top-0 left-0 w-full bg-gradient-to-r from-[#005187] via-[#4d82bc] to-[#84b6f4] shadow-lg z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
 
                 <!-- LOGO -->
                 <div class="flex-shrink-0 flex items-center text-white font-bold text-2xl tracking-wide">
-                    <i class="fas fa-folder-open mr-2"></i> ZOE Docs
+                    <a href="/main"><i class="fas fa-folder-open mr-2"></i> ZOE Docs</a>
                 </div>
 
                 <!-- LINKS -->
                 <div id="menu"
                     class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 mt-4 md:mt-0">
-                    <a href="/gestion" class="text-white hover:text-yellow-300 transition">Gestión</a>
-                    <a href="/guias" class="text-white hover:text-yellow-300 transition">Guías</a>
-                    <a href="/cronograma" class="text-white hover:text-yellow-300 transition">Cronograma</a>
-                    <a href="/profesores" class="text-white hover:text-yellow-300 transition">Profesores</a>
-                    <a href="/estadisticas" class="text-white hover:text-yellow-300 transition">Estadísticas</a>
-                    <a href="/foros" class="text-white hover:text-yellow-300 transition">Foros</a>
+                    <a href="/gestion" class="text-white hover:text-[#e4dafa] transition">Gestión</a>
+                    <a href="/guias" class="text-white hover:text-[#e4dafa] transition">Guías</a>
+                    <a href="/cronograma" class="text-white hover:text-[#e4dafa] transition">Cronograma</a>
+                    <a href="/profesores" class="text-white hover:text-[#e4dafa] transition">Profesores</a>
+                    <a href="/estadisticas" class="text-white hover:text-[#e4dafa] transition">Estadísticas</a>
+                    <a href="/foros" class="text-white hover:text-[#e4dafa] transition">Foros</a>
                 </div>
 
                 <!-- BOTÓN USUARIO -->
                 <button id="userBtn"
-                    class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl border border-white/20 text-white transition">
+                    class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl border border-white/30 text-white transition">
                     Estudiante
                 </button>
 
@@ -50,7 +50,7 @@
     {% endblock %}
 
     <!-- ===== FOOTER ===== -->
-    <footer class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white py-12 mt-10">
+    <footer class="bg-gradient-to-r from-[#005187] via-[#4d82bc] to-[#84b6f4] text-white py-12 mt-10">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
 
             <!-- LOGO Y SLOGAN -->
@@ -66,19 +66,19 @@
             <!-- LINKS -->
             <div class="flex flex-col space-y-2">
                 <h3 class="text-lg font-semibold">Enlaces rápidos</h3>
-                <a href="#" class="hover:text-yellow-300 transition">Inicio</a>
-                <a href="#" class="hover:text-yellow-300 transition">Servicios</a>
-                <a href="#" class="hover:text-yellow-300 transition">Acerca de</a>
-                <a href="#" class="hover:text-yellow-300 transition">Contacto</a>
+                <a href="#" class="hover:text-[#e4dafa] transition">Inicio</a>
+                <a href="#" class="hover:text-[#e4dafa] transition">Servicios</a>
+                <a href="#" class="hover:text-[#e4dafa] transition">Acerca de</a>
+                <a href="#" class="hover:text-[#e4dafa] transition">Contacto</a>
             </div>
 
             <!-- ESPACIO PARA LOGOS -->
             <div class="flex flex-col items-center">
                 <h3 class="text-lg font-semibold mb-2">Aliados Institucionales</h3>
                 <div class="flex space-x-6">
-                    <img src="/static/img/logo_ib.png" alt="Logo IB"
+                    <img src="/static/images/Logo IB.png" alt="Logo IB"
                         class="h-12 w-auto rounded-md shadow-md border border-white/30">
-                    <img src="/static/img/logo_colegio.png" alt="Logo Colegio"
+                    <img src="/static/images/logo_colegio.png" alt="Logo Colegio"
                         class="h-12 w-auto rounded-md shadow-md border border-white/30">
                 </div>
             </div>
@@ -93,17 +93,16 @@
 
     <!-- ===== MODAL USUARIO ===== -->
     <div id="userModal" class="fixed inset-0 bg-black/50 hidden z-50 flex justify-center items-center">
-        <div class="bg-white text-gray-900 p-8 rounded-2xl w-96 text-center shadow-2xl animate-fadeIn">
-            <h3 class="text-2xl font-bold mb-4">Perfil del Estudiante</h3>
+        <div class="bg-[#feffff] text-gray-900 p-8 rounded-2xl w-96 text-center shadow-2xl animate-fadeIn">
+            <h3 class="text-2xl font-bold mb-4 text-[#005187]">Perfil del Estudiante</h3>
             <p class="mb-6 text-lg font-semibold">{{ usuario|capitalize }}</p>
             <a href="/home"
-                class="bg-gradient-to-r from-pink-500 to-purple-600 hover:opacity-90 text-white font-bold px-6 py-2 rounded-lg transition">
+                class="bg-gradient-to-r from-[#84b6f4] to-[#4d82bc] hover:opacity-90 text-white font-bold px-6 py-2 rounded-lg transition">
                 Cerrar sesión
             </a>
             <button id="closeModal" class="block mt-4 text-sm text-gray-500 hover:underline">Cancelar</button>
         </div>
     </div>
-
 
     <script>
         const userBtn = document.getElementById('userBtn');

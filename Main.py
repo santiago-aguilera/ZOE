@@ -14,6 +14,10 @@ app=Flask(__name__)
 def dir1():
     return render_template('Pages/Home.html')
 
+@app.route('/main')
+def main():
+    return render_template('pages/Main.html')
+
 #route gestion
 @app.route('/gestion')
 def gestion():
@@ -50,7 +54,7 @@ def login():
     password = request.form.get('password')
     resul_validar=validar_login(usuuario,password)
     if resul_validar['success']:
-        return render_template('pages/cronograma.html')
+        return render_template('pages/Main.html')
     else:
         error=resul_validar['error']
         return render_template('pages/Login.html',fallo=error)
