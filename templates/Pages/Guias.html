@@ -1,0 +1,124 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #ffffff;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--lila);
+        margin: 0;
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        padding-top: 2rem;
+        font-size: 40px;
+    }
+
+    .busqueda {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .busqueda input {
+        width: 60%;
+        padding: 0.8rem;
+        border: 2px solid var(--azul-claro);
+        border-radius: 8px;
+        font-size: 1rem;
+        outline: none;
+    }
+
+    .busqueda input:focus {
+        border-color: var(--azul-medio);
+    }
+
+    .contenedor-guias {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .tarjeta {
+        background-color: var(--blanco);
+        border: 2px solid var(--azul-claro);
+        border-radius: 12px;
+        padding: 1.2rem;
+        transition: 0.3s;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .tarjeta:hover {
+        border-color: var(--azul-medio);
+        transform: translateY(-4px);
+    }
+
+    .tarjeta h3 {
+        color: var(--azul-oscuro);
+        margin-bottom: 0.5rem;
+    }
+
+    .tarjeta p {
+        color: var(--azul-medio);
+        font-size: 0.95rem;
+    }
+
+    .tarjeta button {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        margin-top: 1rem;
+    }
+
+    .tarjeta button:hover {
+        background-color: var(--azul-oscuro);
+    }
+</style>
+
+<h1>Guías Académicas</h1>
+
+<div class="busqueda">
+    <input type="text" placeholder="Buscar guías por materia, profesor o palabra clave...">
+</div>
+
+<div class="contenedor-guias">
+    <div class="tarjeta">
+        <h3>Matemáticas - Guía de Álgebra</h3>
+        <p>Ejercicios sobre ecuaciones cuadráticas y factorización.</p>
+        <button>Ver Guía</button>
+    </div>
+
+    <div class="tarjeta">
+        <h3>Física - Movimiento Uniforme</h3>
+        <p>Conceptos fundamentales de MRU y MRUV.</p>
+        <button>Ver Guía</button>
+    </div>
+
+    <div class="tarjeta">
+        <h3>Inglés - Verb Tenses</h3>
+        <p>Repaso de tiempos verbales y ejemplos prácticos.</p>
+        <button>Ver Guía</button>
+    </div>
+
+    <div class="tarjeta">
+        <h3>Química - Tabla Periódica</h3>
+        <p>Propiedades periódicas y estructura atómica.</p>
+        <button>Ver Guía</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,157 +1,103 @@
 {% extends 'Layout.html'%}
 {% block content %}
 <style>
-.stats-card {
-  background: linear-gradient(135deg, #4f46e5, #9333ea, #ec4899);
-  padding: 2rem;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 1000px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  text-align: center;
-  color: #fff;
-}
+    :root {
+      --azul-oscuro: #005187;
+      --azul-medio: #4d82bc;
+      --azul-claro: #84b6f4;
+      --lila: #e4dafa;
+      --blanco: #feffff;
+    }
 
-/* Títulos */
-.stats-card h1 {
-  font-size: 2rem;
-  color: #f9fafb;
-  margin-bottom: 0.5rem;
-}
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--lila);
+      color: var(--azul-oscuro);
+      margin: 0;
+    }
 
-.stats-card p {
-  color: #e0e7ff;
-  margin-bottom: 1.5rem;
-}
+    h1 {
+      text-align: center;
+      color: var(--azul-oscuro);
+      padding-top: 2rem;
+      font-size: 40px;
+    }
 
-/* Gráficos */
-.charts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
+    .estadisticas {
+      background-color: var(--blanco);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
 
-.chart {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 12px;
-  color: #111;
-  text-align: left;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
+    .barra {
+      margin: 1rem 0;
+    }
 
-.chart:hover {
-  transform: translateY(-5px);
-}
+    .label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
 
-.chart h3 {
-  margin-bottom: 0.8rem;
-  color: #4f46e5;
-}
+    .progress {
+      background-color: var(--azul-claro);
+      border-radius: 10px;
+      height: 25px;
+      overflow: hidden;
+    }
 
-.bar {
-  background: linear-gradient(90deg, #9333ea, #ec4899);
-  color: #fff;
-  padding: 0.5rem;
-  border-radius: 8px;
-  text-align: right;
-  font-weight: bold;
-  transition: width 1.2s ease-in-out;
-}
+    .progreso {
+      background-color: var(--azul-medio);
+      height: 100%;
+      border-radius: 10px;
+      text-align: right;
+      color: var(--blanco);
+      font-size: 0.9rem;
+      font-weight: bold;
+      padding-right: 0.5rem;
+      transition: width 0.5s ease;
+    }
 
-/* Tabla */
-.stats-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1.5rem;
-  background: #fff;
-  color: #111;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+    .resumen {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--azul-oscuro);
+    }
 
-.stats-table th,
-.stats-table td {
-  padding: 1rem;
-  text-align: center;
-  border-bottom: 1px solid #e5e7eb;
-}
+  </style>
+</head>
+<body>
 
-.stats-table th {
-  background: linear-gradient(90deg, #4f46e5, #9333ea);
-  color: #fff;
-}
+  <h1>Mis Estadísticas</h1>
 
-.stats-table tr:last-child td {
-  border-bottom: none;
-}
-</style>
-
-<main class="min-h-screen bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-600 p-8 flex items-center justify-center">
-  <div class="stats-card">
-    <!-- Encabezado -->
-    <h1>Estadísticas del Programa</h1>
-    <p>Visualiza tus métricas personales dentro de la plataforma del Bachillerato Internacional.</p>
-
-    <!-- Gráficos simulando datos reales -->
-    <div class="charts">
-      <div class="chart">
-        <h3>Archivos subidos</h3>
-        <div class="bar" data-width="88">88%</div>
-      </div>
-      <div class="chart">
-        <h3>Portafolios completados</h3>
-        <div class="bar" data-width="76">76%</div>
-      </div>
-      <div class="chart">
-        <h3>Proyectos revisados</h3>
-        <div class="bar" data-width="59">59%</div>
+  <section class="estadisticas">
+    <div class="barra">
+      <div class="label">Tareas completadas</div>
+      <div class="progress">
+        <div class="progreso" style="width: 75%;">75%</div>
       </div>
     </div>
 
-    <!-- Tabla con datos como si provinieran del sistema -->
-    <table class="stats-table">
-      <thead>
-        <tr>
-          <th>Métrica</th>
-          <th>Estudiante</th>
-          <th>Coordinador</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Archivos subidos</td>
-          <td>132</td>
-          <td>—</td>
-        </tr>
-        <tr>
-          <td>Portafolios completados</td>
-          <td>9</td>
-          <td>—</td>
-        </tr>
-        <tr>
-          <td>Proyectos revisados</td>
-          <td>5</td>
-          <td>—</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="barra">
+      <div class="label">Tareas pendientes</div>
+      <div class="progress">
+        <div class="progreso" style="width: 25%; background-color: var(--azul-claro);">25%</div>
+      </div>
+    </div>
 
-  <script>
-    // Animación de carga suave para las barras usando data-width
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll(".bar").forEach(bar => {
-        const width = bar.getAttribute("data-width") + "%";
-        bar.style.width = "0%";
-        setTimeout(() => {
-          bar.style.width = width;
-        }, 300);
-      });
-    });
-  </script>
-</main>
+    <div class="barra">
+      <div class="label">Promedio general</div>
+      <div class="progress">
+        <div class="progreso" style="width: 82%;">82%</div>
+      </div>
+    </div>
+
+    <div class="resumen">
+      <p><strong>Resumen:</strong> Has completado la mayoría de tus tareas con buen rendimiento. ¡Sigue así!</p>
+    </div>
+  </section>
+
+</body>
 {% endblock %}

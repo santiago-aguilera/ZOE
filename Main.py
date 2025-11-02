@@ -47,9 +47,21 @@ def guias():
 def cronograma():
     return render_template('pages/Cronograma.html')
 
+@app.route('/eventos')
+def eventos():
+    return render_template('dash/cronograma/frm_evento.html')
+
 @app.route('/profesores')
 def profesores():
     return render_template('pages/Profesores.html')
+
+@app.route('/ver_profesores')
+def ver_profesores():
+    return render_template('dash/Profesores/dash_ver_profes.html')
+
+@app.route('/crear_profesores')
+def crear_profesores():
+    return render_template('dash/Profesores/frm_profes.html')
 
 @app.route('/estadisticas')
 def estadisticas():
@@ -58,6 +70,14 @@ def estadisticas():
 @app.route('/foros')
 def foros():
     return render_template('pages/Foros.html')
+
+@app.route('/ver_foros')
+def ver_foros():
+    return render_template('dash/Foros/dash_foros.html')
+
+@app.route('/crear_foros')
+def crear_foros():
+    return render_template('dash/Foros/frm_foros.html')
 
 #Call routes
 @app.route('/login')

@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+{% block content %}
+<main class="crear-foro">
+
+    <header class="crear-foro-header">
+        <h1>Crear Nuevo Foro</h1>
+        <p>Completa la siguiente información para crear un nuevo foro dentro del sistema IB.</p>
+    </header>
+
+    <section class="crear-foro-form">
+        <form id="formForo">
+            <table>
+                <tr>
+                    <td><label for="titulo">Título del foro:</label></td>
+                    <td><input type="text" id="titulo" name="titulo" placeholder="Ej. Debate sobre el proyecto IB" required></td>
+                </tr>
+                <tr>
+                    <td><label for="materia">Materia:</label></td>
+                    <td>
+                        <select id="materia" name="materia" required>
+                            <option value="">Selecciona una materia</option>
+                            <option value="Matemáticas">Matemáticas</option>
+                            <option value="Física">Física</option>
+                            <option value="Inglés">Inglés</option>
+                            <option value="Ciencias">Ciencias</option>
+                            <option value="Gestión Empresarial">Gestión Empresarial</option>
+                            <option value="Otra">Otra</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="descripcion">Descripción:</label></td>
+                    <td><textarea id="descripcion" name="descripcion" placeholder="Describe el propósito del foro..." required></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="fecha">Fecha de creación:</label></td>
+                    <td><input type="date" id="fecha" name="fecha" required></td>
+                </tr>
+            </table>
+
+            <div class="botones">
+                <button type="button" class="btn-volver" onclick="window.history.back()">Volver</button>
+                <button type="submit" class="btn-crear">Crear Foro</button>
+            </div>
+        </form>
+    </section>
+
+    <script>
+        document.getElementById("formForo").addEventListener("submit", function(e) {
+            e.preventDefault();
+            alert("✅ Foro creado correctamente");
+        });
+    </script>
+
+</main>
+
+<style>
+:root {
+    --azul-oscuro: #005187;
+    --azul-medio: #4d82bc;
+    --azul-claro: #84b6f4;
+    --lila: #e4dafa;
+    --blanco: #feffff;
+}
+
+.crear-foro {
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.crear-foro-header {
+    text-align: center;
+    color: var(--azul-oscuro);
+    margin-bottom: 30px;
+}
+
+.crear-foro-header h1 {
+    margin-bottom: 10px;
+}
+
+.crear-foro-form {
+    background: var(--blanco);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 700px;
+}
+
+table {
+    width: 100%;
+    border-spacing: 15px;
+}
+
+td:first-child {
+    width: 30%;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--azul-claro);
+    font-size: 1rem;
+    font-family: inherit;
+    resize: none;
+}
+
+textarea {
+    height: 100px;
+}
+
+.botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    padding: 0.8rem 1.6rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-volver {
+    background-color: var(--azul-claro);
+    color: var(--azul-oscuro);
+}
+
+.btn-volver:hover {
+    background-color: var(--azul-medio);
+    color: var(--blanco);
+}
+
+.btn-crear {
+    background-color: var(--azul-medio);
+    color: var(--blanco);
+}
+
+.btn-crear:hover {
+    background-color: var(--azul-oscuro);
+}
+</style>
+{% endblock %}

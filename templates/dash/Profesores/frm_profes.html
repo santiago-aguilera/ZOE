@@ -1,0 +1,165 @@
+{% extends 'Layout.html' %}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #feffff;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--lila);
+        margin: 0;
+        color: var(--azul-oscuro);
+    }
+
+    .container {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: var(--blanco);
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 2rem 3rem;
+        text-align: center;
+        animation: fadeIn 0.6s ease;
+    }
+
+    h1 {
+        color: var(--azul-oscuro);
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        color: var(--azul-medio);
+        margin-bottom: 2rem;
+    }
+
+    form {
+        display: grid;
+        gap: 1.5rem;
+        text-align: left;
+    }
+
+    label {
+        font-weight: bold;
+        color: var(--azul-oscuro);
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 0.9rem;
+        border: 1px solid var(--azul-claro);
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: border 0.3s;
+    }
+
+    input:focus,
+    select:focus {
+        outline: none;
+        border-color: var(--azul-medio);
+    }
+
+    .botones {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+
+    .btn {
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-volver {
+        background-color: var(--azul-claro);
+        color: var(--blanco);
+    }
+
+    .btn-volver:hover {
+        background-color: var(--azul-medio);
+    }
+
+    .btn-crear {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+    }
+
+    .btn-crear:hover {
+        background-color: var(--azul-oscuro);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Registrar Nuevo Profesor</h1>
+        <p>Completa los siguientes campos para añadir un nuevo profesor al sistema.</p>
+
+        <form id="formProfesor">
+            <div>
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
+            </div>
+
+            <div>
+                <label for="materia">Materia que dicta:</label>
+                <input type="text" id="materia" name="materia" placeholder="Ej. Matemáticas, Física, Inglés..."
+                    required>
+            </div>
+
+            <div>
+                <label for="correo">Correo institucional:</label>
+                <input type="email" id="correo" name="correo" placeholder="Ej. juan.perez@colegio.edu" required>
+            </div>
+
+            <div>
+                <label for="telefono">Número de contacto (opcional):</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Ej. +57 300 123 4567">
+            </div>
+
+            <div>
+                <label for="anio">Grado asignado:</label>
+                <select id="anio" name="anio" required>
+                    <option value="">Selecciona un grado</option>
+                    <option value="Décimo">Décimo</option>
+                    <option value="Undécimo">Undécimo</option>
+                </select>
+            </div>
+
+            <div class="botones">
+                <button type="button" class="btn btn-volver" onclick="window.history.back()">Volver</button>
+                <button type="submit" class="btn btn-crear">Crear Profesor</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('formProfesor').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Profesor registrado exitosamente');
+            // Aquí en el futuro podrás conectar con la base de datos o backend
+        });
+    </script>
+</body>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #ffffff;
+        --gris-claro: #f8f9fa;
+        --verde: #4caf50;
+        --rojo: #f44336;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--lila);
+        margin: 0;
+        color: var(--azul-oscuro);
+    }
+
+    .contenedor {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: var(--blanco);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 1.5rem;
+        font-size: 40px;
+    }
+
+    .boton-crear {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+        float: right;
+        margin-bottom: 1.5rem;
+    }
+
+    .boton-crear:hover {
+        background-color: var(--azul-oscuro);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--gris-claro);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    thead {
+        background: var(--azul-oscuro);
+        color: var(--blanco);
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    th,
+    td {
+        padding: 1rem;
+        text-align: left;
+    }
+
+    tbody tr {
+        background: var(--blanco);
+        border-bottom: 1px solid #ddd;
+        transition: 0.3s;
+    }
+
+    tbody tr:hover {
+        background: #f2f6fc;
+    }
+
+    tbody td {
+        color: var(--azul-medio);
+    }
+
+    .acciones {
+        text-align: center;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        color: var(--blanco);
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-editar {
+        background-color: var(--verde);
+    }
+
+    .btn-editar:hover {
+        background-color: #3e8e41;
+    }
+
+    .btn-eliminar {
+        background-color: var(--rojo);
+    }
+
+    .btn-eliminar:hover {
+        background-color: #d32f2f;
+    }
+
+
+    .element {
+        display: block;  /* Forced by float */
+        float: right;
+    }
+</style>
+
+<div class="contenedor">
+    <h1>Gestión de Profesores</h1>
+    <a href="/crear_profesores" class="boton-crear">+ Agregar Profesor</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Materia</th>
+                <th>Correo</th>
+                <th class="acciones">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-label="#">1</td>
+                <td data-label="Nombre">María López</td>
+                <td data-label="Materia">Matemáticas</td>
+                <td data-label="Correo">maria.lopez@colegio.edu</td>
+                <td data-label="Acciones" class="acciones">
+                    <button class="btn btn-editar">Editar</button>
+                    <button class="btn btn-eliminar">Eliminar</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td data-label="#">2</td>
+                <td data-label="Nombre">Carlos Pérez</td>
+                <td data-label="Materia">Física</td>
+                <td data-label="Correo">carlos.perez@colegio.edu</td>
+                <td data-label="Acciones" class="acciones">
+                    <button class="btn btn-editar">Editar</button>
+                    <button class="btn btn-eliminar">Eliminar</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td data-label="#">3</td>
+                <td data-label="Nombre">Laura Gómez</td>
+                <td data-label="Materia">Inglés</td>
+                <td data-label="Correo">laura.gomez@colegio.edu</td>
+                <td data-label="Acciones" class="acciones">
+                    <button class="btn btn-editar">Editar</button>
+                    <button class="btn btn-eliminar">Eliminar</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td data-label="#">4</td>
+                <td data-label="Nombre">Andrés Castillo</td>
+                <td data-label="Materia">Química</td>
+                <td data-label="Correo">andres.castillo@colegio.edu</td>
+                <td data-label="Acciones" class="acciones">
+                    <button class="btn btn-editar">Editar</button>
+                    <button class="btn btn-eliminar">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
