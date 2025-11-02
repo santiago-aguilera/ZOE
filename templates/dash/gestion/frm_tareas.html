@@ -1,0 +1,162 @@
+{% extends "Layout.html"%}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #feffff;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--lila);
+        margin: 5px 0 20px 0;
+        color: var(--azul-oscuro);
+    }
+
+
+    h2 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+    }
+
+    .crear-tarea {
+        background-color: var(--blanco);
+        border: 2px solid var(--azul-claro);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        max-width: 750px;
+        margin: 0 auto;
+        transition: all 0.3s ease;
+    }
+
+    .crear-tarea:hover {
+        border-color: var(--azul-medio);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.3rem;
+        padding: 2rem;
+    }
+
+    label {
+        font-weight: 600;
+        color: var(--azul-oscuro);
+        margin-bottom: 0.4rem;
+        display: block;
+    }
+
+    input,
+    textarea,
+    select {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid var(--azul-claro);
+        border-radius: 10px;
+        background-color: var(--blanco);
+        color: var(--azul-oscuro);
+        font-size: 1rem;
+        font-family: "Poppins", sans-serif;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        outline: none;
+        border-color: var(--azul-medio);
+        box-shadow: 0 0 6px rgba(77, 130, 188, 0.4);
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    .botones {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    button {
+        background-color: var(--azul-medio);
+        border: none;
+        color: var(--blanco);
+        padding: 0.8rem 1.6rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: var(--azul-oscuro);
+    }
+
+    button[type="reset"] {
+        background-color: transparent;
+        border: 2px solid var(--azul-medio);
+        color: var(--azul-medio);
+    }
+
+    button[type="reset"]:hover {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+    }
+</style>
+</head>
+
+<body>
+<br>
+    <section class="crear-tarea">
+        <h2>Crear Nueva Tarea</h2>
+        <form method="POST" action="/crear-tarea">
+            <!-- Materia -->
+            <div>
+                <label for="materia">Materia</label>
+                <input type="text" id="materia" name="materia" placeholder="Ej: Matemáticas" required>
+            </div>
+
+            <!-- Fecha de entrega -->
+            <div>
+                <label for="fecha">Fecha de entrega</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+
+            <!-- Descripción -->
+            <div>
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" rows="4" placeholder="Escribe los detalles de la tarea..."
+                    required></textarea>
+            </div>
+
+            <!-- Año -->
+            <div>
+                <label for="anio">Año</label>
+                <select id="anio" name="anio" required>
+                    <option value="">Selecciona el año</option>
+                    <option value="10">Décimo</option>
+                    <option value="11">Once</option>
+                </select>
+            </div>
+
+            <!-- Botones -->
+            <div class="botones">
+                <button type="submit">Crear tarea</button>
+                <button type="reset">Limpiar</button>
+            </div>
+        </form>
+        <a href="/crear_tareas"><button type="button" class="volver">Volver</button></a>
+    </section>  
+</body>
+{% endblock %}

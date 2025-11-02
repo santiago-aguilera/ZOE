@@ -23,9 +23,25 @@ def main():
 def gestion():
     return render_template('pages/Gestion.html')
 
+@app.route('/tareas')
+def tareas():
+    return render_template('dash/gestion/das_1_g.html')
+
+@app.route('/realizado')
+def realizado():
+    return render_template('dash/gestion/das_2_g.html')
+
+@app.route('/crear_tareas')
+def crear_tareas():
+    return render_template('dash/gestion/das_3_g.html')
+
+@app.route('/nueva_tarea')
+def nueva_tarea():
+    return render_template('dash/gestion/frm_tareas.html')
+
 @app.route('/guias')
-def proyectos():
-    return render_template('pages/Proyectos.html')
+def guias():
+    return render_template('pages/Guias.html')
 
 @app.route('/cronograma')
 def cronograma():

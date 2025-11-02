@@ -1,0 +1,175 @@
+{% extends "Layout.html"%}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #feffff;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--lila);
+        margin: 0;
+        color: var(--azul-oscuro);
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+        font-size: 50px;
+    }
+
+    .acciones {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 1rem;
+        margin: 10px 10px;
+    }
+
+    .acciones button {
+        background-color: var(--azul-medio);
+        border: none;
+        color: var(--blanco);
+        padding: 0.7rem 1.2rem;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin: 10px 10px;
+    }
+
+    .acciones button:hover {
+        background-color: var(--azul-oscuro);
+    }
+
+    .tabla-tareas {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background-color: var(--blanco);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th {
+        background-color: var(--azul-oscuro);
+        color: var(--blanco);
+        text-align: left;
+        padding: 1rem;
+    }
+
+    td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--azul-claro);
+    }
+
+    tr:hover {
+        background-color: var(--lila);
+    }
+
+    .botones {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .editar {
+        background-color: var(--azul-medio);
+    }
+
+    .eliminar {
+        background-color: crimson;
+    }
+
+    .editar:hover {
+        background-color: var(--azul-oscuro);
+    }
+
+    .eliminar:hover {
+        background-color: darkred;
+    }
+
+    .botones button {
+        border: none;
+        color: var(--blanco);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 500;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 2rem;
+        color: var(--azul-oscuro);
+        font-size: 0.9rem;
+    }
+</style>
+</head>
+
+<body>
+
+    <h1>Crear y Gestionar Tareas</h1>
+
+    <div class="acciones">
+        <a href="/nueva_tarea"><button id="btnCrear">+ Nueva tarea</button></a>
+    </div>
+
+    <table class="tabla-tareas">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Materia</th>
+                <th>Fecha de entrega</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="listaTareas">
+            <tr>
+                <td>Informe Semanal</td>
+                <td>Gestión IB</td>
+                <td>10/11/2025</td>
+                <td>En progreso</td>
+                <td>
+                    <div class="botones">
+                        <button class="editar">Editar</button>
+                        <button class="eliminar">Eliminar</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Revisión de Evidencias</td>
+                <td>Matemáticas</td>
+                <td>12/11/2025</td>
+                <td>En progreso</td>
+                <td>
+                    <div class="botones">
+                        <button class="editar">Editar</button>
+                        <button class="eliminar">Eliminar</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Presentación Final</td>
+                <td>Ciencias</td>
+                <td>15/11/2025</td>
+                <td>Planificada</td>
+                <td>
+                    <div class="botones">
+                        <button class="editar">Editar</button>
+                        <button class="eliminar">Eliminar</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+{% endblock %}

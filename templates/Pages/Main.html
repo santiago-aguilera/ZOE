@@ -24,53 +24,14 @@
 
         body {
             background-color: var(--azul-claro);
-            display: flex;
-            height: 100vh;
+            min-height: 100vh;
         }
 
-        /* Barra lateral */
-        .sidebar {
-            width: 240px;
-            background-color: var(--azul-oscuro);
-            color: var(--blanco);
-            display: flex;
-            flex-direction: column;
-            padding-top: 20px;
-            border-radius: 8px;
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .menu-item:hover {
-            background-color: var(--azul-medio);
-        }
-
-        .menu-item i {
-            margin-right: 12px;
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Contenedor central */
         .main {
-            flex: 1;
-            background-color: var(--blanco);
             padding: 30px;
-            overflow-y: auto;
+            background-color: var(--blanco);
+            margin: 20px;
+            border-radius: 12px;
         }
 
         .main h2 {
@@ -91,6 +52,7 @@
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease;
+            text-align: center;
         }
 
         .card:hover {
@@ -100,7 +62,7 @@
         .card i {
             font-size: 30px;
             color: var(--azul-medio);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .card h3 {
@@ -114,19 +76,13 @@
             font-size: 14px;
         }
 
-        /* Barra superior opcional */
-        .top-bar {
-            background-color: var(--azul-oscuro);
-            color: var(--blanco);
-            padding: 10px 20px;
-            font-weight: 500;
-            text-align: center;
-        }
         section {
-            margin-bottom: 20px;
-            background-color: #005187;
-            padding: 70px;
-            color: white;
+
+            background-color: var(--azul-oscuro);
+            padding: 60px;
+            color: var(--blanco);
+            border-radius: 12px;
+            text-align: center;
         }
     </style>
 </head>
@@ -136,98 +92,52 @@
         <h2>Bienvenido, {{ usuario|capitalize }}</h2>
         <p>Esta es tu área personal donde puedes gestionar tus tareas y consultar información relevante.</p>
     </section>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="sidebar">
-                <h2>Menú</h2>
-                    <div class="p-6 space-y-5">
-                        <a href="/gestion" class="flex items-center space-x-3 hover:text-yellow-300 transition">
-                            <i class="fas fa-tasks"></i><span>Gestión</span>
-                        </a>
-                        <a href="/guias" class="flex items-center space-x-3 hover:text-yellow-300 transition">
-                            <i class="fas fa-book-open"></i><span>Guías</span>
-                        </a>
-                        <a href="/cronograma" class="flex items-center space-x-3 hover:text-yellow-300 transition">
-                            <i class="fas fa-calendar-alt"></i><span>Cronograma</span>
-                        </a>
-                        <a href="/profesores" class="flex items-center space-x-3 hover:text-yellow-300 transition">
-                            <i class="fas fa-chalkboard-teacher"></i><span>Profesores</span>
-                        </a>
-                        <a href="/estadisticas" class="flex items-center space-x-3 hover:text-yellow-300 transition">
-                            <i class="fas fa-chart-line"></i><span>Estadísticas</span>
-                        </a>
-                        <a href="/foros" class="flex items-center space-x-3 hover:text-yellow-300 transition">
-                            <i class="fas fa-comments"></i><span>Foros</span>
-                        </a>
-                        <a href="/base_datos" class="flex items-center space-x-3 hover:text-yellow-300 transition">
-                            <i class="fas fa-database"></i><span>Base de Datos</span>
-                        </a>
-                        <a href="/calendario" class="flex items-center space-x-3 hover:text-yellow-300 transition">
-                            <i class="fas fa-calendar-day"></i><span>Calendario</span>
-                        </a>
-                    </div>
-                </div>
+    
+    <div class="main">
+        <h2>Panel de Inicio</h2>
+        <div class="grid">
+            <div class="card">
+                <i class="fa-solid fa-envelope-open-text"></i>
+                <h3>Profesores</h3>
+                <p>Busca y charla con tus profesores.</p>
             </div>
-        </div>
-        <div class="col-md-8">
 
-            <div class="main">
+            <div class="card">
+                <i class="fa-solid fa-user-graduate"></i>
+                <h3>Foros</h3>
+                <p>Charla y consulta con tus amigos.</p>
+            </div>
 
-                <h2 style="color: var(--azul-oscuro); font-weight:600;">Panel de Inicio</h2>
+            <div class="card">
+                <i class="fa-solid fa-flask"></i>
+                <h3>Trabajos</h3>
+                <p>Sube tus tareas o revisa entregas pendientes.</p>
+            </div>
 
-                <div class="grid">
-                    <div class="card">
-                        <i class="fa-solid fa-envelope-open-text"></i>
-                        <h3>Mensajes</h3>
-                        <p>Tareas, avisos y actualizaciones recientes.</p>
-                    </div>
+            <div class="card">
+                <i class="fa-solid fa-book-open"></i>
+                <h3>Calendario</h3>
+                <p>Revisa todas tus actividades programadas.</p>
+            </div>
 
-                    <div class="card">
-                        <i class="fa-solid fa-user-graduate"></i>
-                        <h3>Curriculum</h3>
-                        <p>Consulta tu progreso académico y asignaturas.</p>
-                    </div>
+            <div class="card">
+                <i class="fa-solid fa-chart-column"></i>
+                <h3>Resultados</h3>
+                <p>Visualiza tus reportes de desempeño y progreso.</p>
+            </div>
 
-                    <div class="card">
-                        <i class="fa-solid fa-flask"></i>
-                        <h3>Trabajos</h3>
-                        <p>Sube tus tareas o revisa entregas pendientes.</p>
-                    </div>
+            <div class="card">
+                <i class="fa-solid fa-flask"></i>
+                <h3>Guias</h3>
+                <p>Revisa la informacion primordial para cada materia.</p>
+            </div>
 
-                    <div class="card">
-                        <i class="fa-solid fa-book-open"></i>
-                        <h3>Libro de Clase</h3>
-                        <p>Registros de actividades y seguimiento docente.</p>
-                    </div>
-
-                    <div class="card">
-                        <i class="fa-solid fa-square-check"></i>
-                        <h3>Calificaciones</h3>
-                        <p>Consulta tus notas actualizadas por asignatura.</p>
-                    </div>
-
-                    <div class="card">
-                        <i class="fa-solid fa-chart-column"></i>
-                        <h3>Resultados</h3>
-                        <p>Visualiza reportes de desempeño y progreso.</p>
-                    </div>
-
-                    <div class="card">
-                        <i class="fa-solid fa-user-check"></i>
-                        <h3>Asistencia</h3>
-                        <p>Revisa tus registros de asistencia y puntualidad.</p>
-                    </div>
-
-                    <div class="card">
-                        <i class="fa-solid fa-image"></i>
-                        <h3>Fotos</h3>
-                        <p>Galería multimedia de actividades y eventos.</p>
-                    </div>
-                </div>
+            <div class="card">
+                <i class="fa-solid fa-image"></i>
+                <h3>información</h3>
+                <p>Galería Informativa.</p>
             </div>
         </div>
     </div>
-</div>
 </body>
-
 {% endblock %}

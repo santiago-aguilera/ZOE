@@ -1,0 +1,143 @@
+{% extends "Layout.html"%}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #feffff;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--lila);
+        margin: 0;
+        color: var(--azul-oscuro);
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+        font-size: 60px;
+    }
+
+    .tarea {
+        background-color: var(--blanco);
+        border: 2px solid var(--azul-claro);
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        margin: 5px 30px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .tarea:hover {
+        border-color: var(--azul-medio);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .tarea-header {
+        padding: 1rem;
+        background-color: var(--azul-oscuro);
+        color: var(--blanco);
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tarea-header:hover {
+        background-color: var(--azul-medio);
+    }
+
+    .tarea-contenido {
+        display: none;
+        padding: 1rem 1.5rem;
+        background-color: var(--blanco);
+        border-top: 1px solid var(--azul-claro);
+    }
+
+    .tarea-contenido p {
+        margin: 0.5rem 0;
+    }
+
+    .botones {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        justify-content: flex-end;
+    }
+
+    button {
+        background-color: var(--azul-medio);
+        border: none;
+        color: var(--blanco);
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: var(--azul-oscuro);
+    }
+</style>
+</head>
+
+<body>
+
+    <h1>Mis Tareas</h1>
+
+    <div class="tarea">
+        <div class="tarea-header">Tarea 1</div>
+        <div class="tarea-contenido">
+            <p><strong>Tarea:</strong> Entregar informe semanal</p>
+            <p><strong>Descripción:</strong> Subir el documento PDF con los avances del proyecto IB.</p>
+            <div class="botones">
+                <button>Subir archivo</button>
+                <button>Ver más</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tarea">
+        <div class="tarea-header">Tarea 2</div>
+        <div class="tarea-contenido">
+            <p><strong>Tarea:</strong> Revisión de evidencias</p>
+            <p><strong>Descripción:</strong> Verifica que todos los archivos estén completos y con nombre correcto.</p>
+            <div class="botones">
+                <button>Subir archivo</button>
+                <button>Ver más</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tarea">
+        <div class="tarea-header">Tarea 3</div>
+        <div class="tarea-contenido">
+            <p><strong>Tarea:</strong> Preparar presentación</p>
+            <p><strong>Descripción:</strong> Crear diapositivas para la exposición final de la unidad.</p>
+            <div class="botones">
+                <button>Subir archivo</button>
+                <button>Ver más</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar / ocultar descripción al hacer clic
+        document.querySelectorAll('.tarea-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const contenido = header.nextElementSibling;
+                contenido.style.display = contenido.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+
+{% endblock %}

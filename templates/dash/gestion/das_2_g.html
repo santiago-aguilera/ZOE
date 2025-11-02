@@ -1,0 +1,147 @@
+{% extends "Layout.html"%}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #feffff;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--lila);
+        margin: 0;
+        color: var(--azul-oscuro);
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+        font-size: 60px;
+    }
+
+    .tareas-realizadas {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .tarea {
+        background-color: var(--blanco);
+        border: 2px solid var(--azul-claro);
+        border-radius: 10px;
+        padding: 1.2rem;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .tarea:hover {
+        border-color: var(--azul-medio);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .tarea-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--azul-claro);
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.7rem;
+        font-weight: 600;
+        color: var(--azul-oscuro);
+    }
+
+    .estado {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .tarea p {
+        margin: 0.4rem 0;
+    }
+
+    .botones {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 0.8rem;
+    }
+
+    button {
+        background-color: var(--azul-medio);
+        border: none;
+        color: var(--blanco);
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: var(--azul-oscuro);
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 2rem;
+        color: var(--azul-oscuro);
+        font-size: 0.9rem;
+    }
+</style>
+</head>
+
+<body>
+
+    <h1>Tareas Realizadas</h1>
+
+    <section class="tareas-realizadas">
+        <div class="tarea">
+            <div class="tarea-header">
+                <span>Tarea 1: Informe Semanal</span>
+                <span class="estado">Completada</span>
+            </div>
+            <p><strong>Descripción:</strong> Subiste el informe de progreso del proyecto IB.</p>
+            <p><strong>Fecha de entrega:</strong> 25 de octubre de 2025</p>
+            <p><strong>Comentario del docente:</strong> Excelente estructura y contenido.</p>
+            <div class="botones">
+                <button>Ver entrega</button>
+            </div>
+        </div>
+
+        <div class="tarea">
+            <div class="tarea-header">
+                <span>Tarea 2: Revisión de Evidencias</span>
+                <span class="estado">Completada</span>
+            </div>
+            <p><strong>Descripción:</strong> Verificaste los archivos requeridos y los organizaste correctamente.</p>
+            <p><strong>Fecha de entrega:</strong> 29 de octubre de 2025</p>
+            <p><strong>Comentario del docente:</strong> Todo correctamente nombrado y bien presentado.</p>
+            <div class="botones">
+                <button>Ver entrega</button>
+            </div>
+        </div>
+
+        <div class="tarea">
+            <div class="tarea-header">
+                <span>Tarea 3: Presentación Final</span>
+                <span class="estado">Completada</span>
+            </div>
+            <p><strong>Descripción:</strong> Subiste la presentación de PowerPoint con todos los puntos solicitados.</p>
+            <p><strong>Fecha de entrega:</strong> 31 de octubre de 2025</p>
+            <p><strong>Comentario del docente:</strong> Excelente trabajo en equipo y exposición.</p>
+            <div class="botones">
+                <button>Ver entrega</button>
+            </div>
+        </div>
+    </section>
+{% endblock %}
