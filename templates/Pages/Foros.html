@@ -1,5 +1,132 @@
 {% extends "layout.html" %}
 {% block content %}
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #ffffff;
+    }
+
+    .foro-visual {
+        font-family: 'Poppins', sans-serif;
+        padding: 40px;
+        background-color: var(--blanco);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .foro-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 85%;
+        max-width: 1100px;
+        margin-bottom: 40px;
+    }
+
+    .foro-header h1 {
+        color: var(--azul-oscuro);
+        font-size: 28px;
+        margin: 0;
+    }
+
+    .btn-ver {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+        border: none;
+        padding: 10px 18px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-ver:hover {
+        background-color: var(--azul-oscuro);
+    }
+
+    .foros-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+        width: 85%;
+        max-width: 1100px;
+    }
+
+    .foro-card {
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        padding: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: var(--blanco);
+        border-left: 6px solid transparent;
+    }
+
+    .foro-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Bordes diferenciados */
+    .matematicas {
+        border-left-color: var(--azul-oscuro);
+    }
+
+    .ingles {
+        border-left-color: var(--azul-medio);
+    }
+
+    .ciencias {
+        border-left-color: var(--azul-claro);
+    }
+
+    .gestion {
+        border-left-color: #bfa2e6;
+    }
+
+    /* tono lila más profundo */
+
+    .foro-card h3 {
+        color: var(--azul-oscuro);
+        margin-bottom: 8px;
+        font-size: 18px;
+    }
+
+    .foro-card p {
+        color: #333;
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .foro-card .fecha {
+        color: #666;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .btn-charlar {
+        align-self: flex-start;
+        background-color: var(--azul-claro);
+        color: var(--blanco);
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-charlar:hover {
+        background-color: var(--azul-medio);
+    }
+</style>
+
 <main class="foro-visual">
 
     <header class="foro-header">
@@ -8,28 +135,28 @@
     </header>
 
     <section class="foros-grid">
-        <div class="foro-card">
+        <div class="foro-card matematicas">
             <h3>Foro de Matemáticas</h3>
             <p>Discusión sobre los retos del análisis de datos en proyectos IB.</p>
             <span class="fecha">1 Nov 2025</span>
             <button class="btn-charlar">Charlar</button>
         </div>
 
-        <div class="foro-card">
+        <div class="foro-card ingles">
             <h3>Foro de Inglés</h3>
             <p>Espacio para compartir reflexiones del portafolio y mejorar ensayos.</p>
             <span class="fecha">28 Oct 2025</span>
             <button class="btn-charlar">Charlar</button>
         </div>
 
-        <div class="foro-card">
+        <div class="foro-card ciencias">
             <h3>Foro de Ciencias</h3>
             <p>Debate sobre energías renovables y su aplicación práctica.</p>
             <span class="fecha">25 Oct 2025</span>
             <button class="btn-charlar">Charlar</button>
         </div>
 
-        <div class="foro-card">
+        <div class="foro-card gestion">
             <h3>Foro de Gestión Empresarial</h3>
             <p>Foro para discutir estrategias y simulaciones de gestión IB.</p>
             <span class="fecha">20 Oct 2025</span>
@@ -39,101 +166,5 @@
 
 </main>
 
-<style>
-.foro-visual {
-    font-family: 'Poppins', sans-serif;
-    padding: 40px;
-    background-color: #f4f6fa;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-.foro-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 85%;
-    max-width: 1100px;
-    margin-bottom: 40px;
-}
-
-.foro-header h1 {
-    color: #007bff;
-    font-size: 24px;
-    margin: 0;
-}
-
-.btn-ver {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn-ver:hover {
-    background-color: #0056b3;
-}
-
-.foros-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
-    width: 85%;
-    max-width: 1100px;
-}
-
-.foro-card {
-    background-color: white;
-    border-radius: 14px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    padding: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.foro-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-.foro-card h3 {
-    color: #333;
-    margin-bottom: 8px;
-}
-
-.foro-card p {
-    color: #666;
-    font-size: 15px;
-    margin-bottom: 12px;
-}
-
-.foro-card .fecha {
-    color: #888;
-    font-size: 13px;
-    margin-bottom: 10px;
-}
-
-.btn-charlar {
-    align-self: flex-start;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.btn-charlar:hover {
-    background-color: #0056b3;
-}
-</style>
 {% endblock %}

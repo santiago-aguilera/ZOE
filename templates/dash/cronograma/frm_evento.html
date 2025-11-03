@@ -1,174 +1,172 @@
-{% extends "Layout.html"%}
+{% extends "Layout.html" %}
 {% block content %}
-    <style>
-        :root {
-            --azul-oscuro: #005187;
-            --azul-medio: #4d82bc;
-            --azul-claro: #84b6f4;
-            --lila: #e4dafa;
-            --blanco: #feffff;
-        }
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #ffffff;
+    }
 
-        body {
-            font-family: "Poppins", sans-serif;
-            background-color: var(--lila);
-            margin: 0;
-            color: var(--azul-oscuro);
-        }
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--lila);
+        margin: 0;
+        color: var(--azul-oscuro);
+    }
 
-        header {
-            background-color: var(--azul-oscuro);
-            color: var(--blanco);
-            text-align: center;
-            padding-top: 50px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border-radius: 10px 10px 0 0;
-            height: 100px;
-        }
+    header {
+        background-color: var(--azul-oscuro);
+        color: var(--blanco);
+        text-align: center;
+        padding: 40px 20px;
+        font-size: 1.8rem;
+        font-weight: 600;
+        border-radius: 10px 10px 0 0;
+    }
 
-        main {
-            background-color: var(--blanco);
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
+    main {
+        background-color: var(--blanco);
+        max-width: 700px;
+        margin: 2rem auto;
+        padding: 2.5rem;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
 
-        h2 {
-            text-align: center;
-            color: var(--azul-oscuro);
-            margin-bottom: 2rem;
-            font-size: 20px;
-        }
+    h2 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 10px;
-        }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
 
-        td {
-            padding: 0.5rem;
-            vertical-align: top;
-        }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
 
-        label {
-            font-weight: 600;
-            color: var(--azul-medio);
-        }
+    label {
+        font-weight: 600;
+        color: var(--azul-medio);
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
 
-        input, textarea, select {
-            width: 100%;
-            padding: 0.7rem;
-            border: 1px solid var(--azul-claro);
-            border-radius: 8px;
-            font-size: 1rem;
-            color: var(--azul-oscuro);
-        }
+    input,
+    textarea,
+    select {
+        padding: 0.8rem;
+        border: 1px solid var(--azul-claro);
+        border-radius: 8px;
+        font-size: 1rem;
+        color: var(--azul-oscuro);
+        background-color: #f9fbff;
+    }
 
-        textarea {
-            resize: none;
-            height: 80px;
-        }
+    textarea {
+        resize: none;
+        height: 90px;
+    }
 
-        .botones {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
-        }
+    .botones {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
 
-        button {
-            border: none;
-            padding: 0.9rem 1.5rem;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    button {
+        border: none;
+        padding: 0.9rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
 
-        .btn-volver {
-            background-color: var(--azul-claro);
-            color: var(--azul-oscuro);
-        }
+    .btn-volver {
+        background-color: var(--azul-claro);
+        color: var(--azul-oscuro);
+    }
 
-        .btn-volver:hover {
-            background-color: var(--azul-medio);
-            color: var(--blanco);
-        }
+    .btn-volver:hover {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+    }
 
-        .btn-crear {
-            background-color: var(--azul-medio);
-            color: var(--blanco);
-        }
+    .btn-crear {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+    }
 
-        .btn-crear:hover {
-            background-color: var(--azul-oscuro);
-        }
-    </style>
-</head>
-<body>
-    <header>Nuevo Evento</header>
+    .btn-crear:hover {
+        background-color: var(--azul-oscuro);
+    }
+</style>
 
-    <main>
-        <h2>Crear un nuevo evento del cronograma</h2>
+<header>Nuevo Evento</header>
 
-        <form id="formEvento">
-            <table>
-                <tr>
-                    <td><label for="titulo">Título del evento:</label></td>
-                    <td><input type="text" id="titulo" name="titulo" placeholder="Ej. Entrega de proyecto IB" required></td>
-                </tr>
+<main>
+    <h2>Crear un nuevo evento del cronograma</h2>
 
-                <tr>
-                    <td><label for="descripcion">Descripción:</label></td>
-                    <td><textarea id="descripcion" name="descripcion" placeholder="Detalles del evento..." required></textarea></td>
-                </tr>
+    <form id="formEvento">
+        <div class="form-group">
+            <label for="titulo">Título del evento:</label>
+            <input type="text" id="titulo" name="titulo" placeholder="Ej. Entrega de proyecto IB" required>
+        </div>
 
-                <tr>
-                    <td><label for="fecha">Fecha:</label></td>
-                    <td><input type="date" id="fecha" name="fecha" required></td>
-                </tr>
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" placeholder="Detalles del evento..." required></textarea>
+        </div>
 
-                <tr>
-                    <td><label for="hora">Hora:</label></td>
-                    <td><input type="time" id="hora" name="hora" required></td>
-                </tr>
+        <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+        </div>
 
-                <tr>
-                    <td><label for="tipo">Tipo de evento:</label></td>
-                    <td>
-                        <select id="tipo" name="tipo" required>
-                            <option value="">Selecciona una opción</option>
-                            <option value="Reunión">Reunión</option>
-                            <option value="Entrega">Entrega</option>
-                            <option value="Evaluación">Evaluación</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </td>
-                </tr>
+        <div class="form-group">
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" name="hora" required>
+        </div>
 
-                <tr>
-                    <td><label for="lugar">Lugar:</label></td>
-                    <td><input type="text" id="lugar" name="lugar" placeholder="Ej. Sala de conferencias, aula 302" required></td>
-                </tr>
-            </table>
+        <div class="form-group">
+            <label for="tipo">Tipo de evento:</label>
+            <select id="tipo" name="tipo" required>
+                <option value="">Selecciona una opción</option>
+                <option value="Reunión">Reunión</option>
+                <option value="Entrega">Entrega</option>
+                <option value="Evaluación">Evaluación</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
 
-            <div class="botones">
-                <button type="button" class="btn-volver" onclick="window.history.back()">Volver</button>
-                <button type="submit" class="btn-crear">Crear evento</button>
-            </div>
-        </form>
-    </main>
+        <div class="form-group">
+            <label for="lugar">Lugar:</label>
+            <input type="text" id="lugar" name="lugar" placeholder="Ej. Sala de conferencias, aula 302" required>
+        </div>
 
-    <script>
-        document.getElementById('formEvento').addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert('Evento creado correctamente');
-            // Aquí podrías guardar los datos en la base de datos o localStorage más adelante
-        });
-    </script>
-</body>
+        <div class="botones">
+            <button type="button" class="btn-volver" onclick="window.history.back()">Volver</button>
+            <button type="submit" class="btn-crear">Crear evento</button>
+        </div>
+    </form>
+</main>
+
+<script>
+    document.getElementById('formEvento').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Evento creado correctamente');
+        // Aquí podrías guardar los datos en la base de datos o localStorage más adelante
+    });
+</script>
 {% endblock %}

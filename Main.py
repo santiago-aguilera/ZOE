@@ -79,6 +79,14 @@ def ver_foros():
 def crear_foros():
     return render_template('dash/Foros/frm_foros.html')
 
+@app.route('/proyectos')
+def proy():
+    return render_template('pages/proyectos.html')
+
+@app.route('/informacion')
+def information():
+    return render_template('dash/coordinador/Informacion.html')
+
 #Call routes
 @app.route('/login')
 def dash():

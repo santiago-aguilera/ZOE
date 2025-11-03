@@ -1,54 +1,53 @@
 {% extends "layout.html" %}
 {% block content %}
-<main class="crear-foro">
+<main class="subir-info">
 
-    <header class="crear-foro-header">
-        <h1>Crear Nuevo Foro</h1>
-        <p>Completa la siguiente información para crear un nuevo foro dentro del sistema IB.</p>
+    <header class="subir-info-header">
+        <h1>Subir Información del Coordinador</h1>
+        <p>Adjunta documentos, comunicados o recursos relevantes para los estudiantes del programa IB.</p>
     </header>
 
-    <section class="crear-foro-form">
-        <form id="formForo">
+    <section class="subir-info-form">
+        <form id="formAdjunto">
             <div class="form-group">
-                <label for="titulo">Título del foro:</label>
-                <input type="text" id="titulo" name="titulo" placeholder="Ej. Debate sobre el proyecto IB" required>
+                <label for="titulo">Título del documento:</label>
+                <input type="text" id="titulo" name="titulo" placeholder="Ej. Guía de evaluación interna" required>
             </div>
 
             <div class="form-group">
-                <label for="materia">Materia:</label>
-                <select id="materia" name="materia" required>
-                    <option value="">Selecciona una materia</option>
-                    <option value="Matemáticas">Matemáticas</option>
-                    <option value="Física">Física</option>
-                    <option value="Inglés">Inglés</option>
-                    <option value="Ciencias">Ciencias</option>
-                    <option value="Gestión Empresarial">Gestión Empresarial</option>
-                    <option value="Otra">Otra</option>
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="Comunicado">Comunicado</option>
+                    <option value="Guía">Guía</option>
+                    <option value="Formato">Formato</option>
+                    <option value="Otro">Otro</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" placeholder="Describe el propósito del foro..."
+                <textarea id="descripcion" name="descripcion" placeholder="Describe brevemente el contenido..."
                     required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="fecha">Fecha de creación:</label>
-                <input type="date" id="fecha" name="fecha" required>
+                <label for="archivo">Adjuntar archivo:</label>
+                <input type="file" id="archivo" name="archivo" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.png"
+                    required>
             </div>
 
             <div class="botones">
                 <button type="button" class="btn-volver" onclick="window.history.back()">Volver</button>
-                <button type="submit" class="btn-crear">Crear Foro</button>
+                <button type="submit" class="btn-subir">Subir Información</button>
             </div>
         </form>
     </section>
 
     <script>
-        document.getElementById("formForo").addEventListener("submit", function (e) {
+        document.getElementById("formAdjunto").addEventListener("submit", function (e) {
             e.preventDefault();
-            alert("✅ Foro creado correctamente");
+            alert("Información subida correctamente");
         });
     </script>
 
@@ -63,7 +62,7 @@
         --blanco: #feffff;
     }
 
-    .crear-foro {
+    .subir-info {
         font-family: "Poppins", sans-serif;
         min-height: 100vh;
         padding: 40px 20px;
@@ -73,30 +72,31 @@
         align-items: center;
     }
 
-    .crear-foro-header {
+    .subir-info-header {
         text-align: center;
         color: var(--azul-oscuro);
         margin-bottom: 30px;
     }
 
-    .crear-foro-header h1 {
+    .subir-info-header h1 {
         font-size: 2rem;
         margin-bottom: 10px;
         font-weight: 600;
     }
 
-    .crear-foro-header p {
+    .subir-info-header p {
         font-size: 1rem;
         color: #333;
     }
 
-    .crear-foro-form {
+    .subir-info-form {
         background: var(--blanco);
         padding: 2.5rem;
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         width: 100%;
         max-width: 700px;
+        margin-bottom: 40px;
     }
 
     .form-group {
@@ -155,13 +155,47 @@
         color: var(--blanco);
     }
 
-    .btn-crear {
+    .btn-subir {
         background-color: var(--azul-medio);
         color: var(--blanco);
     }
 
-    .btn-crear:hover {
+    .btn-subir:hover {
         background-color: var(--azul-oscuro);
+    }
+
+    .visualizacion {
+        width: 100%;
+        max-width: 700px;
+        background-color: var(--blanco);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .visualizacion h2 {
+        font-size: 1.3rem;
+        color: var(--azul-oscuro);
+        margin-bottom: 1rem;
+    }
+
+    .archivo-lista {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .archivo-lista li {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #eee;
+        font-size: 0.95rem;
+        color: #333;
+    }
+
+    .archivo-meta {
+        display: block;
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 4px;
     }
 </style>
 {% endblock %}

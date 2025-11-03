@@ -1,179 +1,184 @@
 {% extends "Layout.html" %}
 {% block content %}
 
-  <style>
-    :root {
-      --azul-oscuro: #005187;
-      --azul-medio: #4d82bc;
-      --azul-claro: #84b6f4;
-      --lila: #e4dafa;
-      --blanco: #feffff;
-    }
+<style>
+  :root {
+    --azul-oscuro: #003f6b;
+    --azul-medio: #4d82bc;
+    --azul-claro: #dceeff;
+    --lila: #f3f0fa;
+    --blanco: #ffffff;
+    --gris-texto: #5f6c7b;
+    --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
 
-    body {
-      font-family: "Poppins", sans-serif;
-      background-color: var(--lila);
-      margin: 0;
-      color: var(--azul-oscuro);
-    }
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--lila);
+    margin: 0;
+    color: var(--azul-oscuro);
+  }
 
-    h1,
-    h2 {
-      text-align: center;
-      color: var(--azul-oscuro);
-    }
+  h1, h2 {
+    text-align: center;
+    margin: 0;
+  }
 
+  .explicacion {
+    background-color: var(--azul-oscuro);
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+    color: var(--blanco);
+    box-shadow: var(--sombra-suave);
+  }
 
-    .explicacion {
-      background-color: var(--azul-oscuro);
-      border: 2px solid var(--blanco);
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      margin: auto;
-      color: var(--blanco);
-    }
-    .explicacion h1 {
-      font-size: 34px;
-      margin-bottom: 0.5rem;
-      color: var(--blanco);
-    }
-    .explicacion h2 {
-      font-size: 20px;
-      margin-bottom: 1rem;
-      color: var(--blanco);
-    }
+  .explicacion h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
 
-    .cronograma {
-      max-width: 900px;
-      margin: 2rem auto;
-      background-color: var(--blanco);
-      border-radius: 12px;
-      border: 2px solid var(--azul-claro);
-      padding: 1.8rem;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    }
+  .explicacion h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
 
-    .cronograma h2 {
-      text-align: center;
-      color: var(--azul-medio);
-      margin-bottom: 1.5rem;
-      font-size: 15px;
-    }
+  .explicacion p {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
 
-    .evento {
-      background-color: var(--blanco);
-      border: 2px solid var(--azul-claro);
-      border-radius: 10px;
-      padding: 1rem 1.2rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-    }
+  .cronograma {
+    background-color: var(--blanco);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--sombra-suave);
+    margin: 2rem auto;
+    max-width: 900px;
+    border-left: 6px solid var(--azul-medio);
+  }
 
-    .evento:hover {
-      border-color: var(--azul-medio);
-      transform: translateY(-3px);
-    }
+  .cronograma h2 {
+    font-size: 1.4rem;
+    color: var(--azul-medio);
+    margin-bottom: 1.5rem;
+  }
 
-    .evento strong {
-      color: var(--azul-oscuro);
-    }
+  .evento {
+    background-color: var(--azul-claro);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+  }
 
-    .agregar-evento {
-      max-width: 700px;
-      margin: 3rem auto;
-      background-color: var(--azul-medio);
-      color: var(--blanco);
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-    }
+  .evento:hover {
+    transform: scale(1.02);
+  }
 
-    .agregar-evento h2 {
-      color: var(--blanco);
-      margin-bottom: 1rem;
-    }
+  .evento strong {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--azul-oscuro);
+    margin-bottom: 0.3rem;
+  }
 
-    .agregar-evento p {
-      margin-bottom: 1.5rem;
-      font-size: 1rem;
-    }
+  .evento em {
+    display: block;
+    color: var(--gris-texto);
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+  }
 
-    .btn-agregar {
-      background-color: var(--blanco);
-      color: var(--azul-oscuro);
-      border: none;
-      padding: 0.8rem 1.6rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
+  .agregar-evento {
+    background-color: var(--azul-medio);
+    color: var(--blanco);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--sombra-suave);
+    max-width: 700px;
+    margin: 3rem auto;
+  }
 
-    .btn-agregar:hover {
-      background-color: var(--azul-claro);
-      color: var(--azul-oscuro);
-    }
-  </style>
-</head>
+  .agregar-evento h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
 
-<body>
-  <br>
-    <section class="explicacion">
-      <h1>Cronograma General</h1>
-      <h2>Organiza, Planea y Visualiza</h2>
-      <p>
-        Bienvenido al módulo de <strong>Cronograma</strong>.
-        Aquí podrás llevar el control de todos tus eventos importantes, como entregas de proyectos, reuniones,
-        actividades
-        del IB, y mucho más.
-        Próximamente podrás agregar, editar y eliminar tus eventos fácilmente, manteniendo todo organizado por fechas y
-        prioridades.
-      </p>
+  .agregar-evento p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-agregar {
+    background-color: var(--blanco);
+    color: var(--azul-oscuro);
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-agregar:hover {
+    background-color: var(--azul-claro);
+  }
+
+</style>
+
+<section class="explicacion">
+  <h1>Cronograma General</h1>
+  <p>
+    Bienvenido al módulo de <strong>Cronograma</strong>. Aquí podrás llevar el control de todos tus eventos importantes, como entregas de proyectos, reuniones, actividades del IB, y mucho más. Próximamente podrás agregar, editar y eliminar tus eventos fácilmente, manteniendo todo organizado por fechas y prioridades.
+  </p>
+</section>
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-5">
+    <section class="cronograma">
+      <h2>Eventos Programados</h2>
+
+      <div class="evento">
+        <strong>Entrega de Portafolio IB</strong>
+        <em>5 de noviembre de 2025</em>
+        <em>Hora: 8:00 AM</em>
+        <em>Lugar: Aula de informática</em>
+      </div>
+
+      <div class="evento">
+        <strong>Simulacro de Evaluación IB</strong>
+        <em>10 de noviembre de 2025</em>
+        <em>Hora: 9:30 AM</em>
+        <em>Lugar: Auditorio principal</em>
+      </div>
+
+      <div class="evento">
+        <strong>Entrega del Proyecto de Ciencias</strong>
+        <em>15 de noviembre de 2025</em>
+        <em>Hora: 7:00 AM</em>
+        <em>Lugar: Laboratorio 2</em>
+      </div>
     </section>
-  <br>
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-5"><!-- Cronograma general -->
-      <section class="cronograma">
-        <h2>Eventos Programados</h2>
-
-        <div class="evento">
-          <strong>Entrega de Portafolio IB</strong><br>
-          <em>5 de noviembre de 2025</em><br>
-          <em>Hora: 8:00 AM</em><br>
-          <em>Lugar: Aula de informática</em>
-        </div>
-
-        <div class="evento">
-          <strong>Simulacro de Evaluación IB</strong><br>
-          <em>10 de noviembre de 2025</em><br>
-          <em>Hora: 9:30 AM</em><br>
-          <em>Lugar: Auditorio principal</em>
-        </div>
-
-        <div class="evento">
-          <strong>Entrega del Proyecto de Ciencias</strong><br>
-          <em>15 de noviembre de 2025</em><br>
-          <em>Hora: 7:00 AM</em><br>
-          <em>Lugar: Laboratorio 2</em>
-        </div>
-      </section>
-    </div>
-    <div class="col-md-5"> <!-- Agregar nuevo evento -->
-      <section class="agregar-evento">
-        <h2>Agregar Nuevo Evento</h2>
-        <p>
-          Aquí podrás registrar tus próximos eventos y actividades importantes para que aparezcan en el cronograma
-          general.
-        </p>
-        <a href="/eventos"><button class="btn-agregar">+ Añadir Evento</button></a>
-      </section>
-    </div>
   </div>
-</body>
+
+  <div class="col-md-5">
+    <section class="agregar-evento">
+      <h2>Agregar Nuevo Evento</h2>
+      <p>
+        Aquí podrás registrar tus próximos eventos y actividades importantes para que aparezcan en el cronograma general.
+      </p>
+      <a href="/eventos"><button class="btn-agregar">+ Añadir Evento</button></a>
+    </section>
+  </div>
+</div>
+
 {% endblock %}

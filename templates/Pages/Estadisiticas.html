@@ -1,103 +1,156 @@
-{% extends 'Layout.html'%}
+{% extends 'Layout.html' %}
 {% block content %}
 <style>
-    :root {
-      --azul-oscuro: #005187;
-      --azul-medio: #4d82bc;
-      --azul-claro: #84b6f4;
-      --lila: #e4dafa;
-      --blanco: #feffff;
-    }
+  :root {
+    --azul-oscuro: #005187;
+    --verde: #4CAF50;
+    --naranja: #FF9800;
+    --morado: #9C27B0;
+    --gris-claro: #f5f5f5;
+    --blanco: #feffff;
+    --lila: #e4dafa;
+  }
 
-    body {
-      font-family: "Poppins", sans-serif;
-      background-color: var(--lila);
-      color: var(--azul-oscuro);
-      margin: 0;
-    }
+  body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, var(--lila), var(--blanco));
+    color: var(--azul-oscuro);
+    margin: 0;
+  }
 
-    h1 {
-      text-align: center;
-      color: var(--azul-oscuro);
-      padding-top: 2rem;
-      font-size: 40px;
-    }
+  h1 {
+    text-align: center;
+    color: var(--azul-oscuro);
+    padding-top: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
 
-    .estadisticas {
-      background-color: var(--blanco);
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    }
+  .estadisticas {
+    background-color: var(--gris-claro);
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
 
-    .barra {
-      margin: 1rem 0;
-    }
+  .barra {
+    margin: 1.5rem 0;
+  }
 
-    .label {
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-    }
+  .label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
 
-    .progress {
-      background-color: var(--azul-claro);
-      border-radius: 10px;
-      height: 25px;
-      overflow: hidden;
-    }
+  .progress {
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    height: 30px;
+    overflow: hidden;
+  }
 
-    .progreso {
-      background-color: var(--azul-medio);
-      height: 100%;
-      border-radius: 10px;
-      text-align: right;
-      color: var(--blanco);
-      font-size: 0.9rem;
-      font-weight: bold;
-      padding-right: 0.5rem;
-      transition: width 0.5s ease;
-    }
+  .progreso {
+    height: 100%;
+    border-radius: 12px;
+    text-align: right;
+    color: var(--blanco);
+    font-size: 1rem;
+    font-weight: bold;
+    padding-right: 0.7rem;
+    animation: expand 1s ease-out;
+  }
 
-    .resumen {
-      text-align: center;
-      margin-top: 2rem;
-      color: var(--azul-oscuro);
-    }
+  .completadas {
+    background-color: var(--verde);
+  }
 
-  </style>
-</head>
-<body>
+  .pendientes {
+    background-color: var(--naranja);
+  }
 
-  <h1>Mis Estadísticas</h1>
+  .promedio {
+    background-color: var(--morado);
+  }
 
-  <section class="estadisticas">
-    <div class="barra">
-      <div class="label">Tareas completadas</div>
-      <div class="progress">
-        <div class="progreso" style="width: 75%;">75%</div>
-      </div>
+  @keyframes expand {
+    from { width: 0; }
+    to { width: var(--width); }
+  }
+
+  .resumen {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    color: var(--azul-oscuro);
+  }
+
+  .iconos {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .iconos div {
+    font-size: 1rem;
+  }
+
+  .iconos span {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .grafico {
+    max-width: 400px;
+    margin: 2rem auto;
+  }
+</style>
+
+<h1>Mis Estadísticas</h1>
+
+<section class="estadisticas">
+  <div class="barra">
+    <div class="label">Tareas completadas</div>
+    <div class="progress">
+      <div class="progreso completadas" style="--width: 75%; width: 75%;">75%</div>
     </div>
+  </div>
 
-    <div class="barra">
-      <div class="label">Tareas pendientes</div>
-      <div class="progress">
-        <div class="progreso" style="width: 25%; background-color: var(--azul-claro);">25%</div>
-      </div>
+  <div class="barra">
+    <div class="label">Tareas pendientes</div>
+    <div class="progress">
+      <div class="progreso pendientes" style="--width: 25%; width: 25%;">25%</div>
     </div>
+  </div>
 
-    <div class="barra">
-      <div class="label">Promedio general</div>
-      <div class="progress">
-        <div class="progreso" style="width: 82%;">82%</div>
-      </div>
+  <div class="barra">
+    <div class="label">Promedio general</div>
+    <div class="progress">
+      <div class="progreso promedio" style="--width: 82%; width: 82%;">82%</div>
     </div>
+  </div>
 
-    <div class="resumen">
-      <p><strong>Resumen:</strong> Has completado la mayoría de tus tareas con buen rendimiento. ¡Sigue así!</p>
+  <div class="iconos">
+    <div>
+      <span>75%</span>
+      <br>Tareas completadas
     </div>
-  </section>
+    <div>
+      <span>25%</span>
+      <br>Tareas pendientes
+    </div>
+    <div>
+      <span>82%</span>
+      <br>Promedio general
+    </div>
+  </div>
 
-</body>
+  <div class="resumen">
+    <p><strong>Resumen:</strong> Has completado la mayoría de tus tareas con buen rendimiento. ¡Sigue así!</p>
+  </div>
+</section>
 {% endblock %}

@@ -14,6 +14,9 @@
         background-color: var(--lila);
         margin: 0;
         color: var(--azul-oscuro);
+        background-color: #f7f9fb;
+        font-family: 'Poppins', sans-serif;
+        color: #333;
     }
 
     h1 {
@@ -24,39 +27,51 @@
         font-size: 50px;
     }
 
-    .acciones {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 1rem;
-        margin: 10px 10px;
-    }
 
-    .acciones button {
-        background-color: var(--azul-medio);
+
+    .btn-nueva {
+        background-color: #4a90e2;
+        color: white;
+        padding: 10px 30px;
         border: none;
-        color: var(--blanco);
-        padding: 0.7rem 1.2rem;
-        border-radius: 6px;
+        border-radius: 10px;
         font-weight: 500;
         cursor: pointer;
-        transition: background-color 0.3s;
-        margin: 10px 10px;
+        transition: 0.3s;
     }
 
-    .acciones button:hover {
-        background-color: var(--azul-oscuro);
+    .btn-nueva:hover {
+        background-color: #2e6cb8;
+        transform: scale(1.03);
     }
+
+    .btn-container {
+        width: 65%;
+        margin: 0 auto 15px auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+
 
     .tabla-tareas {
         width: 100%;
-        max-width: 900px;
+        max-width: 1000px;
         margin: 0 auto;
         border-collapse: collapse;
         background-color: var(--blanco);
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin: 40px auto;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        width: 85%;
+
     }
+
 
     th {
         background-color: var(--azul-oscuro);
@@ -104,22 +119,17 @@
         transition: background-color 0.3s;
         font-weight: 500;
     }
-
-    footer {
-        text-align: center;
-        margin-top: 2rem;
-        color: var(--azul-oscuro);
-        font-size: 0.9rem;
-    }
 </style>
 </head>
 
 <body>
 
-    <h1>Crear y Gestionar Tareas</h1>
+    <div class="header-tareas">
+        <h1>Crear y Gestionar Tareas</h1>
+    </div>
 
-    <div class="acciones">
-        <a href="/nueva_tarea"><button id="btnCrear">+ Nueva tarea</button></a>
+    <div class="btn-container">
+        <a href="/nueva_tarea"><button class="btn-nueva">+ Nueva tarea</button></a>
     </div>
 
     <table class="tabla-tareas">

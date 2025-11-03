@@ -2,92 +2,99 @@
 {% block content %}
 <style>
   :root {
-    --azul-oscuro: #005187;
+    --azul-oscuro: #003f6b;
     --azul-medio: #4d82bc;
-    --azul-claro: #84b6f4;
-    --lila: #e4dafa;
-    --blanco: #feffff;
+    --azul-claro: #dceeff;
+    --gris-fondo: #f4f6f9;
+    --gris-texto: #5f6c7b;
+    --blanco: #ffffff;
+    --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.06);
   }
 
   body {
     font-family: "Poppins", sans-serif;
-    background-color: var(--lila);
+    background-color: var(--gris-fondo);
     margin: 0;
     color: var(--azul-oscuro);
   }
 
   h1 {
     text-align: center;
+    font-size: 2.5rem;
+    margin: 2rem 0 1rem;
+    margin-bottom: 4rem;
     color: var(--azul-oscuro);
-    padding-top: 2rem;
-    font-size: 50px;
   }
 
-  .profesores {
-    width: 900px;
-    margin: 0 auto;
-    background: var(--blanco);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  .contenedor-profesores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+    padding: 0 1rem;
   }
 
-  .profesor {
-    border: 2px solid var(--azul-claro);
-    border-radius: 10px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    transition: 0.3s;
+  .tarjeta-profesor {
+    background-color: var(--blanco);
+    border-left: 6px solid var(--azul-claro);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.3s ease;
   }
 
-  .profesor:hover {
-    border-color: var(--azul-medio);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  .tarjeta-profesor:hover {
+    transform: scale(1.02);
   }
 
-  .profesor h3 {
+  .tarjeta-profesor h3 {
     margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
     color: var(--azul-oscuro);
   }
 
-  .profesor p {
-    margin: 0.3rem 0;
-    color: var(--azul-medio);
+  .tarjeta-profesor p {
+    margin: 0.4rem 0;
+    color: var(--gris-texto);
+    font-size: 0.95rem;
   }
 
-  .profesor button {
-    margin-top: 0.5rem;
+  .tarjeta-profesor button {
+    margin-top: 0.8rem;
     background: var(--azul-medio);
     border: none;
     color: var(--blanco);
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 8px;
-    font-weight: bold;
+    font-weight: 500;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
   }
 
-  .profesor button:hover {
+  .tarjeta-profesor button:hover {
     background: var(--azul-oscuro);
   }
 
-  .crear-profesor {
-    margin-top: 2rem;
+  .ver-profesores {
     text-align: center;
+    margin-bottom: 3rem;
   }
 
-  .btn-crear {
+  .btn-ver {
     background: var(--azul-medio);
     border: none;
     color: var(--blanco);
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 0.8rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
   }
 
-  .btn-crear:hover {
+  .btn-ver:hover {
     background: var(--azul-oscuro);
   }
 
@@ -100,19 +107,18 @@
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
   }
 
   .modal-content {
     background-color: var(--blanco);
-    margin: 10% auto;
+    margin: 8% auto;
     padding: 2rem;
-    border: 2px solid var(--azul-claro);
+    border-left: 6px solid var(--azul-claro);
     width: 90%;
     max-width: 500px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    border-radius: 16px;
+    box-shadow: var(--sombra-suave);
   }
 
   .close {
@@ -135,6 +141,7 @@
     border-radius: 8px;
     font-size: 1rem;
     resize: none;
+    background-color: var(--gris-fondo);
   }
 
   button[type="submit"] {
@@ -145,7 +152,7 @@
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
   }
 
   button[type="submit"]:hover {
@@ -153,80 +160,77 @@
   }
 </style>
 
-<body>
-  <h1>Profesores Registrados</h1>
+<h1>Profesores Registrados</h1>
 
-  <section class="profesores">
-    <div class="profesor">
-      <h3>María Rodríguez</h3>
-      <p><strong>Materia:</strong> Matemáticas</p>
-      <p><strong>Correo:</strong> maria.rodriguez@colegio.edu</p>
-      <button onclick="abrirModal('María Rodríguez', 'maria.rodriguez@colegio.edu')">Enviar mensaje</button>
-    </div>
-
-    <div class="profesor">
-      <h3>Carlos Gómez</h3>
-      <p><strong>Materia:</strong> Física</p>
-      <p><strong>Correo:</strong> carlos.gomez@colegio.edu</p>
-      <button onclick="abrirModal('Carlos Gómez', 'carlos.gomez@colegio.edu')">Enviar mensaje</button>
-    </div>
-
-    <div class="profesor">
-      <h3>Laura Sánchez</h3>
-      <p><strong>Materia:</strong> Química</p>
-      <p><strong>Correo:</strong> laura.sanchez@colegio.edu</p>
-      <button onclick="abrirModal('Laura Sánchez', 'laura.sanchez@colegio.edu')">Enviar mensaje</button>
-    </div>
-
-    <div class="profesor">
-      <h3>Andrés Pérez</h3>
-      <p><strong>Materia:</strong> Inglés</p>
-      <p><strong>Correo:</strong> andres.perez@colegio.edu</p>
-      <button onclick="abrirModal('Andrés Pérez', 'andres.perez@colegio.edu')">Enviar mensaje</button>
-    </div>
-
-    <div class="profesor">
-      <h3>Paula Rojas</h3>
-      <p><strong>Materia:</strong> Historia</p>
-      <p><strong>Correo:</strong> paula.rojas@colegio.edu</p>
-      <button onclick="abrirModal('Paula Rojas', 'paula.rojas@colegio.edu')">Enviar mensaje</button>
-    </div>
-
-    <div class="crear-profesor">
-      <a href="/ver_profesores"><button class="btn-crear" id="abrirModalCrear">Ver Profesores</button></a>
-    </div>
-  </section>
-
-  <div id="modalMensaje" class="modal">
-    <div class="modal-content">
-      <span class="close" id="cerrarModalMensaje">&times;</span>
-      <h2 id="nombreProfesor"></h2>
-      <p id="correoProfesor" style="color: var(--azul-medio); font-weight: bold;"></p>
-      <form>
-        <input type="text" placeholder="Asunto del mensaje" required>
-        <textarea rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
+<section class="contenedor-profesores">
+  <div class="tarjeta-profesor">
+    <h3>María Rodríguez</h3>
+    <p><strong>Materia:</strong> Matemáticas</p>
+    <p><strong>Correo:</strong> maria.rodriguez@colegio.edu</p>
+    <button onclick="abrirModal('María Rodríguez', 'maria.rodriguez@colegio.edu')">Enviar mensaje</button>
   </div>
 
-  <script>
-    const modalMensaje = document.getElementById("modalMensaje");
-    const cerrarMensaje = document.getElementById("cerrarModalMensaje");
-    const nombreProf = document.getElementById("nombreProfesor");
-    const correoProf = document.getElementById("correoProfesor");
+  <div class="tarjeta-profesor">
+    <h3>Carlos Gómez</h3>
+    <p><strong>Materia:</strong> Física</p>
+    <p><strong>Correo:</strong> carlos.gomez@colegio.edu</p>
+    <button onclick="abrirModal('Carlos Gómez', 'carlos.gomez@colegio.edu')">Enviar mensaje</button>
+  </div>
 
-    function abrirModal(nombre, correo) {
-      nombreProf.textContent = "Mensaje para " + nombre;
-      correoProf.textContent = correo;
-      modalMensaje.style.display = "block";
-    }
+  <div class="tarjeta-profesor">
+    <h3>Laura Sánchez</h3>
+    <p><strong>Materia:</strong> Química</p>
+    <p><strong>Correo:</strong> laura.sanchez@colegio.edu</p>
+    <button onclick="abrirModal('Laura Sánchez', 'laura.sanchez@colegio.edu')">Enviar mensaje</button>
+  </div>
 
-    cerrarMensaje.onclick = () => modalMensaje.style.display = "none";
-    window.onclick = (e) => {
-      if (e.target == modalCrear) modalCrear.style.display = "none";
-      if (e.target == modalMensaje) modalMensaje.style.display = "none";
-    };
-  </script>
-</body>
+  <div class="tarjeta-profesor">
+    <h3>Andrés Pérez</h3>
+    <p><strong>Materia:</strong> Inglés</p>
+    <p><strong>Correo:</strong> andres.perez@colegio.edu</p>
+    <button onclick="abrirModal('Andrés Pérez', 'andres.perez@colegio.edu')">Enviar mensaje</button>
+  </div>
+
+  <div class="tarjeta-profesor">
+    <h3>Paula Rojas</h3>
+    <p><strong>Materia:</strong> Historia</p>
+    <p><strong>Correo:</strong> paula.rojas@colegio.edu</p>
+    <button onclick="abrirModal('Paula Rojas', 'paula.rojas@colegio.edu')">Enviar mensaje</button>
+  </div>
+</section>
+
+<div class="ver-profesores">
+  <a href="/ver_profesores"><button class="btn-ver">Ver Todos los Profesores</button></a>
+</div>
+
+<div id="modalMensaje" class="modal">
+  <div class="modal-content">
+    <span class="close" id="cerrarModalMensaje">&times;</span>
+    <h2 id="nombreProfesor"></h2>
+    <p id="correoProfesor" style="color: var(--azul-medio); font-weight: bold;"></p>
+    <form>
+      <input type="text" placeholder="Asunto del mensaje" required>
+      <textarea rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const modalMensaje = document.getElementById("modalMensaje");
+  const cerrarMensaje = document.getElementById("cerrarModalMensaje");
+  const nombreProf = document.getElementById("nombreProfesor");
+  const correoProf = document.getElementById("correoProfesor");
+
+  function abrirModal(nombre, correo) {
+    nombreProf.textContent = "Mensaje para " + nombre;
+    correoProf.textContent = correo;
+    modalMensaje.style.display = "block";
+  }
+
+  cerrarMensaje.onclick = () => modalMensaje.style.display = "none";
+  window.onclick = (e) => {
+    if (e.target == modalMensaje) modalMensaje.style.display = "none";
+  };
+</script>
 {% endblock %}
