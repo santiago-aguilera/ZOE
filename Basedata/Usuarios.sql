@@ -8,13 +8,13 @@ CREATE TABLE Usuario (
 );
 
 INSERT INTO Usuario(Nombre,Email,Contraseña,Rol)
-VALUES("Michael Pereira", "mpfran0919@gmail.com", "Adm3541","Administrador");
+VALUES("Michael Pereira", "mpfran0919@gmail.com", "Adm3541","Estudiante");
 
 INSERT INTO Usuario(Nombre,Email,Contraseña,Rol)
-VALUES("Santiago Aguilera", "santiago.aguilera681@hotmail.com", "Adm3542","Administador");
+VALUES("Santiago Aguilera", "santiago.aguilera681@hotmail.com", "Adm3542","Estudiamte");
 
 INSERT INTO Usuario(Nombre,Email,Contraseña,Rol)
-VALUES("Sofia Hernandez","Shernd@gmail.com","Adm3543","Administrador");
+VALUES("Sofia Hernandez","Shernd@gmail.com","Adm3543","Estudiante");
 
 INSERT INTO Usuario(Nombre,Email,Contraseña,Rol)
-VALUES("Maria Fernanda","marifer1@gmail.com","Adm3544","Administrador");
+VALUES("Maria Fernanda","marifer1@gmail.com","Adm3544","Estudiante");
