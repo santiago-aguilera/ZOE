@@ -1,6 +1,11 @@
 #import lybraries
 from flask import Flask, render_template, request,redirect,url_for
 from Controlador.controlador_login import validar_login
+
+
+
+from Basedata.data  import conectar_db as cb
+
 #llamar librerias y clases
 #instanciar: Dentro de mi paquete tengogo muchos aetes adicionales y unire la apicacion con todos los paquetes 
 app=Flask(__name__)
@@ -12,7 +17,11 @@ app=Flask(__name__)
 @app.route('/home')
 #function call archive
 def dir1():
-    return render_template('Pages/Home.html')
+    dato=cb()
+
+    
+    return render_template('Pages/reporte.html',materia=dato)
+    #return render_template('Pages/Home.html')
 
 @app.route('/main')
 def main():

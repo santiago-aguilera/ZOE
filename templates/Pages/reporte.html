@@ -1,0 +1,27 @@
+
+
+
+
+
+
+<h1>Reporte de Materias</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Créditos</th>
+            <th>Profesor</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for materias in materia %}
+        <tr>
+            <td>{{ materias[0] }}</td>
+             <td>{{ materias[1] }}</td>
+            <!--<td>{{ materias.creditos }}</td>
+            <td>{{ materias.profesor }}</td> -->
+        </tr>
+        {% endfor %}
+    </tbody>        
