@@ -12,12 +12,12 @@ def conectar_db():
 
     con=conectar.cursor()
 
-    sql="SELECT * FROM materia"
+    sql="SELECT * FROM usuario where rol='Profesor'"
     con.execute(sql)
     resultado=con.fetchall()
 
-    # for i in resultado:
-    #     print(i)    
+    for i in resultado:
+        print(i)    
 
 
 

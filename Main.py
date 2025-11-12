@@ -4,7 +4,7 @@ from Controlador.controlador_login import validar_login
 
 
 
-from Basedata.data  import conectar_db as cb
+from Basedata.Datos_Profes.data  import conectar_db as cb
 
 #llamar librerias y clases
 #instanciar: Dentro de mi paquete tengogo muchos aetes adicionales y unire la apicacion con todos los paquetes 
@@ -17,10 +17,6 @@ app=Flask(__name__)
 @app.route('/home')
 #function call archive
 def dir1():
-    #dato=cb()
-
-    
-    #return render_template('Pages/reporte.html',materia=dato)
     return render_template('Pages/Home.html')
 
 @app.route('/main')
@@ -66,11 +62,30 @@ def profesores():
 
 @app.route('/ver_profesores')
 def ver_profesores():
-    return render_template('dash/Profesores/dash_ver_profes.html')
+    dato=cb()
+    #return render_template('dash/Profesores/dash_ver_profes.html',materia=dato)
+    return render_template('dash/Profesores/dash_ver_profes.html',usuario=dato)
 
-@app.route('/crear_profesores')
+@app.route('/crear_profesores', methods=['GET', 'POST'])
 def crear_profesores():
-    return render_template('dash/Profesores/frm_profes.html')
+    if request.method == 'POST':
+        # Recibir los datos del formulario
+        nombre = request.form['nombre']
+        correo = request.form['correo']
+
+        # Llamar a la función para insertar el profesor en la base de datos
+        if cb(nombre, correo):
+            flash("✅ Profesor agregado correctamente.")
+        else:
+            flash("❌ Error al agregar profesor.")
+
+        # Redirigir al mismo formulario después de enviar los datos
+        return redirect(url_for('crear_profesores'))
+
+    # Si es un GET (cuando se accede al formulario por primera vez)
+    dato = cb()  # Esta es la función que probablemente obtenga los datos de los profesores
+    return render_template('dash/Profesores/frm_profes.html', usuario=dato)
+
 
 @app.route('/estadisticas')
 def estadisticas():

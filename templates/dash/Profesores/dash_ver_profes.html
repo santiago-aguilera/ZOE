@@ -123,52 +123,21 @@
             <tr>
                 <th>#</th>
                 <th>Nombre</th>
-                <th>Materia</th>
-                <th>Correo</th>
-                <th class="acciones">Acciones</th>
+                <th>Email</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
+            {% for usuarios in usuario %}
             <tr>
-                <td>1</td>
-                <td>María López</td>
-                <td>Matemáticas</td>
-                <td>maria.lopez@colegio.edu</td>
+                <td>{{ usuarios[0] }}</td>
+                <td>{{ usuarios[1] }}</td>
+                <td>{{ usuarios[2] }}</td>
                 <td class="acciones">
                     <button class="btn btn-editar">Editar</button>
                     <button class="btn btn-eliminar">Eliminar</button>
                 </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Carlos Pérez</td>
-                <td>Física</td>
-                <td>carlos.perez@colegio.edu</td>
-                <td class="acciones">
-                    <button class="btn btn-editar">Editar</button>
-                    <button class="btn btn-eliminar">Eliminar</button>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Laura Gómez</td>
-                <td>Inglés</td>
-                <td>laura.gomez@colegio.edu</td>
-                <td class="acciones">
-                    <button class="btn btn-editar">Editar</button>
-                    <button class="btn btn-eliminar">Eliminar</button>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Andrés Castillo</td>
-                <td>Química</td>
-                <td>andres.castillo@colegio.edu</td>
-                <td class="acciones">
-                    <button class="btn btn-editar">Editar</button>
-                    <button class="btn btn-eliminar">Eliminar</button>
-                </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
