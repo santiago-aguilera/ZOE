@@ -17,11 +17,11 @@ app=Flask(__name__)
 @app.route('/home')
 #function call archive
 def dir1():
-    dato=cb()
+    #dato=cb()
 
     
-    return render_template('Pages/reporte.html',materia=dato)
-    #return render_template('Pages/Home.html')
+    #return render_template('Pages/reporte.html',materia=dato)
+    return render_template('Pages/Home.html')
 
 @app.route('/main')
 def main():

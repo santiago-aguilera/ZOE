@@ -18,3 +18,8 @@ VALUES("Sofia Hernandez","Shernd@gmail.com","Adm3543","Estudiante");
 
 INSERT INTO Usuario(Nombre,Email,Contraseña,Rol)
 VALUES("Maria Fernanda","marifer1@gmail.com","Adm3544","Estudiante");
+
+
+INSERT INTO Usuario(Nombre,Email,Contraseña,Rol)
+VALUES("Carlos Gil","@gmail.com","Adm3545","Coordinador");
+
