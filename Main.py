@@ -1,15 +1,16 @@
 #import lybraries
-from flask import Flask, render_template, request,redirect,url_for
+from flask import Flask, render_template, request,redirect,url_for,flash
 from Controlador.controlador_login import validar_login
 
 
 
 from Basedata.Datos_Profes.data  import conectar_db as cb
+from Basedata.Datos_Profes.new  import agregar_profesor
 
 #llamar librerias y clases
 #instanciar: Dentro de mi paquete tengogo muchos aetes adicionales y unire la apicacion con todos los paquetes 
 app=Flask(__name__)
-
+app.secret_key = "AguileraClave681"
 
 #Inicip de rutas
 @app.route('/')
@@ -67,24 +68,22 @@ def ver_profesores():
     return render_template('dash/Profesores/dash_ver_profes.html',usuario=dato)
 
 @app.route('/crear_profesores', methods=['GET', 'POST'])
-def crear_profesores():
+def agregar_profesores():
     if request.method == 'POST':
-        # Recibir los datos del formulario
         nombre = request.form['nombre']
+        materia = request.form['materia']
         correo = request.form['correo']
-
-        # Llamar a la función para insertar el profesor en la base de datos
-        if cb(nombre, correo):
-            flash("✅ Profesor agregado correctamente.")
+        rol = request.form.get('rol', 'Profesor')
+        
+        if agregar_profesor(nombre, materia, correo, rol):
+            flash("Profesor agregado correctamente.")
         else:
-            flash("❌ Error al agregar profesor.")
+            flash("Error al agregar profesor.")
 
-        # Redirigir al mismo formulario después de enviar los datos
-        return redirect(url_for('crear_profesores'))
+        return redirect(url_for('ver_profesores'))
 
-    # Si es un GET (cuando se accede al formulario por primera vez)
-    dato = cb()  # Esta es la función que probablemente obtenga los datos de los profesores
-    return render_template('dash/Profesores/frm_profes.html', usuario=dato)
+    # GET → mostrar formulario + lista de profesores
+    return render_template('dash/Profesores/frm_profes.html')
 
 
 @app.route('/estadisticas')

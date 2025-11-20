@@ -110,7 +110,7 @@
     <h1>Registrar Nuevo Profesor</h1>
     <p>Completa los siguientes campos para añadir un nuevo profesor al sistema.</p>
 
-    <form id="formProfesor">
+    <form id="formProfesor"  method="POST" action="/crear_profesores">
         <div>
             <label for="nombre">Nombre completo</label>
             <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
@@ -139,11 +139,4 @@
     </form>
 </div>
 
-<script>
-    document.getElementById('formProfesor').addEventListener('submit', function (e) {
-        e.preventDefault();
-        alert('Profesor registrado exitosamente');
-        // Aquí en el futuro podrás conectar con la base de datos o backend
-    });
-</script>
 {% endblock %}
