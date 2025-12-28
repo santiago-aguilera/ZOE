@@ -2,7 +2,7 @@ import mysql.connector
 
 
 def conectar_db():
-     
+
     conectar=mysql.connector.connect(
         host="localhost",
         user="root",

@@ -1,15 +1,16 @@
 #import lybraries
-from flask import Flask, render_template, request,redirect,url_for
+from flask import Flask, render_template, request,redirect,url_for,flash
 from Controlador.controlador_login import validar_login
 
 
 
 from Basedata.Datos_Profes.data  import conectar_db as cb
+from Basedata.Datos_Profes.new  import conectar_db as cp
 
 #llamar librerias y clases
 #instanciar: Dentro de mi paquete tengogo muchos aetes adicionales y unire la apicacion con todos los paquetes 
 app=Flask(__name__)
-
+app.secret_key = "clave-super-secreta-zoe"
 
 #Inicip de rutas
 @app.route('/')
@@ -74,17 +75,17 @@ def crear_profesores():
         correo = request.form['correo']
 
         # Llamar a la función para insertar el profesor en la base de datos
-        if cb(nombre, correo):
-            flash("✅ Profesor agregado correctamente.")
+        if cp(nombre, correo):
+            flash("Profesor agregado correctamente.")
         else:
-            flash("❌ Error al agregar profesor.")
+            flash("Error al agregar profesor.")
 
-        # Redirigir al mismo formulario después de enviar los datos
-        return redirect(url_for('crear_profesores'))
+        # Redirigir al mismo formulario después de  enviar los datos
+        return redirect(url_for('ver_profesores'))
 
     # Si es un GET (cuando se accede al formulario por primera vez)
-    dato = cb()  # Esta es la función que probablemente obtenga los datos de los profesores
-    return render_template('dash/Profesores/frm_profes.html', usuario=dato)
+    #datos = cp()  # Esta es la función que probablemente obtenga los datos de los profesores
+    return render_template('dash/Profesores/frm_profes.html')#, usuario=datos)
 
 
 @app.route('/estadisticas')
