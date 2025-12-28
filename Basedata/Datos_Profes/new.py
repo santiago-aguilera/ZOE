@@ -1,6 +1,6 @@
 import mysql.connector
 
-def conectar_db(nombre, correo):
+def agregar_profesor(nombre, materia, correo, rol='Profesor'):
     try:
         conexion = mysql.connector.connect(
             host="localhost",

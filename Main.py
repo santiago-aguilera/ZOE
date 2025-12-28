@@ -68,10 +68,10 @@ def ver_profesores():
     return render_template('dash/Profesores/dash_ver_profes.html',usuario=dato)
 
 @app.route('/crear_profesores', methods=['GET', 'POST'])
-def crear_profesores():
+def agregar_profesores():
     if request.method == 'POST':
-        # Recibir los datos del formulario
         nombre = request.form['nombre']
+        materia = request.form['materia']
         correo = request.form['correo']
 
         # Llamar a la función para insertar el profesor en la base de datos
