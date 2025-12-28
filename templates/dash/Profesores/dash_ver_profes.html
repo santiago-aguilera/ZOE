@@ -128,16 +128,26 @@
             </tr>
         </thead>
         <tbody>
+        <tbody>
             {% for usuarios in usuario %}
             <tr>
                 <td>{{ usuarios[0] }}</td>
                 <td>{{ usuarios[1] }}</td>
                 <td>{{ usuarios[2] }}</td>
                 <td class="acciones">
-                    <button class="btn btn-editar">Editar</button>
-                    <button class="btn btn-eliminar">Eliminar</button>
+                    <a href="{{ url_for('editar_profesor', id=usuarios[0]) }}"
+                            class="btn btn-editar">
+                            Editar
+                        </a>
+                    <a href="{{ url_for('eliminar_profesor', id=usuarios[0]) }}" class="btn btn-danger"
+                        onclick="return confirm('¿Seguro que deseas eliminar este profesor?')">
+                        Eliminar
+                    </a>
                 </td>
+
+            </tr>
             {% endfor %}
+        </tbody>
         </tbody>
     </table>
 </div>

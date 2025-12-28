@@ -5,8 +5,9 @@ from Controlador.controlador_login import validar_login
 
 
 from Basedata.Datos_Profes.data  import conectar_db as cb
-from Basedata.Datos_Profes.new  import conectar_db as cp
-
+from Basedata.Datos_Profes.new  import agregar_profesor as cp
+from Basedata.Datos_Profes.eliminar  import eliminar_profesor_db
+from Basedata.Datos_Profes.editar  import actualizar_profesor, obtener_profesor_por_id
 #llamar librerias y clases
 #instanciar: Dentro de mi paquete tengogo muchos aetes adicionales y unire la apicacion con todos los paquetes 
 app=Flask(__name__)
@@ -75,7 +76,7 @@ def agregar_profesores():
         correo = request.form['correo']
 
         # Llamar a la función para insertar el profesor en la base de datos
-        if cp(nombre, correo):
+        if cp(nombre,materia, correo):
             flash("Profesor agregado correctamente.")
         else:
             flash("Error al agregar profesor.")
@@ -87,6 +88,38 @@ def agregar_profesores():
     #datos = cp()  # Esta es la función que probablemente obtenga los datos de los profesores
     return render_template('dash/Profesores/frm_profes.html')#, usuario=datos)
 
+@app.route('/eliminar_profesor/<int:id>')
+def eliminar_profesor(id):
+    if eliminar_profesor_db(id):
+        flash("Profesor eliminado correctamente.")
+    else:
+        flash("Error al eliminar profesor.")
+
+    return redirect(url_for('ver_profesores'))
+
+@app.route('/editar_profesor/<int:id>', methods=['GET', 'POST'])
+def editar_profesor(id):
+    profesor = obtener_profesor_por_id(id)
+
+    if not profesor:
+        flash("Profesor no encontrado")
+        return redirect(url_for('ver_profesores'))
+
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        materia = request.form['materia']
+        correo = request.form['correo']
+        telefono = request.form['telefono']
+
+        actualizar_profesor(id, nombre, materia, correo, telefono)
+        flash("Profesor actualizado correctamente")
+
+        return redirect(url_for('ver_profesores'))
+
+    return render_template(
+        'dash/Profesores/editar_profes.html',
+        profesor=profesor
+    )
 
 @app.route('/estadisticas')
 def estadisticas():
