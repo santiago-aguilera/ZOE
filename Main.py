@@ -99,28 +99,26 @@ def eliminar_profesor(id):
 
 @app.route('/editar_profesor/<int:id>', methods=['GET', 'POST'])
 def editar_profesor(id):
-    profesor = obtener_profesor_por_id(id)
-
-    if not profesor:
-        flash("Profesor no encontrado")
-        return redirect(url_for('ver_profesores'))
 
     if request.method == 'POST':
         nombre = request.form['nombre']
-        materia = request.form['materia']
         correo = request.form['correo']
+        materia = request.form['materia']
         telefono = request.form['telefono']
 
-        actualizar_profesor(id, nombre, materia, correo, telefono)
-        flash("Profesor actualizado correctamente")
+        if actualizar_profesor(id, nombre, correo, materia, telefono):
+            flash("Profesor actualizado correctamente.")
+        else:
+            flash("No se realizaron cambios.")
 
         return redirect(url_for('ver_profesores'))
 
+    # GET → cargar datos
+    profesor = obtener_profesor_por_id(id)
     return render_template(
-        'dash/Profesores/editar_profes.html',
+        'dash/Profesores/editar_profeS.html',
         profesor=profesor
     )
-
 @app.route('/estadisticas')
 def estadisticas():
     return render_template('pages/Estadisiticas.html')
