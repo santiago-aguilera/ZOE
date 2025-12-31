@@ -104,6 +104,11 @@
     .btn-crear:hover {
         background-color: var(--azul-oscuro);
     }
+
+    option {
+        padding: 0.5rem;
+        color: var(--azul-oscuro);
+    }
 </style>
 
 <div class="container">
@@ -117,8 +122,12 @@
         </div>
 
         <div>
-            <label for="materia">Materia que dicta</label>
-            <input type="text" id="materia" name="materia" placeholder="Ej. Matemáticas, Física, Inglés..." required>
+            <label for="materias">Materias que dicta</label> 
+            <select name="materias" multiple required> 
+                {% for m in materias %} 
+                <option value="{{ m.Id_Materia }}">{{ m.nombre_materia }}</option> 
+                {% endfor %} 
+            </select>
         </div>
 
         <div>

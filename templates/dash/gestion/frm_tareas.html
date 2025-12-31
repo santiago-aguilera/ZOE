@@ -133,38 +133,28 @@
 
 <section class="crear-tarea">
     <h2>Crear Nueva Tarea</h2>
-    <form method="POST" action="/crear-tarea">
-        <div>
-            <label for="materia">Materia</label>
-            <input type="text" id="materia" name="materia" placeholder="Ej: Matemáticas" required>
-        </div>
-
-        <div>
-            <label for="fecha">Fecha de entrega</label>
-            <input type="date" id="fecha" name="fecha" required>
-        </div>
-
-        <div>
-            <label for="descripcion">Descripción</label>
-            <textarea id="descripcion" name="descripcion" rows="4"
-                placeholder="Escribe los detalles de la tarea..." required></textarea>
-        </div>
-
-        <div>
-            <label for="anio">Año</label>
-            <select id="anio" name="anio" required>
-                <option value="">Selecciona el año</option>
-                <option value="10">Décimo</option>
-                <option value="11">Once</option>
-            </select>
-        </div>
-
-        <div class="botones">
-            <button type="submit">Crear tarea</button>
-            <button type="reset">Limpiar</button>
-        </div>
+    <form method="POST" action="/crear-tarea"> 
+        <div> 
+            <label for="materia">Materia</label> 
+            <select id="materia" name="id_profesor_materia" required> 
+                {% for m in materias %} 
+                    <option value="{{ m.Id_Profesor_Materia }}">{{ m.Nombre }}</option> 
+                {% endfor %} 
+            </select> 
+        </div> 
+        <div> 
+            <label for="fecha">Fecha de entrega</label> 
+            <input type="date" id="fecha" name="fecha" required> 
+        </div> 
+        <div> 
+            <label for="descripcion">Descripción</label> 
+            <textarea id="descripcion" name="descripcion" rows="4" required></textarea> 
+        </div> 
+        <div class="botones"> 
+            <button type="submit">Crear tarea</button> 
+            <button type="reset">Limpiar</button> 
+        </div> 
     </form>
-
     <a href="/crear_tareas" class="volver">Volver</a>
 </section>
 

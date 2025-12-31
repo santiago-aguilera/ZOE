@@ -1,5 +1,6 @@
 {% extends 'Layout.html' %}
 {% block content %}
+
 <style>
   :root {
     --azul-oscuro: #003f6b;
@@ -21,8 +22,7 @@
   h1 {
     text-align: center;
     font-size: 2.5rem;
-    margin: 2rem 0 1rem;
-    margin-bottom: 4rem;
+    margin: 2rem 0 4rem;
     color: var(--azul-oscuro);
   }
 
@@ -127,90 +127,46 @@
     cursor: pointer;
     color: var(--azul-oscuro);
   }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  input, textarea {
-    padding: 0.8rem;
-    border: 1px solid var(--azul-claro);
-    border-radius: 8px;
-    font-size: 1rem;
-    resize: none;
-    background-color: var(--gris-fondo);
-  }
-
-  button[type="submit"] {
-    background: var(--azul-medio);
-    border: none;
-    color: var(--blanco);
-    padding: 0.8rem;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  button[type="submit"]:hover {
-    background: var(--azul-oscuro);
-  }
 </style>
 
 <h1>Profesores Registrados</h1>
 
 <section class="contenedor-profesores">
-  <div class="tarjeta-profesor">
-    <h3>María Rodríguez</h3>
-    <p><strong>Materia:</strong> Matemáticas</p>
-    <p><strong>Correo:</strong> maria.rodriguez@colegio.edu</p>
-    <button onclick="abrirModal('María Rodríguez', 'maria.rodriguez@colegio.edu')">Enviar mensaje</button>
-  </div>
 
+  {% for profe in profesores %}
   <div class="tarjeta-profesor">
-    <h3>Carlos Gómez</h3>
-    <p><strong>Materia:</strong> Física</p>
-    <p><strong>Correo:</strong> carlos.gomez@colegio.edu</p>
-    <button onclick="abrirModal('Carlos Gómez', 'carlos.gomez@colegio.edu')">Enviar mensaje</button>
-  </div>
+    <h3>{{ profe.Nombre }}</h3>
 
-  <div class="tarjeta-profesor">
-    <h3>Laura Sánchez</h3>
-    <p><strong>Materia:</strong> Química</p>
-    <p><strong>Correo:</strong> laura.sanchez@colegio.edu</p>
-    <button onclick="abrirModal('Laura Sánchez', 'laura.sanchez@colegio.edu')">Enviar mensaje</button>
-  </div>
+    <p><strong>Materia:</strong> {{ profe.Materia if profe.Materia else "Sin asignar" }}</p>
 
-  <div class="tarjeta-profesor">
-    <h3>Andrés Pérez</h3>
-    <p><strong>Materia:</strong> Inglés</p>
-    <p><strong>Correo:</strong> andres.perez@colegio.edu</p>
-    <button onclick="abrirModal('Andrés Pérez', 'andres.perez@colegio.edu')">Enviar mensaje</button>
-  </div>
+    <p><strong>Correo:</strong> {{ profe.Email }}</p>
 
-  <div class="tarjeta-profesor">
-    <h3>Paula Rojas</h3>
-    <p><strong>Materia:</strong> Historia</p>
-    <p><strong>Correo:</strong> paula.rojas@colegio.edu</p>
-    <button onclick="abrirModal('Paula Rojas', 'paula.rojas@colegio.edu')">Enviar mensaje</button>
+    <button onclick="abrirModal('{{ profe.Nombre }}', '{{ profe.Email }}')">
+      Enviar mensaje
+    </button>
   </div>
+  {% endfor %}
+
+  {% if profesores|length == 0 %}
+  <p style="text-align:center; color:var(--gris-texto); font-size:1.1rem;">
+    No hay profesores registrados aún.
+  </p>
+  {% endif %}
+
 </section>
-
 <div class="ver-profesores">
   <a href="/ver_profesores"><button class="btn-ver">Ver Todos los Profesores</button></a>
 </div>
-
+<!-- Modal -->
 <div id="modalMensaje" class="modal">
   <div class="modal-content">
     <span class="close" id="cerrarModalMensaje">&times;</span>
     <h2 id="nombreProfesor"></h2>
     <p id="correoProfesor" style="color: var(--azul-medio); font-weight: bold;"></p>
-    <form>
-      <input type="text" placeholder="Asunto del mensaje" required>
-      <textarea rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+    <form method="POST" action="/enviar_mensaje"> <input type="hidden" id="nombreInput" name="nombre"> <input
+        type="hidden" id="correoInput" name="correo"> <input type="text" name="asunto" placeholder="Asunto del mensaje"
+        required> <textarea name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
       <button type="submit">Enviar</button>
     </form>
   </div>
@@ -222,15 +178,13 @@
   const nombreProf = document.getElementById("nombreProfesor");
   const correoProf = document.getElementById("correoProfesor");
 
-  function abrirModal(nombre, correo) {
-    nombreProf.textContent = "Mensaje para " + nombre;
-    correoProf.textContent = correo;
-    modalMensaje.style.display = "block";
-  }
+  function abrirModal(nombre, correo) { nombreProf.textContent = "Mensaje para " + nombre; correoProf.textContent = correo; document.getElementById("nombreInput").value = nombre; document.getElementById("correoInput").value = correo; modalMensaje.style.display = "block"; }
 
   cerrarMensaje.onclick = () => modalMensaje.style.display = "none";
+
   window.onclick = (e) => {
     if (e.target == modalMensaje) modalMensaje.style.display = "none";
   };
 </script>
+
 {% endblock %}

@@ -1,5 +1,5 @@
-import mysql.connector
 
+import mysql.connector
 def eliminar_profesor_db(id):
     try:
         conexion = mysql.connector.connect(

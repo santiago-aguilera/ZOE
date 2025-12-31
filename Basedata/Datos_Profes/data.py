@@ -1,6 +1,5 @@
 import mysql.connector
 
-
 def conectar_db():
     conectar=mysql.connector.connect(
         host="localhost",
@@ -24,5 +23,6 @@ def conectar_db():
 
     conectar.close()    
     return resultado
+
 
 

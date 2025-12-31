@@ -120,9 +120,17 @@
         </div>
 
         <div>
-            <label>Materia</label>
-            <input type="text" name="materia" value="{{ profesor['Materia'] }}" required>
+            <label>Materias</label>
+            <select name="materia" multiple required> 
+                {% for m in materias %} 
+                    <option value="{{ m.Id_Materia }}"
+                        {% if m.Id_Materia in materias_asignadas %}selected{% endif %}> 
+                        {{ m.nombre_materia }} 
+                    </option> 
+                {% endfor %} 
+            </select>
         </div>
+
 
         <div>
             <label>Teléfono</label>
