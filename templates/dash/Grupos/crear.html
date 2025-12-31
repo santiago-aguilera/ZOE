@@ -1,0 +1,80 @@
+{% extends "Layout.html" %}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #005187;
+        --azul-medio: #4d82bc;
+        --azul-claro: #84b6f4;
+        --lila: #e4dafa;
+        --blanco: #feffff;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--lila);
+        margin: 0;
+        color: var(--azul-oscuro);
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+        font-size: 50px;
+    }
+
+    .card {
+        background-color: #ffffff;
+        border: 1px solid #e0e7ef;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: 0.2s ease;
+    }
+
+    .card:hover {
+        background-color: #f0f6fb;
+        transform: scale(1.01);
+    }
+
+    button, .btn {
+        background-color: #4a90e2;
+        border: none;
+        color: var(--blanco);
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    button:hover, .btn:hover {
+        background-color: var(--azul-oscuro);
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+</style>
+
+<h1>Crear Grupo</h1>
+
+<div style="max-width: 600px; margin: auto;">
+    <div class="card">
+        <form method="POST">
+            <label>Nombre del grupo</label>
+            <input type="text" name="nombre" required>
+
+            <button type="submit">Crear grupo</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

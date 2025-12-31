@@ -39,12 +39,12 @@
         border-radius: 14px;
         margin-bottom: 20px;
         padding: 20px;
-}
+    }
 
     .tarea:hover {
-    background-color: #f0f6fb;
-    transform: scale(1.01);
-    transition: 0.2s ease;
+        background-color: #f0f6fb;
+        transform: scale(1.01);
+        transition: 0.2s ease;
     }
 
     .tarea-header {
@@ -92,58 +92,45 @@
         background-color: var(--azul-oscuro);
     }
 
-        h1 {
-    color: #004e8a;
-    }
     p, span {
-    color: #333;
+        color: #333;
     }
-
 </style>
-</head>
 
 <body>
 
     <h1>Tareas Realizadas</h1>
 
     <section class="tareas-realizadas">
-        <div class="tarea">
-            <div class="tarea-header">
-                <span>Tarea 1: Informe Semanal</span>
-                <span class="estado">Completada</span>
-            </div>
-            <p><strong>Descripción:</strong> Subiste el informe de progreso del proyecto IB.</p>
-            <p><strong>Fecha de entrega:</strong> 25 de octubre de 2025</p>
-            <p><strong>Comentario del docente:</strong> Excelente estructura y contenido.</p>
-            <div class="botones">
-                <button>Ver entrega</button>
-            </div>
-        </div>
 
+        {% for e in entregas %}
         <div class="tarea">
             <div class="tarea-header">
-                <span>Tarea 2: Revisión de Evidencias</span>
-                <span class="estado">Completada</span>
+                <span>{{ e.titulo }}</span>
+                <span class="estado">{{ e.Estado }}</span>
             </div>
-            <p><strong>Descripción:</strong> Verificaste los archivos requeridos y los organizaste correctamente.</p>
-            <p><strong>Fecha de entrega:</strong> 29 de octubre de 2025</p>
-            <p><strong>Comentario del docente:</strong> Todo correctamente nombrado y bien presentado.</p>
-            <div class="botones">
-                <button>Ver entrega</button>
-            </div>
-        </div>
 
-        <div class="tarea">
-            <div class="tarea-header">
-                <span>Tarea 3: Presentación Final</span>
-                <span class="estado">Completada</span>
-            </div>
-            <p><strong>Descripción:</strong> Subiste la presentación de PowerPoint con todos los puntos solicitados.</p>
-            <p><strong>Fecha de entrega:</strong> 31 de octubre de 2025</p>
-            <p><strong>Comentario del docente:</strong> Excelente trabajo en equipo y exposición.</p>
+            <p><strong>Descripción:</strong> {{ e.descripcion }}</p>
+            <p><strong>Fecha de entrega:</strong> {{ e.Fecha_Entrega }}</p>
+
+            {% if e.Comentarios %}
+                <p><strong>Comentario del docente:</strong> {{ e.Comentarios }}</p>
+            {% else %}
+                <p><strong>Comentario del docente:</strong> Aún sin comentarios</p>
+            {% endif %}
+
             <div class="botones">
-                <button>Ver entrega</button>
+                <button onclick="location.href='/ver_entrega/{{ e.Id_Entrega }}'">Ver entrega</button>
             </div>
         </div>
+        {% endfor %}
+
+        {% if entregas|length == 0 %}
+        <p style="text-align:center; margin-top:2rem; color:#333;">
+            Aún no has enviado ninguna tarea.
+        </p>
+        {% endif %}
+
     </section>
+
 {% endblock %}

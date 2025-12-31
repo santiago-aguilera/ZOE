@@ -1,0 +1,109 @@
+{% extends "Layout.html" %}
+{% block content %}
+
+<style>
+    :root {
+        --azul-oscuro: #003f6b;
+        --azul-medio: #4d82bc;
+        --azul-claro: #e9f1fb;
+        --gris-fondo: #f4f6f9;
+        --blanco: #ffffff;
+        --texto: #333;
+        --verde: #2b8a3e;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--gris-fondo);
+        margin: 0;
+        padding: 0;
+    }
+
+    .contenedor {
+        max-width: 600px;
+        margin: 3rem auto;
+        background: var(--blanco);
+        padding: 2.5rem;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    label {
+        font-weight: 600;
+        color: var(--azul-oscuro);
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    input[type="file"] {
+        width: 100%;
+        padding: 0.8rem;
+        background: var(--azul-claro);
+        border: 1.8px solid #cfd9e6;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    input[type="file"]:hover {
+        background: var(--blanco);
+        border-color: var(--azul-medio);
+    }
+
+    button {
+        width: 100%;
+        padding: 0.9rem;
+        margin-top: 1.5rem;
+        background: var(--verde);
+        color: var(--blanco);
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    button:hover {
+        background: #237232;
+        transform: scale(1.03);
+    }
+
+    .volver {
+        display: block;
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--azul-oscuro);
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s ease;
+    }
+
+    .volver:hover {
+        color: var(--azul-medio);
+    }
+</style>
+
+<div class="contenedor">
+    <h1>Subir Archivo</h1>
+
+    <form action="/enviar_tarea/{{ id_trabajo }}" method="POST" enctype="multipart/form-data">
+
+        <label for="archivo">Selecciona tu archivo:</label>
+        <input type="file" id="archivo" name="archivo" required>
+
+        <button type="submit">Enviar tarea</button>
+    </form>
+
+    <a href="/tareas" class="volver">Volver</a>
+</div>
+
+{% endblock %}

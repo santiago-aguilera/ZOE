@@ -1,185 +1,147 @@
-{% extends "Layout.html"%}
+{% extends "Layout.html" %}
 {% block content %}
 <style>
     :root {
-        --azul-oscuro: #005187;
+        --azul-oscuro: #003f6b;
         --azul-medio: #4d82bc;
-        --azul-claro: #84b6f4;
-        --lila: #e4dafa;
-        --blanco: #feffff;
+        --azul-claro: #e9f1fb;
+        --gris-fondo: #f4f6f9;
+        --blanco: #ffffff;
+        --texto: #333;
     }
 
     body {
         font-family: "Poppins", sans-serif;
-        background-color: var(--lila);
-        margin: 0;
-        color: var(--azul-oscuro);
-        background-color: #f7f9fb;
-        font-family: 'Poppins', sans-serif;
-        color: #333;
+        background-color: var(--gris-fondo);
     }
 
     h1 {
         text-align: center;
+        margin: 2rem 0;
         color: var(--azul-oscuro);
-        margin-bottom: 2rem;
-        margin-top: 2rem;
-        font-size: 50px;
+        font-weight: 700;
     }
 
+    .contenedor {
+        max-width: 900px;
+        margin: auto;
+        background: var(--blanco);
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
 
-
-    .btn-nueva {
-        background-color: #4a90e2;
-        color: white;
-        padding: 10px 30px;
-        border: none;
+    .materia {
+        background: var(--azul-claro);
+        padding: 1rem;
         border-radius: 10px;
-        font-weight: 500;
+        margin-bottom: 1rem;
         cursor: pointer;
-        transition: 0.3s;
+        border-left: 6px solid var(--azul-medio);
+        transition: 0.3s ease;
     }
 
-    .btn-nueva:hover {
-        background-color: #2e6cb8;
-        transform: scale(1.03);
+    .materia:hover {
+        background: var(--blanco);
+        transform: scale(1.01);
     }
 
-    .btn-container {
-        width: 65%;
-        margin: 0 auto 15px auto;
-        display: flex;
-        justify-content: flex-end;
+    .materia h3 {
+        margin: 0;
+        color: var(--azul-oscuro);
+        font-size: 1.2rem;
     }
 
-
-
-    .tabla-tareas {
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        border-collapse: collapse;
-        background-color: var(--blanco);
+    .tareas {
+        display: none;
+        padding: 1rem 1.5rem;
+        background: var(--blanco);
+        border-left: 4px solid var(--azul-medio);
+        margin-bottom: 1rem;
         border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        margin: 40px auto;
-        background: white;
-        border-radius: 14px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        overflow: hidden;
-        width: 85%;
-
     }
 
-
-    th {
-        background-color: var(--azul-oscuro);
-        color: var(--blanco);
-        text-align: left;
-        padding: 1rem;
-    }
-
-    td {
-        padding: 1rem;
-        border-bottom: 1px solid var(--azul-claro);
-    }
-
-    tr:hover {
-        background-color: var(--lila);
-    }
-
-    .botones {
+    .tarea {
         display: flex;
-        gap: 0.5rem;
+        justify-content: space-between;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tarea:last-child {
+        border-bottom: none;
+    }
+
+    .tarea span {
+        font-weight: 600;
+        color: var(--texto);
+    }
+
+    .acciones button {
+        margin-left: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--blanco);
     }
 
     .editar {
-        background-color: var(--azul-medio);
+        background: #2b8a3e;
     }
 
     .eliminar {
-        background-color: crimson;
+        background: #c92a2a;
     }
 
-    .editar:hover {
-        background-color: var(--azul-oscuro);
-    }
-
-    .eliminar:hover {
-        background-color: darkred;
-    }
-
-    .botones button {
-        border: none;
+    .crear-btn {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+        margin-top: 2rem;
+        background: var(--azul-oscuro);
         color: var(--blanco);
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        font-weight: 500;
+        text-align: center;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        transition: 0.3s ease;
+    }
+
+    .crear-btn:hover {
+        background: var(--azul-medio);
+        transform: scale(1.02);
     }
 </style>
-</head>
-
-<body>
-
-    <div class="header-tareas">
-        <h1>Crear y Gestionar Tareas</h1>
+<h1>Gestión de Tareas</h1>
+<div class="contenedor">
+    {% for materia in materias %}
+    <div class="materia" onclick="toggleTareas('{{ materia.Id_Profesor_Materia }}')">
+        <h3>{{ materia.nombre_materia }}</h3>
     </div>
-
-    <div class="btn-container">
-        <a href="/nueva_tarea"><button class="btn-nueva">+ Nueva tarea</button></a>
+    <div class="tareas" id="tareas-{{ materia.Id_Profesor_Materia }}">
+        {% if materia.tareas %}
+        {% for t in materia.tareas %}
+        <div class="tarea">
+            <span>{{ t.titulo }} — {{ t.fecha }}</span>
+            <div class="acciones">
+                <button class="editar" onclick="location.href='/editar_tarea/{{ t.id }}'">Editar</button>
+                <button class="eliminar" onclick="location.href='/eliminar_tarea/{{ t.id }}'">Eliminar</button>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p style="color:#666;">No hay tareas registradas.</p>
+        {% endif %}
     </div>
-
-    <table class="tabla-tareas">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Materia</th>
-                <th>Fecha de entrega</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="listaTareas">
-            <tr>
-                <td>Informe Semanal</td>
-                <td>Gestión IB</td>
-                <td>10/11/2025</td>
-                <td>En progreso</td>
-                <td>
-                    <div class="botones">
-                        <button class="editar">Editar</button>
-                        <button class="eliminar">Eliminar</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Revisión de Evidencias</td>
-                <td>Matemáticas</td>
-                <td>12/11/2025</td>
-                <td>En progreso</td>
-                <td>
-                    <div class="botones">
-                        <button class="editar">Editar</button>
-                        <button class="eliminar">Eliminar</button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Presentación Final</td>
-                <td>Ciencias</td>
-                <td>15/11/2025</td>
-                <td>Planificada</td>
-                <td>
-                    <div class="botones">
-                        <button class="editar">Editar</button>
-                        <button class="eliminar">Eliminar</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</body>
+    {% endfor %}
+    <a href="/nueva_tarea" class="crear-btn">+ Crear Nueva Tarea</a>
+</div>
+<script>
+    function toggleTareas(id) {
+        const contenedor = document.getElementById("tareas-" + id);
+        contenedor.style.display = contenedor.style.display === "block" ? "none" : "block";
+    }
+</script>
 {% endblock %}

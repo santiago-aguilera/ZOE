@@ -138,7 +138,7 @@
             <label for="materia">Materia</label> 
             <select id="materia" name="id_profesor_materia" required> 
                 {% for m in materias %} 
-                    <option value="{{ m.Id_Profesor_Materia }}">{{ m.Nombre }}</option> 
+                    <option value="{{ m.Id_Profesor_Materia }}">{{ m.nombre_materia }}</option> 
                 {% endfor %} 
             </select> 
         </div> 

@@ -137,43 +137,31 @@
 <body>
     <h1>Mis Tareas</h1>
 
-    <div class="contenedor-tareas">
-        <div class="tarea">
-            <div class="tarea-header">Tarea 1</div>
-            <div class="tarea-contenido">
-                <p><strong>Tarea:</strong> Entregar informe semanal</p>
-                <p><strong>Descripción:</strong> Subir el documento PDF con los avances del proyecto IB.</p>
-                <div class="botones">
-                    <button class="subir">Subir archivo</button>
-                    <button class="ver">Ver más</button>
-                </div>
-            </div>
-        </div>
+<div class="contenedor-tareas">
 
-        <div class="tarea">
-            <div class="tarea-header">Tarea 2</div>
-            <div class="tarea-contenido">
-                <p><strong>Tarea:</strong> Revisión de evidencias</p>
-                <p><strong>Descripción:</strong> Verifica que todos los archivos estén completos y con nombre correcto.</p>
-                <div class="botones">
-                    <button class="subir">Subir archivo</button>
-                    <button class="ver">Ver más</button>
-                </div>
-            </div>
-        </div>
+    {% for t in tareas %}
+    <div class="tarea">
+        <div class="tarea-header">{{ t.titulo }}</div>
 
-        <div class="tarea">
-            <div class="tarea-header">Tarea 3</div>
-            <div class="tarea-contenido">
-                <p><strong>Tarea:</strong> Preparar presentación</p>
-                <p><strong>Descripción:</strong> Crear diapositivas para la exposición final de la unidad.</p>
-                <div class="botones">
-                    <button class="subir">Subir archivo</button>
-                    <button class="ver">Ver más</button>
-                </div>
+        <div class="tarea-contenido">
+            <p><strong>Tarea:</strong> {{ t.titulo }}</p>
+            <p><strong>Descripción:</strong> {{ t.descripcion }}</p>
+            <p><strong>Fecha de entrega:</strong> {{ t.fecha }}</p>
+
+            <div class="botones">
+                <button class="subir" onclick="location.href='/subir_tarea/{{ t.id }}'">Subir archivo</button>
+                <button class="ver" onclick="location.href='/ver_tarea/{{ t.id }}'">Ver más</button>
             </div>
         </div>
     </div>
+    {% endfor %}
+
+    {% if tareas|length == 0 %}
+        <p style="text-align:center; color:#666; margin-top:2rem;">No hay tareas disponibles.</p>
+    {% endif %}
+
+</div>
+
 
 
     <script>

@@ -1,6 +1,8 @@
 #import lybraries
+import os
 from flask import Flask, render_template, request,redirect, session,url_for,flash
 
+from Basedata.Gestion.realizadas import obtener_entregas_estudiante
 from Controlador.controlador_login import validar_login
 from Basedata.Datos_Profes.data  import conectar_db as cb
 from Basedata.Datos_Profes.new  import agregar_profesor as cp
@@ -9,6 +11,11 @@ from Basedata.Datos_Profes.editar  import actualizar_profesor, obtener_profesor_
 from Basedata.Datos_Profes.Cards import obtener_profesores
 from Basedata.Gestion.Crear_trabajo import crear_trabajo, obtener_materias_profesor
 from Basedata.Materias.obtener_materias import obtener_materias
+from Basedata.Gestion.Obtener_materias_tareas import obtener_materias_con_tareas
+from Basedata.Gestion.Obtener_tareas import obtener_tareas
+from Basedata.Gestion.realizadas import obtener_entregas_estudiante
+from Basedata.Gestion.subir_archvio import guardar_entrega
+from Basedata.Grados.Grados import obtener_grupos, crear_grupo, obtener_estudiantes, obtener_estudiantes_asignados, asignar_estudiante
 
 #llamar librerias y clases
 
@@ -31,11 +38,12 @@ mail = Mail(app)
 @app.route('/')
 
 #La siguiente ruta es temporal para los usuarios 
-@app.before_request
-def usuario_temporal():
+#@app.before_request
+#def usuario_temporal():
     # SOLO PARA DESARROLLO
-    if 'id_usuario' not in session:
-        session['id_usuario'] = 1  # ID de un profesor de prueba
+#    if 'id_usuario' not in session:
+#        session['id_usuario'] = 1  # ID de un profesor de prueba
+#    return render_template('Pages/main.html')
 
 
 @app.route('/home')
@@ -54,19 +62,47 @@ def gestion():
 
 @app.route('/tareas')
 def tareas():
-    return render_template('dash/gestion/das_1_g.html')
+    tareas = obtener_tareas()
+    return render_template('dash/gestion/das_1_g.html', tareas=tareas)
+
+@app.route('/subir_tarea/<int:id_trabajo>')
+def subir_tarea(id_trabajo):
+    return render_template('dash/gestion/das_4_g.html', id_trabajo=id_trabajo)
+
+@app.route('/enviar_tarea/<int:id_trabajo>', methods=['POST']) 
+def enviar_tarea(id_trabajo): 
+    archivo = request.files['archivo'] 
+    # Carpeta donde guardarás los archivos 
+    ruta = "uploads" 
+    if not os.path.exists(ruta): 
+        os.makedirs(ruta) 
+    archivo_path = os.path.join(ruta, archivo.filename) 
+    archivo.save(archivo_path) 
+    # Estudiante simulado 
+    id_estudiante = 1 
+    # Guardar en la BD usando la función SQL 
+    guardar_entrega(id_trabajo, id_estudiante, archivo.filename) 
+    flash("Tarea enviada correctamente.") 
+    return redirect(url_for('realizado'))
 
 @app.route('/realizado')
 def realizado():
-    return render_template('dash/gestion/das_2_g.html')
+    id_estudiante = 1  # estudiante simulado
+    entregas = obtener_entregas_estudiante(id_estudiante)
+    return render_template('dash/gestion/das_2_g.html', entregas=entregas)
+
+
+
 
 @app.route('/crear_tareas')
 def crear_tareas():
-    return render_template('dash/gestion/das_3_g.html')
+    id_usuario = 19 #session ['id_usuario']  
+    materias = obtener_materias_con_tareas(id_usuario)
+    return render_template('dash/gestion/das_3_g.html', materias=materias)
 
 @app.route('/nueva_tarea') 
 def nueva_tarea(): 
-    id_usuario = session['id_usuario'] # profesor actual 
+    id_usuario = 19 #session['id_usuario'] 
     materias = obtener_materias_profesor(id_usuario) 
     return render_template('dash/gestion/frm_tareas.html', materias=materias)
 
@@ -78,7 +114,7 @@ def crear_tarea():
     id_profesor_materia = request.form['id_profesor_materia'] 
     crear_trabajo(titulo, descripcion, fecha, id_profesor_materia) 
     flash("Tarea creada correctamente.") 
-    return redirect(url_for('tareas'))
+    return redirect(url_for('crear_tareas'))
 
 
 
@@ -205,6 +241,44 @@ def ver_foros():
 @app.route('/crear_foros')
 def crear_foros():
     return render_template('dash/Foros/frm_foros.html')
+
+
+@app.route('/grupos')
+def grupos():
+    grupos = obtener_grupos()
+    return render_template('dash/grupos/lista.html', grupos=grupos)
+
+
+@app.route('/grupos/crear', methods=['GET', 'POST'])
+def crear_grupo_route():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        crear_grupo(nombre)
+        return redirect('/grupos')
+
+    return render_template('dash/grupos/crear.html')
+
+
+@app.route('/grupos/<int:id_grupo>/asignar', methods=['GET', 'POST'])
+def asignar_estudiantes_route(id_grupo):
+
+    if request.method == 'POST':
+        id_usuario = request.form['id_usuario']
+        print("ID RECIBIDO:", id_usuario) # ← AGREGA ESTO
+        asignar_estudiante(id_usuario, id_grupo)
+
+    estudiantes = obtener_estudiantes()
+    print("ESTUDIANTES:", estudiantes)
+    asignados = obtener_estudiantes_asignados(id_grupo)
+
+    return render_template(
+        'dash/grupos/asignar.html',
+        estudiantes=estudiantes,
+        asignados=asignados,
+        id_grupo=id_grupo
+    )
+
+
 
 @app.route('/proyectos')
 def proy():
