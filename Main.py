@@ -16,6 +16,10 @@ from Basedata.Gestion.Obtener_tareas import obtener_tareas
 from Basedata.Gestion.realizadas import obtener_entregas_estudiante
 from Basedata.Gestion.subir_archvio import guardar_entrega
 from Basedata.Grados.Grados import obtener_grupos, crear_grupo, obtener_estudiantes, obtener_estudiantes_asignados, asignar_estudiante
+from Basedata.Estudiantes.crear_estudiantes import crear_estudiante, obtener_estudiante_por_id
+from Basedata.Estudiantes.eliminar import eliminar_estudiante_db
+from Basedata.Estudiantes.acualizar import actualizar_estudiante
+from Basedata.Estudiantes.obtener_estudaintes import obtener_estudiantes_cards
 
 #llamar librerias y clases
 
@@ -130,6 +134,10 @@ def cronograma():
 def eventos():
     return render_template('dash/cronograma/frm_evento.html')
 
+@app.route('/usuarios')
+def usuarios():
+    return render_template('pages/Usuarios.html')
+
 @app.route('/profesores') 
 def profesores(): 
     profesores = obtener_profesores() 
@@ -167,10 +175,12 @@ def agregar_profesores():
         nombre = request.form['nombre']
         correo = request.form['correo']
         telefono = request.form['telefono']
-        materias = request.form.getlist('materias')  # ← AHORA ES LISTA
+        materias = request.form.getlist('materias')  # ← AHORA ES LISTA 
 
-        if cp(nombre, correo, telefono, materias):
-            flash("Profesor agregado correctamente.")
+        contraseña = cp(nombre, correo, telefono, materias)
+
+        if contraseña:
+            flash("Profesor agregado correctamente. Contraseña: " + contraseña)
         else:
             flash("Error al agregar profesor.")
 
@@ -224,6 +234,63 @@ def editar_profesor(id):
         ,materias=materia
         ,materias_asignadas=materias_asignadas
     )
+
+
+@app.route('/estudiantes')
+def estudiantes():
+    estudiantes = obtener_estudiantes_cards()
+    return render_template('pages/Estudiantes.html', estudiantes=estudiantes)
+
+@app.route('/ver_estudiantes')
+def ver_estudiantes():
+    estudiantes = obtener_estudiantes_cards()
+    return render_template('dash/Estudiantes/das_ver_estudiantes.html', estudiantes=estudiantes)
+
+@app.route('/crear_estudiantes', methods=['GET', 'POST'])
+def crear_estudiantes():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        correo = request.form['correo']
+        telefono = request.form['telefono']
+
+        contraseña = crear_estudiante(nombre, correo, telefono)
+
+        if contraseña:
+            flash("Estudiante agregado correctamente. Contraseña: " + contraseña)
+        else:
+            flash("Error al agregar estudiante.")
+
+        return redirect(url_for('ver_estudiantes'))
+
+    return render_template('dash/Estudiantes/frm_estudiantes.html')
+
+@app.route('/editar_estudiante/<int:id>', methods=['GET', 'POST'])
+def editar_estudiante(id):
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        correo = request.form['correo']
+        telefono = request.form['telefono']
+
+        if actualizar_estudiante(id, nombre, correo, telefono):
+            flash("Estudiante actualizado correctamente.")
+        else:
+            flash("No se realizaron cambios.")
+
+        return redirect(url_for('ver_estudiantes'))
+
+    estudiante = obtener_estudiante_por_id(id)
+    return render_template('dash/Estudiantes/editar_estudiantes.html', estudiante=estudiante)
+
+@app.route('/eliminar_estudiante/<int:id>')
+def eliminar_estudiante(id):
+    if eliminar_estudiante_db(id):
+        flash("Estudiante eliminado correctamente.")
+    else:
+        flash("Error al eliminar estudiante.")
+
+    return redirect(url_for('ver_estudiantes'))
+
+
 
 
 @app.route('/estadisticas')

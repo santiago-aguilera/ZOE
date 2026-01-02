@@ -1,4 +1,11 @@
-import mysql.connector
+import mysql.connector, random, string, bcrypt
+
+def generar_contraseña():
+    caracteres = string.ascii_letters + string.digits
+    return ''.join(random.choice(caracteres) for _ in range(6))
+
+def encriptar_contraseña(contraseña):
+    return bcrypt.hashpw(contraseña.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
 def agregar_profesor(nombre, correo, telefono, materias, rol='Profesor'):
     try:
@@ -11,24 +18,28 @@ def agregar_profesor(nombre, correo, telefono, materias, rol='Profesor'):
         cursor = conexion.cursor()
         print("Intentando insertar:", nombre, correo)
 
-        # 1. Insertar profesor en Usuario (igual que antes, pero sin Materia)
+        # 1. Generar contraseña aleatoria
+        contrasena_plana = generar_contraseña()
+
+        # 2. Encriptarla
+        contrasena_hash = encriptar_contraseña(contrasena_plana)
+
+        # 3. Insertar profesor en Usuario
         sql = """ 
         INSERT INTO Usuario (Nombre, email, Contraseña, Rol, Telefono) 
         VALUES (%s, %s, %s, %s, %s) 
         """
 
-        password_por_defecto = "123456"   # luego puedes cifrarla
-        rol = "Profesor"
+        valores = (nombre, correo, contrasena_hash, rol, telefono)
 
-        valores = (nombre, correo, password_por_defecto, rol, telefono)
-
+        print("contraseña generada:", contrasena_plana)
         cursor.execute(sql, valores)
         conexion.commit()
 
         # Obtener el ID del profesor recién creado
         id_profesor = cursor.lastrowid
 
-        # Insertar materias en Profesor_Materia
+        # 4. Insertar materias en Profesor_Materia
         sql_pm = """
         INSERT INTO Profesor_Materia (Id_Usuario, Id_Materia, Ano_Academico)
         VALUES (%s, %s, 2025)
@@ -39,7 +50,8 @@ def agregar_profesor(nombre, correo, telefono, materias, rol='Profesor'):
 
         conexion.commit()
 
-        return True
+        # 5. Retornar la contraseña generada para mostrarla al admin
+        return contrasena_plana
 
     except mysql.connector.Error as err:
         print("Error al insertar:", err)
@@ -48,3 +60,4 @@ def agregar_profesor(nombre, correo, telefono, materias, rol='Profesor'):
     finally:
         cursor.close()
         conexion.close()
+

@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    /* ============================
+   PALETA Y VARIABLES
+============================ */
+:root {
+    --azul-oscuro: #003f6b;
+    --azul-medio: #4d82bc;
+    --azul-claro: #e8f2ff;
+    --gris-claro: #f4f6f9;
+    --gris-texto: #5f6c7b;
+    --blanco: #ffffff;
+    --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --sombra-hover: 0 6px 18px rgba(0, 0, 0, 0.12);
+    --verde: #4caf50;
+    --rojo: #f44336;
+}
+
+/* ============================
+   CONTENEDOR GENERAL
+============================ */
+.contenedor-usuarios {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 1rem;
+}
+
+.titulo-usuarios {
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 2.5rem;
+}
+
+.grid-usuarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.card-usuario {
+    background: var(--blanco);
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-align: center;
+}
+
+.card-usuario:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-hover);
+}
+
+
+.card-icono {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: var(--azul-medio);
+}
+
+.card-usuario h2 {
+    font-size: 1.8rem;
+    color: var(--azul-oscuro);
+    margin-bottom: 0.5rem;
+}
+
+
+.card-usuario p {
+    color: var(--gris-texto);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-usuario {
+    display: inline-block;
+    padding: 0.8rem 1.4rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--blanco);
+    background: var(--azul-medio);
+    transition: background-color 0.3s ease;
+    margin: 0.3rem;
+}
+
+.btn-usuario:hover {
+    background: var(--azul-oscuro);
+}
+
+.btn-secundario {
+    background: var(--gris-texto);
+}
+
+.btn-secundario:hover {
+    background: #3f4a56;
+}
+
+
+@media (max-width: 600px) {
+    .titulo-usuarios {
+        font-size: 2rem;
+    }
+
+    .card-usuario {
+        padding: 1.5rem;
+    }
+}
+
+</style>
+<link rel="stylesheet" href="/static/css/usuarios.css">
+
+<div class="contenedor-usuarios">
+    <h1 class="titulo-usuarios">Gestión de Usuarios</h1>
+
+    <div class="grid-usuarios">
+
+        <!-- Profesores -->
+        <div class="card-usuario">
+            <div class="card-icono">👨‍🏫</div>
+            <h2>Profesores</h2>
+            <p>Administra los docentes registrados en la plataforma.</p>
+
+            <a href="/profesores" class="btn-usuario">Ver Profesores</a>
+            <a href="/crear_profesores" class="btn-usuario btn-secundario">Crear Profesor</a>
+        </div>
+
+        <!-- Estudiantes -->
+        <div class="card-usuario">
+            <div class="card-icono">👨‍🎓</div>
+            <h2>Estudiantes</h2>
+            <p>Gestiona los estudiantes y sus accesos al sistema.</p>
+
+            <a href="/estudiantes" class="btn-usuario">Ver Estudiantes</a>
+            <a href="/crear_estudiantes" class="btn-usuario btn-secundario">Crear Estudiante</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

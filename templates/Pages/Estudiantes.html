@@ -1,0 +1,131 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+:root {
+    --azul-oscuro: #003f6b;
+    --azul-medio: #4d82bc;
+    --gris-texto: #5f6c7b;
+    --blanco: #ffffff;
+    --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --sombra-hover: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* Contenedor general */
+.contenedor-estudiantes {
+    max-width: 1400px; /* MÁS ANCHO PARA QUE QUEPAN 4 */
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+/* Título */
+.titulo {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 2rem;
+}
+
+/* GRID: 4 por fila */
+.grid-estudiantes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* MÁS PEQUEÑO */
+    gap: 1.2rem;
+}
+
+/* CARD compacta */
+.card-estudiante {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 0.9rem 1rem; /* MENOS PADDING */
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: left;
+}
+
+.card-estudiante:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-hover);
+}
+
+/* Nombre */
+.nombre {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--azul-oscuro);
+    margin-bottom: 0.3rem;
+}
+
+/* Info */
+.info {
+    color: var(--gris-texto);
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+.sin-grupo {
+    color: #d9534f;
+    font-weight: 600;
+}
+
+/* Botón ver todos */
+.contenedor-boton-todos {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* CENTRADO REAL */
+    margin-top: 2rem;
+}
+
+.btn-todos {
+    padding: 0.8rem 1.6rem;
+    background: var(--azul-medio);
+    color: var(--blanco);
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: var(--sombra-suave);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-todos:hover {
+    background: var(--azul-oscuro);
+    transform: translateY(-3px);
+}
+
+</style>
+
+
+<div class="contenedor-estudiantes">
+    <h1 class="titulo">Estudiantes Registrados</h1>
+
+
+
+    <div class="grid-estudiantes">
+
+        {% for e in estudiantes %}
+        <div class="card-estudiante">
+            <h2 class="nombre">{{ e.Nombre }}</h2>
+
+            <p class="info">
+                <strong>Correo:</strong> {{ e.Email }}
+            </p>
+
+            {% if e.Grupo %}
+            <p class="info">
+                <strong>Grupo:</strong> {{ e.Grupo }}
+            </p>
+            {% else %}
+            <p class="info sin-grupo">Sin grupo asignado</p>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+
+            <!-- BOTÓN DE VER TODOS -->
+        <div class="contenedor-boton-todos">
+            <a href="/ver_estudiantes" class="btn-todos">Ver todos los estudiantes</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

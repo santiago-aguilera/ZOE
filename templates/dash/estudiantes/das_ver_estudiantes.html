@@ -1,0 +1,155 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #003f6b;
+        --azul-medio: #4d82bc;
+        --azul-claro: #dceeff;
+        --gris-claro: #f4f6f9;
+        --blanco: #ffffff;
+        --verde: #4caf50;
+        --rojo: #f44336;
+        --gris-texto: #5f6c7b;
+        --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .contenedor {
+        max-width: 1000px;
+        margin: 2rem auto;
+        background: var(--blanco);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: var(--sombra-suave);
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+
+    .boton-crear {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+    }
+
+    .boton-crear:hover {
+        background-color: var(--azul-oscuro);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--gris-claro);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: var(--sombra-suave);
+    }
+
+    thead {
+        background: var(--azul-oscuro);
+        color: var(--blanco);
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 1rem;
+        text-align: left;
+    }
+
+    tbody tr {
+        background: var(--blanco);
+        border-bottom: 1px solid #e0e0e0;
+        transition: background-color 0.3s ease;
+    }
+
+    tbody tr:hover {
+        background-color: #f0f4fc;
+    }
+
+    tbody td {
+        color: var(--gris-texto);
+    }
+
+    .acciones {
+        text-align: center;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        color: var(--blanco);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-right: 0.5rem;
+    }
+
+    .btn-editar {
+        background-color: var(--verde);
+    }
+
+    .btn-editar:hover {
+        background-color: #3e8e41;
+    }
+
+    .btn-eliminar {
+        background-color: var(--rojo);
+    }
+
+    .btn-eliminar:hover {
+        background-color: #d32f2f;
+    }
+</style>
+
+<div class="contenedor">
+    <h1>Gestión de Estudiantes</h1>
+    <a href="/crear_estudiantes" class="boton-crear">+ Agregar Estudiante</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for e in estudiantes %}
+            <tr>
+                <td>{{ e.ID_Usuario }}</td>
+                <td>{{ e.Nombre }}</td>
+                <td>{{ e.Email }}</td>
+                <td>{{ e.Telefono }}</td>
+
+                <td class="acciones">
+                    <a href="{{ url_for('editar_estudiante', id=e.ID_Usuario) }}" class="btn btn-editar">
+                        Editar
+                    </a>
+
+                    <a href="{{ url_for('eliminar_estudiante', id=e.ID_Usuario) }}" class="btn btn-eliminar"
+                        onclick="return confirm('¿Seguro que deseas eliminar este estudiante?')">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+{% endblock %}
