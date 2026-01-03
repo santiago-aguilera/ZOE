@@ -12,12 +12,15 @@ def obtener_estudiantes_cards():
 
         cursor.execute("""
             SELECT 
-                ID_Usuario,
-                Nombre,
-                Email,
-                Telefono
-            FROM Usuario
-            WHERE Rol = 'Estudiante'
+                e.ID_Usuario,
+                e.Nombre,
+                e.Email,
+                e.Telefono,
+                g.Nombre as Grupo
+            FROM Usuario e
+            LEFT JOIN Usuario_Grupo ug ON ug.Id_Usuario = e.ID_Usuario
+            LEFT JOIN Grupo g ON g.Id_Grupo = ug.Id_Grupo
+            WHERE e.Rol = 'Estudiante'
         """)
 
         estudiantes = cursor.fetchall()

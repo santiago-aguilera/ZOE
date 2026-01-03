@@ -9,18 +9,18 @@ from Basedata.Datos_Profes.new  import agregar_profesor as cp
 from Basedata.Datos_Profes.eliminar  import eliminar_profesor_db
 from Basedata.Datos_Profes.editar  import actualizar_profesor, obtener_profesor_por_id, obtener_materias_profesor2
 from Basedata.Datos_Profes.Cards import obtener_profesores
-from Basedata.Gestion.Crear_trabajo import crear_trabajo, obtener_materias_profesor
+from Basedata.Gestion.Crear_trabajo import crear_trabajo, obtener_materias_profesor, obtener_tareas_por_grupo, obtener_grupos_usuario, obtener_todos_los_grupos
 from Basedata.Materias.obtener_materias import obtener_materias
 from Basedata.Gestion.Obtener_materias_tareas import obtener_materias_con_tareas
 from Basedata.Gestion.Obtener_tareas import obtener_tareas
 from Basedata.Gestion.realizadas import obtener_entregas_estudiante
 from Basedata.Gestion.subir_archvio import guardar_entrega
-from Basedata.Grados.Grados import obtener_grupos, crear_grupo, obtener_estudiantes, obtener_estudiantes_asignados, asignar_estudiante
+from Basedata.Grados.Grados import obtener_grupos, crear_grupo, obtener_estudiantes, obtener_estudiantes_asignados, asignar_estudiante, obtener_estudiantes_asignados_global as asignados_global, asignar_trabajo_a_grupo
 from Basedata.Estudiantes.crear_estudiantes import crear_estudiante, obtener_estudiante_por_id
 from Basedata.Estudiantes.eliminar import eliminar_estudiante_db
 from Basedata.Estudiantes.acualizar import actualizar_estudiante
 from Basedata.Estudiantes.obtener_estudaintes import obtener_estudiantes_cards
-
+from Basedata.Grados.eliminar import eliminar_estudiante_de_grupo
 #llamar librerias y clases
 
 #instanciar: Dentro de mi paquete tengogo muchos aetes adicionales y unire la apicacion con todos los paquetes 
@@ -66,8 +66,26 @@ def gestion():
 
 @app.route('/tareas')
 def tareas():
-    tareas = obtener_tareas()
-    return render_template('dash/gestion/das_1_g.html', tareas=tareas)
+    # id_usuario = session['id_usuario']
+
+    # 1. Obtener los grupos del usuario cuando tengamos seciones
+    #grupos = obtener_grupos_usuario #(id_usuario)
+
+    grupos = obtener_todos_los_grupos()
+
+    # 2. Crear diccionario: { id_grupo: [tareas...] }
+    tareas_por_grupo = {}
+
+    for g in grupos:
+        tareas_por_grupo[g['Id_Grupo']] = obtener_tareas_por_grupo(g['Id_Grupo'])
+
+    # 3. Enviar a la plantilla
+    return render_template(
+        'dash/gestion/das_1_g.html',
+        grupos=grupos,
+        tareas_por_grupo=tareas_por_grupo
+    )
+
 
 @app.route('/subir_tarea/<int:id_trabajo>')
 def subir_tarea(id_trabajo):
@@ -112,13 +130,18 @@ def nueva_tarea():
 
 @app.route('/crear-tarea', methods=['POST']) 
 def crear_tarea(): 
-    titulo = request.form['descripcion'][:50] # o puedes agregar un campo "titulo" 
-    descripcion = request.form['descripcion'] 
-    fecha = request.form['fecha'] 
-    id_profesor_materia = request.form['id_profesor_materia'] 
-    crear_trabajo(titulo, descripcion, fecha, id_profesor_materia) 
-    flash("Tarea creada correctamente.") 
+    titulo = request.form['descripcion'][:50]
+    descripcion = request.form['descripcion']
+    fecha = request.form['fecha']
+    id_profesor_materia = request.form['id_profesor_materia']
+    id_grupo = request.form['id_grupo']
+
+    id_trabajo = crear_trabajo(titulo, descripcion, fecha, id_profesor_materia)
+    asignar_trabajo_a_grupo(id_trabajo, id_grupo)
+
+    flash("Tarea creada correctamente.")
     return redirect(url_for('crear_tareas'))
+
 
 
 
@@ -337,13 +360,21 @@ def asignar_estudiantes_route(id_grupo):
     estudiantes = obtener_estudiantes()
     print("ESTUDIANTES:", estudiantes)
     asignados = obtener_estudiantes_asignados(id_grupo)
+    asignadosglobal = asignados_global()
 
     return render_template(
         'dash/grupos/asignar.html',
         estudiantes=estudiantes,
         asignados=asignados,
+        asignadosglobal=asignadosglobal,
         id_grupo=id_grupo
     )
+
+@app.route('/grupos/<int:id_grupo>/eliminar/<int:id_usuario>')
+def eliminar_estudiante_route(id_grupo, id_usuario):
+    eliminar_estudiante_de_grupo(id_usuario, id_grupo)
+    return redirect(url_for('asignar_estudiantes_route', id_grupo=id_grupo))
+
 
 
 

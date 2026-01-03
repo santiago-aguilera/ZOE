@@ -62,20 +62,56 @@
         border: 1px solid #ccc;
         margin-bottom: 15px;
     }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: var(--azul-medio);
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f3f7ff;
+    }
+
+    .btn-eliminar {
+        background-color: #d9534f;
+        padding: 6px 12px;
+        border-radius: 6px;
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .btn-eliminar:hover {
+        background-color: #b52b27;
+    }
 </style>
 
 <h1>Asignar Estudiantes</h1>
 
 <div style="max-width: 800px; margin: auto;">
+
+    <!-- ASIGNAR ESTUDIANTE -->
     <div class="card">
-        <h2>Estudiantes del grupo</h2>
+        <h2>Agregar estudiante al grupo</h2>
 
         <form method="POST">
             <label>Seleccionar estudiante</label>
             <select name="id_usuario">
                 {% for e in estudiantes %}
-                    {% if e.ID_Usuario not in asignados %}
-                        <option value="{{ e.ID_Usuario }}">{{ e.Nombre }} {{ e.Apellido }}</option>
+                    {% if e.ID_Usuario not in asignadosglobal %}
+                        <option value="{{ e.ID_Usuario }}">{{ e.Nombre }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
@@ -84,21 +120,41 @@
         </form>
     </div>
 
+    <!-- TABLA DE ASIGNADOS -->
     <div class="card">
         <h2>Estudiantes asignados</h2>
 
         {% if asignados|length == 0 %}
             <p>No hay estudiantes asignados.</p>
         {% else %}
-            <ul>
-            {% for e in estudiantes %}
-                {% if e.ID_Usuario in asignados %}
-                <li>{{ e.Nombre }} {{ e.Apellido }}</li>
-                {% endif %}
-            {% endfor %}
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for e in estudiantes %}
+                        {% if e.ID_Usuario in asignados %}
+                        <tr>
+                            <td>{{ e.Nombre }}</td>
+                            <td>{{ e.Email }}</td>
+                            <td>
+                                <a href="/grupos/{{ id_grupo }}/eliminar/{{ e.ID_Usuario }}" class="btn-eliminar">
+                                    Quitar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
         {% endif %}
     </div>
+
 </div>
 
 {% endblock %}

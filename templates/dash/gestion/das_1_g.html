@@ -5,173 +5,132 @@
         --azul-oscuro: #2a628f;
         --azul-medio: #5a8ec6;
         --azul-claro: #d7e3f7;
-        --lila: #e9e7ff;
         --blanco: #ffffff;
         --sombra: rgba(0, 0, 0, 0.1);
     }
 
     body {
         font-family: "Poppins", sans-serif;
-        background-color: #f4f7fb; /* gris-azulado suave */
+        background-color: #f4f7fb;
         margin: 0;
         color: var(--azul-oscuro);
-        min-height: 100vh;
     }
 
     h1 {
         text-align: center;
-        color: var(--azul-oscuro);
         margin-top: 3rem;
         margin-bottom: 3rem;
-        font-size: 3.5rem;
-        letter-spacing: 1px;
-    }
-    .tarea-header {
-        background-color: var(--blanco);
-        color: var(--azul-oscuro);
-        border-left: 6px solid var(--azul-medio);
-    }
-    .tarea-header:hover {
-        background-color: #f2f6fc;
+        font-size: 3rem;
     }
 
-    .contenedor-tareas {
+    .contenedor-cursos {
         width: 85%;
         max-width: 1000px;
-        margin: 0 auto 5rem auto;
-        padding-bottom: 2rem;
+        margin: auto;
     }
 
-    .tarea {
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-
-    .tarea {
+    .curso-card {
         background-color: var(--blanco);
-        border: 1px solid var(--azul-claro);
         border-radius: 12px;
-        margin-bottom: 1.5rem;
-        overflow: hidden;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
         box-shadow: 0 4px 12px var(--sombra);
-        transition: transform 0.2s ease, box-shadow 0.3s ease;
-    }
-
-    .tarea:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-    }
-
-    .tarea-header {
-        padding: 1rem 1.5rem;
-        background-color: var(--azul-oscuro);
-        color: var(--blanco);
         cursor: pointer;
-        font-weight: 600;
+        transition: transform 0.2s ease;
+    }
+
+    .curso-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .curso-header {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--azul-oscuro);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size: 1.1rem;
-        letter-spacing: 0.5px;
     }
 
-    .tarea-header:hover {
-        background-color: var(--azul-medio);
-    }
-
-    .tarea-contenido {
+    .tareas-lista {
         display: none;
-        padding: 1.5rem 2rem;
-        background-color: var(--blanco);
-        border-top: 1px solid var(--azul-claro);
-        line-height: 1.6;
+        margin-top: 1rem;
+        padding-left: 1rem;
     }
 
-    .tarea-contenido p {
-        margin: 0.5rem 0;
-        font-size: 1rem;
+    .tarea-item {
+        background-color: var(--azul-claro);
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 6px var(--sombra);
+    }
+
+    .tarea-item strong {
+        color: var(--azul-oscuro);
     }
 
     .botones {
+        margin-top: 1rem;
         display: flex;
         gap: 0.7rem;
-        margin-top: 1.2rem;
-        justify-content: flex-end;
     }
 
     button {
-        background-color: var(--azul-medio);
-        border: none;
-        color: var(--blanco);
-        padding: 0.6rem 1.3rem;
+        padding: 0.6rem 1.2rem;
         border-radius: 8px;
+        border: none;
         cursor: pointer;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: background-color 0.3s, transform 0.2s;
+        font-weight: 600;
+        color: var(--blanco);
     }
 
-    button:hover {
-        background-color: var(--azul-oscuro);
-        transform: scale(1.03);
-    }
+    .subir { background-color: #4CAF50; }
+    .subir:hover { background-color: #3e8e41; }
 
-    
-    .subir{
-        background-color: #4CAF50;
-    }
-    .subir:hover{
-        background-color:  #3e8e41;
-    }
-    .ver{
-        background-color:#5a8ec6;
-
-    }
-
-    .ver:hover{
-        background-color: #3e6c9b;
-    }
+    .ver { background-color: var(--azul-medio); }
+    .ver:hover { background-color: #3e6c9b; }
 </style>
 
-<body>
-    <h1>Mis Tareas</h1>
+<h1>Mis Tareas por Curso</h1>
 
-<div class="contenedor-tareas">
+<div class="contenedor-cursos">
 
-    {% for t in tareas %}
-    <div class="tarea">
-        <div class="tarea-header">{{ t.titulo }}</div>
+    {% for g in grupos %}
+    <div class="curso-card" onclick="toggleTareas('{{ g.Id_Grupo }}')">
+        <div class="curso-header">
+            {{ g.Nombre }}
+            <span>▼</span>
+        </div>
 
-        <div class="tarea-contenido">
-            <p><strong>Tarea:</strong> {{ t.titulo }}</p>
-            <p><strong>Descripción:</strong> {{ t.descripcion }}</p>
-            <p><strong>Fecha de entrega:</strong> {{ t.fecha }}</p>
+        <div id="tareas-{{ g.Id_Grupo }}" class="tareas-lista">
+            {% if tareas_por_grupo[g.Id_Grupo]|length == 0 %}
+                <p>No hay tareas para este curso.</p>
+            {% else %}
+                {% for t in tareas_por_grupo[g.Id_Grupo] %}
+                <div class="tarea-item">
+                    <p><strong>{{ t.Titulo }}</strong></p>
+                    <p>{{ t.Descripcion }}</p>
+                    <p><strong>Entrega:</strong> {{ t.Fecha_Entrega }}</p>
 
-            <div class="botones">
-                <button class="subir" onclick="location.href='/subir_tarea/{{ t.id }}'">Subir archivo</button>
-                <button class="ver" onclick="location.href='/ver_tarea/{{ t.id }}'">Ver más</button>
-            </div>
+                    <div class="botones">
+                        <button class="subir" onclick="event.stopPropagation(); location.href='/subir_tarea/{{ t.Id_Trabajo }}'">Subir</button>
+                        <button class="ver" onclick="event.stopPropagation(); location.href='/ver_tarea/{{ t.Id_Trabajo }}'">Ver más</button>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
     {% endfor %}
 
-    {% if tareas|length == 0 %}
-        <p style="text-align:center; color:#666; margin-top:2rem;">No hay tareas disponibles.</p>
-    {% endif %}
-
 </div>
 
+<script>
+function toggleTareas(id) {
+    const cont = document.getElementById("tareas-" + id);
+    cont.style.display = cont.style.display === "block" ? "none" : "block";
+}
+</script>
 
-
-    <script>
-        // Mostrar / ocultar descripción al hacer clic
-        document.querySelectorAll('.tarea-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const contenido = header.nextElementSibling;
-                contenido.style.display = contenido.style.display === 'block' ? 'none' : 'block';
-            });
-        });
-    </script>
-</body>
 {% endblock %}

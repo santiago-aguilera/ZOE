@@ -146,13 +146,19 @@
             <label for="fecha">Fecha de entrega</label> 
             <input type="date" id="fecha" name="fecha" required> 
         </div> 
+        <label for="grupo">Grupo</label> 
+        <select id="grupo" name="id_grupo" required> 
+            {% for g in grupos %} 
+                <option value="{{ g.Id_Grupo }}">{{ g.Nombre }}</option> 
+            {% endfor %} 
+        </select>
         <div> 
             <label for="descripcion">Descripción</label> 
             <textarea id="descripcion" name="descripcion" rows="4" required></textarea> 
         </div> 
         <div class="botones"> 
             <button type="submit">Crear tarea</button> 
-            <button type="reset">Limpiar</button> 
+            <button type="rese  t">Limpiar</button> 
         </div> 
     </form>
     <a href="/crear_tareas" class="volver">Volver</a>
