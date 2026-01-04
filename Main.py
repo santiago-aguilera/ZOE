@@ -9,7 +9,7 @@ from Basedata.Datos_Profes.new  import agregar_profesor as cp
 from Basedata.Datos_Profes.eliminar  import eliminar_profesor_db
 from Basedata.Datos_Profes.editar  import actualizar_profesor, obtener_profesor_por_id, obtener_materias_profesor2
 from Basedata.Datos_Profes.Cards import obtener_profesores
-from Basedata.Gestion.Crear_trabajo import crear_trabajo, obtener_materias_profesor, obtener_tareas_por_grupo, obtener_grupos_usuario, obtener_todos_los_grupos
+from Basedata.Gestion.Crear_trabajo import crear_trabajo, obtener_materias_profesor, obtener_tareas_por_grupo, obtener_grupos_usuario, obtener_todos_los_grupos, eliminar_trabajo
 from Basedata.Materias.obtener_materias import obtener_materias
 from Basedata.Gestion.Obtener_materias_tareas import obtener_materias_con_tareas
 from Basedata.Gestion.Obtener_tareas import obtener_tareas
@@ -21,6 +21,10 @@ from Basedata.Estudiantes.eliminar import eliminar_estudiante_db
 from Basedata.Estudiantes.acualizar import actualizar_estudiante
 from Basedata.Estudiantes.obtener_estudaintes import obtener_estudiantes_cards
 from Basedata.Grados.eliminar import eliminar_estudiante_de_grupo
+from Basedata.Cronograma.obtener_eventos import obtener_eventos_cronograma, obtener_evento
+from Basedata.Cronograma.crear_evento import crear_evento_cronograma
+from Basedata.Cronograma.editar_evento import actualizar_evento, eliminar_evento
+from Basedata.Estadisticas.obtener_estadistica import obtener_estadisticas
 #llamar librerias y clases
 
 #instanciar: Dentro de mi paquete tengogo muchos aetes adicionales y unire la apicacion con todos los paquetes 
@@ -125,8 +129,9 @@ def crear_tareas():
 @app.route('/nueva_tarea') 
 def nueva_tarea(): 
     id_usuario = 19 #session['id_usuario'] 
-    materias = obtener_materias_profesor(id_usuario) 
-    return render_template('dash/gestion/frm_tareas.html', materias=materias)
+    materias = obtener_materias_profesor(id_usuario)
+    grupos= obtener_todos_los_grupos()
+    return render_template('dash/gestion/frm_tareas.html', materias=materias, grupos=grupos)
 
 @app.route('/crear-tarea', methods=['POST']) 
 def crear_tarea(): 
@@ -142,7 +147,11 @@ def crear_tarea():
     flash("Tarea creada correctamente.")
     return redirect(url_for('crear_tareas'))
 
-
+@app.route('/eliminar-tarea/<int:id_tarea>')
+def eliminar_tarea(id_tarea):
+    eliminar_trabajo(id_tarea)   # ← tu función del modelo
+    flash("Tarea eliminada correctamente.")
+    return redirect(url_for('crear_tareas'))
 
 
 @app.route('/guias')
@@ -151,11 +160,61 @@ def guias():
 
 @app.route('/cronograma')
 def cronograma():
-    return render_template('pages/Cronograma.html')
+    eventos = obtener_eventos_cronograma()
+
+    eventos_json = [
+        {
+            "title": f"{e['Titulo']} ({e['Tipo']})",
+            "start": f"{e['Fecha']}T{e['Hora']}",
+            "id": e['Id_Cronograma'],
+            "extendedProps": {
+                "descripcion": e["Descripcion"],
+                "materia": e["nombre_materia"],
+                "lugar": e["Lugar"],
+                "tipo": e["Tipo"]
+            }
+        }
+        for e in eventos
+    ]
+
+    return render_template(
+        'pages/Cronograma.html',
+        eventos=eventos,
+        eventos_json=eventos_json
+    )
 
 @app.route('/eventos')
 def eventos():
-    return render_template('dash/cronograma/frm_evento.html')
+    materias = obtener_materias()
+    return render_template('dash/cronograma/frm_evento.html', materias=materias)
+
+@app.route('/crear-evento', methods=['POST'])
+def crear_evento_route():
+    titulo = request.form['titulo']
+    descripcion = request.form['descripcion']
+    fecha = request.form['fecha']
+    hora = request.form['hora']
+    tipo = request.form['tipo']
+    lugar = request.form['lugar']
+    id_materia = request.form['id_materia']
+
+    crear_evento_cronograma(id_materia, titulo, descripcion, fecha, hora, tipo, lugar)
+
+    flash("Evento creado correctamente.")
+    return redirect(url_for('eventos'))
+
+@app.route('/editar-evento/<int:id_evento>')
+def editar_evento_route(id_evento):
+    evento = obtener_evento(id_evento)
+    materias = obtener_materias()
+    return render_template('dash/cronograma/frm_evento.html', materias=materias, evento=evento)
+
+@app.route('/eliminar-evento/<int:id_evento>')
+def eliminar_evento_route(id_evento):
+    eliminar_evento(id_evento)
+    flash("Evento eliminado correctamente.")
+    return redirect(url_for('cronograma'))
+
 
 @app.route('/usuarios')
 def usuarios():
@@ -318,8 +377,21 @@ def eliminar_estudiante(id):
 
 @app.route('/estadisticas')
 def estadisticas():
-    return render_template('pages/Estadisiticas.html')
+    id_usuario = 1  # session['id_usuario']
+    stats = obtener_estadisticas(id_usuario)
 
+    if stats["total"] > 0:
+        pct_completadas = int((stats["completadas"] / stats["total"]) * 100)
+        pct_pendientes = int((stats["pendientes"] / stats["total"]) * 100)
+    else:
+        pct_completadas = 0
+        pct_pendientes = 0
+
+    return render_template(
+        'pages/Estadisiticas.html',
+        completadas=pct_completadas,
+        pendientes=pct_pendientes
+    )
 @app.route('/foros')
 def foros():
     return render_template('pages/Foros.html')

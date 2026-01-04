@@ -125,7 +125,12 @@ def obtener_estudiantes_asignados_global():
         conexion.close()
 
 def asignar_trabajo_a_grupo(id_trabajo, id_grupo):
-    conexion = mysql.connector.connect(...)
+    conexion = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="zoe"
+        )
     cursor = conexion.cursor()
 
     cursor.execute("""

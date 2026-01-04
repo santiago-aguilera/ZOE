@@ -17,8 +17,11 @@ def crear_trabajo(titulo, descripcion, fecha_entrega, id_profesor_materia):
     cursor.execute(sql, (titulo, descripcion, fecha_entrega, id_profesor_materia))
     conexion.commit()
 
+    id_trabajo = cursor.lastrowid
+
     cursor.close()
     conexion.close()
+    return id_trabajo
 
 
 def obtener_materias_profesor(id_usuario):
@@ -102,3 +105,16 @@ def obtener_todos_los_grupos():
     cursor.close()
     conexion.close()
     return grupos
+
+def eliminar_trabajo(id_trabajo):
+    conexion = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="zoe"
+    )
+    with conexion.cursor() as cursor:
+        sql = "DELETE FROM trabajo WHERE Id_Trabajo = %s"
+        cursor.execute(sql, (id_trabajo,))
+    conexion.commit()
+    conexion.close()

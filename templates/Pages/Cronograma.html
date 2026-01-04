@@ -1,184 +1,194 @@
 {% extends "Layout.html" %}
 {% block content %}
 
+<!-- FullCalendar -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
 <style>
   :root {
     --azul-oscuro: #003f6b;
     --azul-medio: #4d82bc;
     --azul-claro: #dceeff;
-    --lila: #f3f0fa;
     --blanco: #ffffff;
-    --gris-texto: #5f6c7b;
-    --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --rojo: #d9534f;
+    --amarillo: #f0ad4e;
   }
 
   body {
+    background-color: #eef2ff;
     font-family: "Poppins", sans-serif;
-    background-color: var(--lila);
-    margin: 0;
+
+  }
+
+  h1 {
+    color: var(--azul-oscuro);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+  }
+  .contenedor-cronograma {
+    display: flex;
+    gap: 2rem;
+    width: 95%;
+    margin: 2rem auto;
+  }
+
+  .panel-eventos {
+    width: 40%;
+    background: var(--blanco);
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .panel-eventos h2 {
+    text-align: center;
+    margin-bottom: 1rem;
     color: var(--azul-oscuro);
   }
 
-  h1, h2 {
-    text-align: center;
-    margin: 0;
-  }
-
-  .explicacion {
-    background-color: var(--azul-oscuro);
-    border-radius: 16px;
-    padding: 2.5rem;
-    text-align: center;
+  .btn-crear {
+    display: block;
+    width: 100%;
+    background-color: var(--azul-medio);
     color: var(--blanco);
-    box-shadow: var(--sombra-suave);
-  }
-
-  .explicacion h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    padding: 0.8rem;
+    border-radius: 10px;
+    text-align: center;
     font-weight: 600;
-  }
-
-  .explicacion h2 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    font-weight: 400;
-  }
-
-  .explicacion p {
-    font-size: 1rem;
-    line-height: 1.6;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .cronograma {
-    background-color: var(--blanco);
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: var(--sombra-suave);
-    margin: 2rem auto;
-    max-width: 900px;
-    border-left: 6px solid var(--azul-medio);
-  }
-
-  .cronograma h2 {
-    font-size: 1.4rem;
-    color: var(--azul-medio);
     margin-bottom: 1.5rem;
+    text-decoration: none;
+  }
+
+  .btn-crear:hover {
+    background-color: var(--azul-oscuro);
   }
 
   .evento {
     background-color: var(--azul-claro);
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease;
-  }
-
-  .evento:hover {
-    transform: scale(1.02);
-  }
-
-  .evento strong {
-    display: block;
-    font-size: 1.1rem;
-    color: var(--azul-oscuro);
-    margin-bottom: 0.3rem;
-  }
-
-  .evento em {
-    display: block;
-    color: var(--gris-texto);
-    font-size: 0.95rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .agregar-evento {
-    background-color: var(--azul-medio);
-    color: var(--blanco);
-    border-radius: 16px;
-    padding: 2rem;
-    text-align: center;
-    box-shadow: var(--sombra-suave);
-    max-width: 700px;
-    margin: 3rem auto;
-  }
-
-  .agregar-evento h2 {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-  }
-
-  .agregar-evento p {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .btn-agregar {
-    background-color: var(--blanco);
-    color: var(--azul-oscuro);
-    border: none;
-    padding: 0.8rem 1.6rem;
+    padding: 1rem;
     border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    margin-bottom: 1rem;
   }
 
-  .btn-agregar:hover {
-    background-color: var(--azul-claro);
+  .botones-evento {
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
   }
+
+  .btn-editar {
+    background-color: var(--amarillo);
+    color: var(--blanco);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-eliminar {
+    background-color: var(--rojo);
+    color: var(--blanco);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Contenedor del calendario */
+  #calendar {
+    width: 60%;
+    background: var(--blanco);
+    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    min-height: 650px;
+  }
+  
+.fc {
+  font-family: inherit;
+}
+
+.fc table {
+  border-collapse: collapse;
+}
+
+.fc td, .fc th {
+  padding: 0;
+}
 
 </style>
 
-<section class="explicacion">
-  <h1>Cronograma General</h1>
-  <p>
-    Bienvenido al módulo de <strong>Cronograma</strong>. Aquí podrás llevar el control de todos tus eventos importantes, como entregas de proyectos, reuniones, actividades del IB, y mucho más. Próximamente podrás agregar, editar y eliminar tus eventos fácilmente, manteniendo todo organizado por fechas y prioridades.
-  </p>
-</section>
+<div class="contenedor-cronograma">
 
-<div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-5">
-    <section class="cronograma">
-      <h2>Eventos Programados</h2>
+  <!-- Panel izquierdo -->
+  <div class="panel-eventos">
+    <h1>Cronograma general</h1>
 
-      <div class="evento">
-        <strong>Entrega de Portafolio IB</strong>
-        <em>5 de noviembre de 2025</em>
-        <em>Hora: 8:00 AM</em>
-        <em>Lugar: Aula de informática</em>
+    <a href="/eventos" class="btn-crear">+ Crear nuevo evento</a>
+
+    {% for e in eventos %}
+    <div class="evento">
+      <strong>{{ e.Titulo }}</strong>
+      <em>{{ e.Fecha }} — {{ e.Hora }}</em>
+      <p>{{ e.Descripcion }}</p>
+      <p><strong>Materia:</strong> {{ e.nombre_materia }}</p>
+      <p><strong>Tipo:</strong> {{ e.Tipo }}</p>
+      <p><strong>Lugar:</strong> {{ e.Lugar }}</p>
+
+      <div class="botones-evento">
+        <a href="/editar-evento/{{ e.Id_Cronograma }}">
+          <button class="btn-editar" type="button">Editar</button>
+        </a>
+
+        <a href="/eliminar-evento/{{ e.Id_Cronograma }}"
+          onclick="return confirm('¿Seguro que deseas eliminar este evento?')">
+          <button class="btn-eliminar" type="button">Eliminar</button>
+        </a>
       </div>
+    </div>
+    {% endfor %}
 
-      <div class="evento">
-        <strong>Simulacro de Evaluación IB</strong>
-        <em>10 de noviembre de 2025</em>
-        <em>Hora: 9:30 AM</em>
-        <em>Lugar: Auditorio principal</em>
-      </div>
-
-      <div class="evento">
-        <strong>Entrega del Proyecto de Ciencias</strong>
-        <em>15 de noviembre de 2025</em>
-        <em>Hora: 7:00 AM</em>
-        <em>Lugar: Laboratorio 2</em>
-      </div>
-    </section>
+    {% if eventos|length == 0 %}
+    <p>No hay eventos programados.</p>
+    {% endif %}
   </div>
 
-  <div class="col-md-5">
-    <section class="agregar-evento">
-      <h2>Agregar Nuevo Evento</h2>
-      <p>
-        Aquí podrás registrar tus próximos eventos y actividades importantes para que aparezcan en el cronograma general.
-      </p>
-      <a href="/eventos"><button class="btn-agregar">+ Añadir Evento</button></a>
-    </section>
-  </div>
+  <!-- Panel derecho: calendario -->
+  <div id="calendar" data-events='{{ eventos_json|tojson|safe }}'></div>
+
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var eventsData = calendarEl.getAttribute('data-events');
+    var events = [];
+
+    try {
+        events = JSON.parse(eventsData);
+    } catch (e) {
+        console.error("Error parseando eventos:", e);
+    }
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: events,
+        height: 650,
+        locale: 'es',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek'
+        }
+    });
+
+    calendar.render();
+});
+</script>
 
 {% endblock %}

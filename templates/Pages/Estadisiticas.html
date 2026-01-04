@@ -1,11 +1,11 @@
 {% extends 'Layout.html' %}
 {% block content %}
+
 <style>
   :root {
     --azul-oscuro: #005187;
     --verde: #4CAF50;
     --naranja: #FF9800;
-    --morado: #9C27B0;
     --gris-claro: #f5f5f5;
     --blanco: #feffff;
     --lila: #e4dafa;
@@ -16,6 +16,7 @@
     background: linear-gradient(135deg, var(--lila), var(--blanco));
     color: var(--azul-oscuro);
     margin: 0;
+    padding-top: 90px;
   }
 
   h1 {
@@ -71,13 +72,17 @@
     background-color: var(--naranja);
   }
 
-  .promedio {
-    background-color: var(--morado);
+  .iconos {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+    text-align: center;
   }
 
-  @keyframes expand {
-    from { width: 0; }
-    to { width: var(--width); }
+  .iconos span {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
   }
 
   .resumen {
@@ -87,70 +92,61 @@
     color: var(--azul-oscuro);
   }
 
-  .iconos {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
-    text-align: center;
-  }
-
-  .iconos div {
-    font-size: 1rem;
-  }
-
-  .iconos span {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  .grafico {
-    max-width: 400px;
-    margin: 2rem auto;
+  @keyframes expand {
+    from { width: 0; }
+    to { width: 100%; }
   }
 </style>
 
 <h1>Mis Estadísticas</h1>
 
 <section class="estadisticas">
+
+  <!-- TAREAS COMPLETADAS -->
   <div class="barra">
     <div class="label">Tareas completadas</div>
     <div class="progress">
-      <div class="progreso completadas" style="--width: 75%; width: 75%;">75%</div>
+      <div class="progreso completadas" style="width: {{ completadas }}%;">
+        {{ completadas }}%
+      </div>
     </div>
   </div>
 
+  <!-- TAREAS PENDIENTES -->
   <div class="barra">
     <div class="label">Tareas pendientes</div>
     <div class="progress">
-      <div class="progreso pendientes" style="--width: 25%; width: 25%;">25%</div>
+      <div class="progreso pendientes" style="width: {{ pendientes }}%;">
+        {{ pendientes }}%
+      </div>
     </div>
   </div>
 
-  <div class="barra">
-    <div class="label">Promedio general</div>
-    <div class="progress">
-      <div class="progreso promedio" style="--width: 82%; width: 82%;">82%</div>
-    </div>
-  </div>
-
+  <!-- ICONOS RESUMEN -->
   <div class="iconos">
     <div>
-      <span>75%</span>
-      <br>Tareas completadas
+      <span>{{ completadas }}%</span>
+      Tareas completadas
     </div>
     <div>
-      <span>25%</span>
-      <br>Tareas pendientes
-    </div>
-    <div>
-      <span>82%</span>
-      <br>Promedio general
+      <span>{{ pendientes }}%</span>
+      Tareas pendientes
     </div>
   </div>
 
+  <!-- TEXTO RESUMEN -->
   <div class="resumen">
-    <p><strong>Resumen:</strong> Has completado la mayoría de tus tareas con buen rendimiento. ¡Sigue así!</p>
+    <p><strong>Resumen:</strong>
+      {% if completadas >= 70 %}
+        Excelente trabajo, llevas un gran avance.
+      {% elif completadas >= 40 %}
+        Vas bien, pero aún puedes mejorar tu ritmo.
+      {% else %}
+        Tienes varias tareas pendientes. ¡Ánimo, tú puedes ponerte al día!
+      {% endif %}
+    </p>
   </div>
+
 </section>
+
 {% endblock %}
