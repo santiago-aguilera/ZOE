@@ -10,7 +10,7 @@ from Basedata.Datos_Profes.eliminar  import eliminar_profesor_db
 from Basedata.Datos_Profes.editar  import actualizar_profesor, obtener_profesor_por_id, obtener_materias_profesor2
 from Basedata.Datos_Profes.Cards import obtener_profesores
 from Basedata.Gestion.Crear_trabajo import crear_trabajo, obtener_materias_profesor, obtener_tareas_por_grupo, obtener_grupos_usuario, obtener_todos_los_grupos, eliminar_trabajo
-from Basedata.Materias.obtener_materias import obtener_materias
+from Basedata.Materias.obtener_materias import obtener_materias, insertar_materia, obtener_materia_por_id, actualizar_materia, eliminar_materia_por_id
 from Basedata.Gestion.Obtener_materias_tareas import obtener_materias_con_tareas
 from Basedata.Gestion.Obtener_tareas import obtener_tareas
 from Basedata.Gestion.realizadas import obtener_entregas_estudiante
@@ -216,6 +216,45 @@ def eliminar_evento_route(id_evento):
     return redirect(url_for('cronograma'))
 
 
+# Insertar materia en la base de datos
+@app.route('/crear_materia', methods=['POST'])
+def crear_materia():
+    nombre = request.form.get('nombre')
+    descripcion = request.form.get('descripcion')
+
+    if not nombre or not descripcion:
+        return render_template('dash/materias/frm_materias.html', error="Todos los campos son obligatorios.")
+
+    try:
+        insertar_materia(nombre, descripcion)
+        return redirect('/materias')
+    except Exception as e:
+        return render_template('dash/materias/frm_materias.html', error=f"Error al guardar: {str(e)}")
+
+# Listar todas las materias
+@app.route('/materias')
+def listar_materias():
+    materias = obtener_materias()
+    return render_template('Pages/materias.html', materias=materias)
+
+# Mostrar formulario para editar una materia
+@app.route('/materias/nueva', methods=['GET', 'POST'])
+def nueva_materia():
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        descripcion = request.form.get('descripcion')
+        if not nombre or not descripcion:
+            return render_template('frm_materias.html', error="Todos los campos son obligatorios.")
+        insertar_materia(nombre, descripcion)
+        return redirect('/materias')
+    return render_template('frm_materias.html')
+
+# Eliminar una materia
+@app.route('/materias/eliminar/<int:id>')
+def eliminar_materia(id):
+    eliminar_materia_por_id(id)
+    return redirect('/materias')
+
 @app.route('/usuarios')
 def usuarios():
     return render_template('pages/Usuarios.html')
@@ -394,7 +433,7 @@ def estadisticas():
     )
 @app.route('/foros')
 def foros():
-    return render_template('pages/Foros.html')
+    return render_template('pages/Foros.html')  
 
 @app.route('/ver_foros')
 def ver_foros():
@@ -461,19 +500,20 @@ def information():
 #Call routes
 @app.route('/login')
 def dash():
-    return render_template('login/frm_1.html',fallo={})
+    return render_template('login/frm_1.html', fallo={})
 
 @app.route('/validar', methods=['POST'])
 def login():
-    usuuario = request.form.get('usuario')
+    usuario = request.form.get('usuario')
     password = request.form.get('password')
-    resul_validar=validar_login(usuuario,password)
+
+    resul_validar = validar_login(usuario, password)
+
     if resul_validar['success']:
         return render_template('pages/Main.html')
     else:
-        error=resul_validar['error']
-        return render_template('pages/Login.html',fallo=error)
-
+        errores = resul_validar.get('errores', {})
+        return render_template('login/frm_1.html', fallo=errores)
 
 # Eject app
 if __name__ == ('__main__'):

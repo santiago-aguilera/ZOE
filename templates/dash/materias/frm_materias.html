@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #003f6b;
+        --azul-medio: #4d82bc;
+        --gris-claro: #f4f6f9;
+        --blanco: #ffffff;
+        --gris-texto: #5f6c7b;
+        --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .contenedor {
+        max-width: 600px;
+        margin: 2rem auto;
+        background: var(--blanco);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: var(--sombra-suave);
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    label {
+        font-weight: 600;
+        color: var(--gris-texto);
+        margin-top: 1rem;
+        display: block;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        margin-top: 0.3rem;
+    }
+
+    .btn-guardar {
+        background-color: var(--azul-medio);
+        color: var(--blanco);
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        border: none;
+        margin-top: 1.5rem;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .btn-guardar:hover {
+        background-color: var(--azul-oscuro);
+    }
+</style>
+
+<div class="contenedor">
+    <h1>Crear Materia</h1>
+
+    <form method="POST">
+        <label>Nombre de la materia</label>
+        <input type="text" name="nombre" required>
+
+        <label>Descripción</label>
+        <textarea name="descripcion" rows="3" required></textarea>
+
+        <button type="submit" class="btn-guardar">Guardar Materia</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    :root {
+        --azul-oscuro: #003f6b;
+        --azul-medio: #4d82bc;
+        --gris-claro: #f4f6f9;
+        --blanco: #ffffff;
+        --gris-texto: #5f6c7b;
+        --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .contenedor {
+        max-width: 900px;
+        margin: 2rem auto;
+        background: var(--blanco);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: var(--sombra-suave);
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--azul-oscuro);
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: var(--azul-medio);
+        color: white;
+    }
+
+    .acciones a {
+        margin-right: 10px;
+        color: var(--azul-oscuro);
+        text-decoration: none;
+        font-weight: bold;
+        width: auto;
+    }
+
+    .btn-editar,
+    .btn-eliminar {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-editar {
+    background-color: #3b82f6; /* azul brillante */
+    color: white;
+    }
+
+    .btn-editar:hover {
+    background-color: #3b82f6;
+    transform: translateY(-1px);
+    color: white;
+    }
+
+    .btn-eliminar {
+    background-color: #ef4444; /* rojo fuerte */
+    color: white;
+    }
+
+    .btn-eliminar:hover {
+    background-color: #dc2626;
+    transform: translateY(-1px);
+    color: white;
+    }
+
+    .btn-nueva {
+    background-color: #10b981; /* verde esmeralda */
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-nueva:hover {
+    background-color: #059669;
+    transform: translateY(-1px);
+    }
+</style>
+
+<div class="contenedor">
+    <h1>Materias Registradas</h1>
+    <div style="text-align: right; margin-bottom: 1rem;">
+        <a href="/materias/nueva" class="btn-nueva">+ Nueva Materia</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for materia in materias %}
+            <tr>
+                <td>{{ materia.nombre_materia }}</td>
+                <td>{{ materia.Descripcion }}</td>
+                <td class="acciones">
+                    <a href="/materias/editar/{{ materia.id_materia }}" class="btn-editar">Editar</a><br>
+                    <a href="/materias/eliminar/{{ materia.id_materia }}" class="btn-eliminar" onclick="return confirm('¿Eliminar esta materia?')">Eliminar</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">No hay materias registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
